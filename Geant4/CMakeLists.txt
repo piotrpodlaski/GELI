@@ -1,4 +1,4 @@
-include_directories(${CMAKE_SOURCE_DIR}/SimEvent)
+include_directories(${CMAKE_SOURCE_DIR}/Utilities/include)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc)
@@ -11,6 +11,7 @@ file(GLOB headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hh)
 add_executable(GELI GELI.cc ${sources} ${headers})
 target_link_libraries(GELI ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} ${cadmesh_LIBRARIES})
 target_link_libraries(GELI cadmesh)
+target_link_libraries(GELI utils)
 target_link_libraries(GELI SimEvent)
 
 #----------------------------------------------------------------------------

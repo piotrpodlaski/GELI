@@ -5,8 +5,6 @@
 #include "G4VUserPhysicsList.hh"
 #include "globals.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
-
 class G4GammaConversion;     
 class G4ComptonScattering;   
 class G4PhotoElectricEffect;       

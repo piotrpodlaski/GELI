@@ -38,6 +38,8 @@ private:
 	CentralConfig *config;
 	bool saveNtuple;
 	bool saveCustomTree;
+	bool HasEdepLimits; //flag for presence of Edep limits
+	double xL, xU, yL, yU, zL, zU;//limits for Edep storage
 };
 #endif
 

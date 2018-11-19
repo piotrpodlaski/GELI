@@ -25,6 +25,16 @@
 	<zUp>100</zUp>
 </energy_deposit_histogram>
 
+<!-- Geometrical limits for storing energy deposits. Only energy deposits within box [xLow,xUp]x[yLow,yUp]x[zLow,zUp] will be stored on disk. Usefull to set the limits to size of the active volume to skip deposit in other parts of the detector, not seen by the readout electronics. Affects both Ntuple and custom event tree. If not supplied no limits will be used. -->
+<energy_deposit_limits>
+	<xLow>-175</xLow>
+	<xUp>175</xUp>
+	<yLow>-100</yLow>
+	<yUp>100</yUp>
+	<zLow>-100</zLow>
+	<zUp>100</zUp>
+</energy_deposit_limits>
+
 
 <!-- Flag to switch saving of N-tuple with energy deposits, if not supplied N-tuple is not saved.
 This simulation output is compatibile with multi-threading. -->
@@ -38,3 +48,5 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 
 <!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
 <number_mt_threads>0</number_mt_threads>
+
+

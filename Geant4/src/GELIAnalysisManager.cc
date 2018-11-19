@@ -10,17 +10,47 @@ GELIAnalysisManager::GELIAnalysisManager()
   config=CentralConfig::GetInstance();
   if(config->Has("save_ntuple"))
   {
-    if(config->Get("save_ntuple")=="1")
-        saveNtuple=true;
+    if(config->GetI("save_ntuple"))
+    {
+      saveNtuple=true;
+    }
     else
+    {
       saveNtuple=false;
+    }
   }
+  else
+    saveNtuple=false; 
+
   if(config->Has("save_custom_event_tree"))
   {
-    if(config->Get("save_custom_event_tree")=="1")
+    if(config->GetI("save_custom_event_tree"))
+    {
       saveCustomTree=true;
+    }
     else
+    {
       saveCustomTree=false;
+    }
+  }
+  else
+  {
+    saveCustomTree=false; 
+  }
+
+  if(config->Has("energy_deposit_limits"))
+  {
+    xL=config->GetD("energy_deposit_limits", "xLow");
+    xU=config->GetD("energy_deposit_limits", "xUp");
+    yL=config->GetD("energy_deposit_limits", "yLow");
+    yU=config->GetD("energy_deposit_limits", "yUp");
+    zL=config->GetD("energy_deposit_limits", "zLow");
+    zU=config->GetD("energy_deposit_limits", "zUp");
+    HasEdepLimits=true;
+  }
+  else
+  {
+    HasEdepLimits=false;
   }
 }
 
@@ -89,17 +119,17 @@ void GELIAnalysisManager::book()
     file= new TFile(file_name.c_str(),"RECREATE");
     tree=new TTree("t","");
     //read parameters of the histogram from config file
-    unsigned int nBinsY=std::stoi(config->Get("energy_deposit_histogram", "nBinsX"));
-    unsigned int nBinsX=std::stoi(config->Get("energy_deposit_histogram", "nBinsY"));
-    unsigned int nBinsZ=std::stoi(config->Get("energy_deposit_histogram", "nBinsZ"));
-    double xLow=std::stof(config->Get("energy_deposit_histogram", "xLow"));
-    double xUp=std::stof(config->Get("energy_deposit_histogram", "xUp"));
-    double yLow=std::stof(config->Get("energy_deposit_histogram", "yLow"));
-    double yUp=std::stof(config->Get("energy_deposit_histogram", "yUp"));
-    double zLow=std::stof(config->Get("energy_deposit_histogram", "zLow"));
-    double zUp=std::stof(config->Get("energy_deposit_histogram", "zUp"));
+    unsigned int nBinsY=config->GetI("energy_deposit_histogram", "nBinsX");
+    unsigned int nBinsX=config->GetI("energy_deposit_histogram", "nBinsY");
+    unsigned int nBinsZ=config->GetI("energy_deposit_histogram", "nBinsZ");
+    double xLow=config->GetD("energy_deposit_histogram", "xLow");
+    double xUp=config->GetD("energy_deposit_histogram", "xUp");
+    double yLow=config->GetD("energy_deposit_histogram", "yLow");
+    double yUp=config->GetD("energy_deposit_histogram", "yUp");
+    double zLow=config->GetD("energy_deposit_histogram", "zLow");
+    double zUp=config->GetD("energy_deposit_histogram", "zUp");
     SimEvent::SetHistogram(nBinsX,xLow,xUp,nBinsY,yLow,yUp,nBinsZ,zLow,zUp);
-    event=new SimEvent("aa");
+    event=new SimEvent("eDep");
     tree->Branch("evt","SimEvent",event);
   }
 }
@@ -108,6 +138,8 @@ void GELIAnalysisManager::book()
 //this function fills N-tuple with energy deposit and its positions
 void GELIAnalysisManager::Fill(G4double x,G4double y,G4double z,G4double Edep, G4int event_number)
 {
+  if(HasEdepLimits&&(x<xL||x>xU||y<yL||y>yU||z<zL||z>zU))
+    return;
 
   if(saveNtuple)
   {

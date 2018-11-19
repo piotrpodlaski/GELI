@@ -1,0 +1,124 @@
+#include "MaterialBuilder.h"
+#include "G4NistManager.hh"
+#include "globals.hh"
+
+MaterialBuilder* MaterialBuilder::instance=nullptr;
+
+MaterialBuilder* MaterialBuilder::GetInstance()
+{
+	if(instance==nullptr)
+		instance=new MaterialBuilder();
+	return instance;
+}
+
+MaterialBuilder::MaterialBuilder()
+{
+	nist_manager=G4NistManager::Instance();
+	BuildMaterials();
+}
+
+void MaterialBuilder::BuildMaterials()
+{
+	G4String name, symbol;             
+	G4double density;            
+
+	G4int ncomponents, natoms;
+	G4double fractionmass;
+	G4double temperature, pressure;
+	//Define elements:
+	G4Element*   H  = new G4Element ("Hydrogen", "H", 1. ,  1.01*g/mole);
+	G4Element*   N  = new G4Element ("Nitrogen", "N", 7., 14.01*g/mole);
+	G4Element*   O  = new G4Element ("Oxygen"  , "O", 8. , 16.00*g/mole);
+	G4Element*   Ar = new G4Element ("Argon" , "Ar", 18., 39.948*g/mole );
+	G4Element*   C = new G4Element ("Carbon" , "C", 6., 12.01*g/mole );
+	G4Element* Fe = new G4Element("Iron","Fe", 26., 55.85*g/mole);
+	G4Element* Cr = new G4Element("Chromium", "Cr", 24., 51.9961*g/mole);
+	G4Element* Mn = new G4Element("Manganese", "Mn", 12., 54.938049*g/mole);
+	G4Element* Ni = new G4Element("Nickel", "Ni", 28.,  58.6934*g/mole);
+	G4Element*   Si = new G4Element("Silicon", "Si", 14., 28.09*g/mole);
+
+	//Air:
+	density = 1.290*mg/cm3;
+	G4Material* Air = new G4Material(name="Air"  , density, ncomponents=2);
+	Air->AddElement(N, fractionmass=0.7);
+	Air->AddElement(O, fractionmass=0.3);
+	materials["air"]=Air;
+
+	//aluminium:
+	G4Material* alu=new G4Material("Aluminium",13., 26.98*g/mole,2.7*g/cm3);
+	materials["aluminium"]=alu;
+	//Kapton:
+	density = 1.42*g/cm3;
+	G4Material* Kapton= new G4Material(name="Kapton",density, ncomponents=4);
+	Kapton->AddElement(H, fractionmass = 0.0273);
+	Kapton->AddElement(C, fractionmass = 0.7213);
+	Kapton->AddElement(N, fractionmass = 0.0765);
+	Kapton->AddElement(O, fractionmass = 0.1749);
+	materials["kapton"]=Kapton;
+
+  	 //StainlessSteel
+	density= 8.06*g/cm3;
+	G4Material* StainlessSteel = new G4Material(name="StainlessSteel", density, ncomponents=6);
+	StainlessSteel->AddElement(C, fractionmass=0.001);
+	StainlessSteel->AddElement(Si, fractionmass=0.007);
+	StainlessSteel->AddElement(Cr, fractionmass=0.18);
+	StainlessSteel->AddElement(Mn, fractionmass=0.01);
+	StainlessSteel->AddElement(Fe, fractionmass=0.712);
+	StainlessSteel->AddElement(Ni, fractionmass=0.09);
+	materials["stainless"]=StainlessSteel;
+
+	G4Material* CO2 = new G4Material(name="Carbonic gas", density = 0.1805*mg/cm3, ncomponents=2,
+		kStateGas,temperature=293.*kelvin, pressure    = 0.1*bar);
+	CO2->AddElement(C, natoms=1);
+	CO2->AddElement(O, natoms=2);
+	materials["co2"]=CO2;
+
+    // Vacuum
+	density     = 1.e-5*g/cm3;
+	pressure    = 2.e-2*bar;
+ 	temperature = STP_Temperature;         //from PhysicalConstants.h
+ 	G4Material* vacuum = new G4Material(name="vacuum", density, ncomponents=1,
+ 		kStateGas,temperature,pressure);
+ 	vacuum->AddMaterial(Air, fractionmass=1.);
+ 	materials["vacuum"]=vacuum;
+
+  	// Laboratory vacuum: Dry air (average composition)
+	density = 1.7836*mg/cm3 ;       // STP
+	G4Material* Argon = new G4Material(name="Argon", density, ncomponents=1);
+	Argon->AddElement(Ar, 1);
+	  
+	density = 1.25053*mg/cm3 ;       // STP
+	G4Material* Nitrogen = new G4Material(name="N2", density, ncomponents=1);
+	Nitrogen->AddElement(N, 2);
+	
+	density = 1.4289*mg/cm3 ;       // STP
+	G4Material* Oxygen = new G4Material(name="O2", density, ncomponents=1);
+	Oxygen->AddElement(O, 2);
+	  
+	  
+	density  = 1.2928*mg/cm3 ;       // STP
+	density *= 1.0e-8 ;              // pumped vacuum
+	
+	temperature = STP_Temperature;
+	pressure = 1.0e-8*STP_Pressure;
+	G4Material* LaboratoryVacuum = new G4Material(name="LaboratoryVacuum",
+		density,ncomponents=3,
+		kStateGas,temperature,pressure);
+	LaboratoryVacuum->AddMaterial( Nitrogen, fractionmass = 0.7557 ) ;
+	LaboratoryVacuum->AddMaterial( Oxygen,   fractionmass = 0.2315 ) ;
+	LaboratoryVacuum->AddMaterial( Argon,    fractionmass = 0.0128 ) ;
+	materials["laboratoryvacuum"]=LaboratoryVacuum;
+
+
+
+
+
+	}
+
+	G4Material* MaterialBuilder::GetMaterial(G4String material_name)
+	{
+		if(!materials.count(material_name))
+			G4Exception("MaterialBuilder::GetMaterial", "No such material",
+				FatalException, "Requested material does not exist. Check config for typos and make sure that the material is defined properly in MaterialBuilder::BuildMaterials");
+		return materials[material_name];
+	}
