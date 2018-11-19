@@ -1,37 +1,35 @@
 #include "SimEvent.hh"
 
+#include<iostream>
 
 //ClassImp(SimEvent);
-unsigned int SimEvent::nBinsX;
-unsigned int SimEvent::nBinsY;
-unsigned int SimEvent::nBinsZ;
-double SimEvent::xLow;
-double SimEvent::xUp;
-double SimEvent::yLow;
-double SimEvent::yUp;
-double SimEvent::zLow;
-double SimEvent::zUp;
+unsigned int SimEvent::nBinsX=350;
+unsigned int SimEvent::nBinsY=200;
+unsigned int SimEvent::nBinsZ=200;
+double SimEvent::xLow=-175;
+double SimEvent::xUp=175;
+double SimEvent::yLow=-100;
+double SimEvent::yUp=100;
+double SimEvent::zLow=-100;
+double SimEvent::zUp=100;
 
-SimEvent::SimEvent()
-{
-		hPrimaryEnergyDeposit=nullptr;
-		hEnergyDepositAfterTransport=nullptr;
-}
+int SimEvent::eventID=0;
 
 SimEvent::~SimEvent()
 {
-	if(hPrimaryEnergyDeposit)
+	
+	if(hPrimaryEnergyDeposit!=nullptr)
 		delete hPrimaryEnergyDeposit;
-	if(hEnergyDepositAfterTransport)
+	if(hEnergyDepositAfterTransport!=nullptr)
 		delete hEnergyDepositAfterTransport;
 }
 
-	SimEvent::SimEvent(TString hname)
-	{
-		hPrimaryEnergyDeposit=new TH3F(hname,"Energy deposit",nBinsX,xLow,xUp,nBinsY,yLow,yUp,nBinsZ,zLow,zUp);
-		hEnergyDepositAfterTransport=nullptr;
+SimEvent::SimEvent()
+{
 
-	}
+	hPrimaryEnergyDeposit=new TH3F(TString(eventID++),"Energy deposit",nBinsX,xLow,xUp,nBinsY,yLow,yUp,nBinsZ,zLow,zUp);
+	hEnergyDepositAfterTransport=nullptr;
+}
 
 void SimEvent::SetHistogram(unsigned int nx, double x1, double x2, unsigned int ny, double y1, double y2, unsigned int nz, double z1, double z2)
 	{
@@ -82,4 +80,9 @@ void SimEvent::Clear()
 	if(hPrimaryEnergyDeposit)
 		hPrimaryEnergyDeposit->Reset();
 	primaries.clear();
+}
+
+void SimEvent::SetPrimaries(Primaries prim)
+{
+	primaries=prim;
 }

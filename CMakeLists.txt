@@ -46,4 +46,5 @@ endif()
 
 ADD_SUBDIRECTORY(Utilities)
 ADD_SUBDIRECTORY(Geant4)
+ADD_SUBDIRECTORY(TransportSimulator)
 

@@ -20,13 +20,13 @@ class SimEvent : public TObject
 public:
 	SimEvent();
 	~SimEvent();
-	SimEvent(TString hname);
 	void Fill(double x, double y, double z, double w=1.);
 	TH3F* GetPrimaryHisto();
 	TH3F* GetAfterTransportHisto();
 	void AddPrimaryParticle(PrimaryParticle particle);
 	static void SetHistogram(unsigned int nx, double x1, double x2, unsigned int ny, double y1, double y2, unsigned int nz, double z1, double z2);
 	Primaries GetPrimaries();
+	void SetPrimaries(Primaries prim);
 	PrimariesIterator PrimariesBegin();
 	PrimariesIterator PrimariesEnd();
 	void Clear();
@@ -40,6 +40,7 @@ private:
 	static double yUp;
 	static double zLow;
 	static double zUp;
+	static int eventID; //event ID used for unique histogram naming
 	Primaries primaries;
 	TH3F* hPrimaryEnergyDeposit;
 	TH3F* hEnergyDepositAfterTransport;

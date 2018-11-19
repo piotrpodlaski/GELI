@@ -129,7 +129,7 @@ void GELIAnalysisManager::book()
     double zLow=config->GetD("energy_deposit_histogram", "zLow");
     double zUp=config->GetD("energy_deposit_histogram", "zUp");
     SimEvent::SetHistogram(nBinsX,xLow,xUp,nBinsY,yLow,yUp,nBinsZ,zLow,zUp);
-    event=new SimEvent("eDep");
+    event=new SimEvent();
     tree->Branch("evt","SimEvent",event);
   }
 }
