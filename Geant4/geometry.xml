@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solid>
+	<name>pumpkin</name>
+	<filename>pumpkin.stl</filename>
+	<position>
+		<x>0</x>
+		<y>0</y>
+		<z>0</z>
+	</position>
+	<rotation>
+		<x>0</x>
+		<y>0</y>
+		<z>0</z>
+	</rotation>
+	<material>water</material>
+	<color>
+		<r>128</r>
+		<g>128</g>
+		<b>128</b>
+	</color>
+</solid>

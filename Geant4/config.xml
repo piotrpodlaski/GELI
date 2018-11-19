@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Path to geometry config file. If not supplied 'geometry.cfg' is used -->
+<geometry_config_path>./geometry.cfg</geometry_config_path>
+
+<!-- Unit of angles in geometry config file (deg/rad). If not supplied rad is used -->
+<angle_unit>deg</angle_unit>
+
+<!-- Name of the file in which simulation custom events will be saved, if not supplied out.root is used -->
+<output_file_name>test.root</output_file_name>
+
+<!-- Name of the file in which ntuple will be saved, if not supplied ntuple.root is used -->
+<ntuple_file_name>ntuple.root</ntuple_file_name>
+
+
+<!-- Configuration of energy deposit histogram for custom event structure, has to be supplied, lack of it in config will cause crash of the simulation -->
+<energy_deposit_histogram>
+	<nBinsX>350</nBinsX>
+	<nBinsY>200</nBinsY>
+	<nBinsZ>200</nBinsZ>
+	<xLow>-175</xLow>
+	<xUp>175</xUp>
+	<yLow>-100</yLow>
+	<yUp>100</yUp>
+	<zLow>-100</zLow>
+	<zUp>100</zUp>
+</energy_deposit_histogram>
+
+
+<!-- Flag to switch saving of N-tuple with energy deposits, if not supplied N-tuple is not saved.
+This simulation output is compatibile with multi-threading. -->
+<save_ntuple>1</save_ntuple>
+<!-- Flag to switch saving of ROOT tree witch custom event structure, if not supplied ROOT tree is not saved.
+This simulation output is NOT compatibile with multi-threading. If it is switched ON MT runnig will be automatically disabled. This mode turns out to be much slower, the reason is ROOT I/O - saving histograms with big number of bins to Trees/files takes a lot of time. -->
+<save_custom_event_tree>1</save_custom_event_tree>
+
+<!-- Flag to switch if sumulation is done in MT mode, If not supplied single threaded mode is used. If saving of custom event tree is used this has no effect - single threaded mode is used -->
+<run_mt>1</run_mt>
+
+<!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
+<number_mt_threads>0</number_mt_threads>
