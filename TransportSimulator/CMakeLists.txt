@@ -6,6 +6,8 @@ file(GLOB transport_sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc)
 file(GLOB transport_headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hh)
 
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.xml ${CMAKE_CURRENT_BINARY_DIR}/config.xml COPYONLY)
+
 
 #---Create  a main program using the library
 add_executable(main main.cc ${transport_sources} ${transport_headers})

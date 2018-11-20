@@ -7,5 +7,5 @@
 /gps/pos/type Point
 /gps/pos/centre 0. 0. 0. cm
 /gps/ang/type iso
-/gps/energy 20. MeV
+/gps/energy 2.5 MeV
 /run/beamOn 2

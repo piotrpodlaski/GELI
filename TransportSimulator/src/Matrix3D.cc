@@ -64,8 +64,31 @@ Matrix3D Matrix3D::BuildMatrixFromTH3(TH3F* h)
 	return mat;
 }
 
+Matrix3D Matrix3D::BuildMatrixFromFunction(int radius, std::function<double(int,int,int)> f)
+{
+	int size;
+	//initialize matrix with odd number of cells in each direction so there is a central cell
+	//radius=1 gives 1x1x1 matrix, radius=2 gives 3x3x3, radius=3 gives 5x5x5 etc.
+	if(radius>0)
+		size=2*radius-1;
+	else
+		size=1;
+	Matrix3D mat=Matrix3D(size,size,size);
+	for(int ix=0; ix<size;ix++)
+		for(int iy=0;iy<size;iy++)
+			for(int iz=0;iz<size;iz++)
+			{
+				//pass the distance from central cell to the function
+				mat(ix,iy,iz)=f(ix-radius+1,iy-radius+1,iz-radius+1);
+			}
+	//mat.Normalize();
+	return mat;
+}
+
 void Matrix3D::Normalize()
 {
-	double sum=std::accumulate(data.begin(), data.end(), 0);//sum of elements
+
+	double sum=std::accumulate(data.begin(), data.end(), 0.);//sum of elements
 	std::for_each(data.begin(), data.end(), [=](double &x){ x=x/sum; });//divide by sum with lambda				
 }
+

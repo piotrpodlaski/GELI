@@ -1,6 +1,7 @@
 #ifndef MATRIX3D_H
 #define MATRIX3D_H
 #include <vector>
+#include <functional>
 #include "TH3F.h"
 
 class Matrix3D
@@ -19,6 +20,7 @@ public:
 	int GetSizeZ();
 	void Normalize();
 	static Matrix3D BuildMatrixFromTH3(TH3F* h);
+	static Matrix3D BuildMatrixFromFunction(int radius, std::function<double(int,int,int)> f);
 private:
 	int sizeX;
 	int sizeY;

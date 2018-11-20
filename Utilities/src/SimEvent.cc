@@ -28,7 +28,13 @@ SimEvent::SimEvent()
 {
 
 	hPrimaryEnergyDeposit=new TH3F(TString(eventID++),"Energy deposit",nBinsX,xLow,xUp,nBinsY,yLow,yUp,nBinsZ,zLow,zUp);
-	hEnergyDepositAfterTransport=nullptr;
+	hEnergyDepositAfterTransport=new TH3F(TString(eventID++)+"_transport","Energy deposit",nBinsX,xLow,xUp,nBinsY,yLow,yUp,nBinsZ,zLow,zUp);
+	hPrimaryEnergyDeposit->GetXaxis()->SetTitle("x [mm]");
+	hPrimaryEnergyDeposit->GetYaxis()->SetTitle("y [mm]");
+	hPrimaryEnergyDeposit->GetZaxis()->SetTitle("z [mm]");
+	hEnergyDepositAfterTransport->GetXaxis()->SetTitle("x [mm]");
+	hEnergyDepositAfterTransport->GetYaxis()->SetTitle("y [mm]");
+	hEnergyDepositAfterTransport->GetZaxis()->SetTitle("z [mm]");
 }
 
 void SimEvent::SetHistogram(unsigned int nx, double x1, double x2, unsigned int ny, double y1, double y2, unsigned int nz, double z1, double z2)

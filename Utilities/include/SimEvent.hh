@@ -30,6 +30,10 @@ public:
 	PrimariesIterator PrimariesBegin();
 	PrimariesIterator PrimariesEnd();
 	void Clear();
+	void SetDiffusion(bool diff=true){hasDiffusion=diff;}
+	void SetAttachment(bool att=true){hasAttachment=att;}
+	bool HasDiffusion(){ return hasDiffusion; }
+	bool HasAttachment(){ return hasAttachment; }
 private:
 	static unsigned int nBinsX;
 	static unsigned int nBinsY;
@@ -46,6 +50,8 @@ private:
 	TH3F* hEnergyDepositAfterTransport;
 	bool isBackground;
 	bool hasBackground;
+	bool hasDiffusion;
+	bool hasAttachment;
 
 	ClassDef(SimEvent,1);
 };
