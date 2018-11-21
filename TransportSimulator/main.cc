@@ -21,7 +21,7 @@ int main()
 		ev_reader->ReadEvent(ev);
 		std::cout<<" done!"<<std::endl;
 		std::cout<<"Simulating diffusion..."<<std::flush;
-		//s.SimulateDiffusion(ev->GetPrimaryHisto(),ev->GetAfterTransportHisto());
+		s.SimulateDiffusion(ev->GetPrimaryHisto(),ev->GetAfterTransportHisto());
 		std::cout<<" done!"<<std::endl;
 		//m=Matrix3D::BuildMatrixFromTH3(ev->GetPrimaryHisto());
 		i++;
@@ -29,7 +29,7 @@ int main()
 	std::cout<<i<<std::endl;
 
 
-//return 0;
+return 0;
 	TCanvas* c=new TCanvas("c","",1024,768);
 	c->Divide(2,2);
 	c->Print("evs.pdf[");
@@ -38,7 +38,8 @@ int main()
 	//hhh=new TH3F("hh","",151,-250,250,151,-250,250,151,-250,250);
 	//hhh_diff=new TH3F("hh","",151,-250, 250,151,-250,250,151,-250,250);
 
-	hhh->Fill(0.,0.,0.,100.);
+	//hhh->Fill(0.,0.,0.,123.);
+	//hhh->Fill(12.,0.,0.,123.);
 	c->cd(1);//->SetLogz();
 	((TH2F*)hhh->Project3D("yz"))->Draw("colz0");
 	c->cd(2);//->SetLogz();
@@ -48,7 +49,7 @@ int main()
 	c->cd(4);
 	hhh->Draw();
 	c->Print("evs.pdf");
-	s.SimulateDiffusion(hhh,hhh_diff);
+	//s.SimulateDiffusion(hhh,hhh_diff);
 	c->cd(1);
 	((TH2F*)hhh_diff->Project3D("yz"))->Draw("colz0");
 	c->cd(2);
@@ -56,7 +57,7 @@ int main()
 	c->cd(3);
 	((TH2F*)hhh_diff->Project3D("xy"))->Draw("colz0	");
 	c->cd(4);//->SetLogy();
-	hhh_diff->Draw("surf");
+	hhh_diff->Draw();
 	c->Print("evs.pdf");
 	c->Print("evs.pdf]");
 

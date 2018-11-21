@@ -84,10 +84,10 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 				if(output_posz<0||output_posz>=nBinsZ)
 					continue;
 				double to_fill=kernel(x,y,z)*value;
-				//double to_fillx=output_posx*deltax+minx;
-				//double to_filly=output_posy*deltay+miny;
-				//double to_fillz=output_posz*deltaz+minz;
-				//output->Fill(output_posx*deltax,output_posy*deltay,output_posz*deltaz,to_fill);
+				//double to_fillx=output_posx*deltax+minx+0.5*deltax;
+				//double to_filly=output_posy*deltay+miny+0.5*deltay;
+				//double to_fillz=output_posz*deltaz+minz+0.5*deltaz;
+				//output->Fill(to_fillx,to_filly,to_fillz,to_fill);
 				int bin=output->GetBin(output_posx,output_posy,output_posz);
 				output->AddBinContent(bin,to_fill);
 			}
@@ -109,7 +109,9 @@ void DiffusionSimulator::SimulateDiffusion(TH3F* hInput, TH3F* output)
 	minz=hInput->GetZaxis()->GetBinLowEdge(1);
 	//std::cout<<nBinsX<<" "<<nBinsY<<" "<<nBinsZ<<std::endl;
 	//std::cout<<"Kernel Done "<<kernelRadius<<" "<<kernelSize<< std::endl;
-	//make sure that output histo exists
+	//clear output histo, just in case:
+	output->Clear();	
+
 	kernelBuiltForThisZ=false;
 	for(int z=0;z<nBinsZ;z++)
 	{
@@ -124,9 +126,9 @@ void DiffusionSimulator::ComputeSinglePlane(TH3F* output, int iz)
 {
 	for(int y=0;y<nBinsY;y++)
 	{
-		double Dx=D0_x+alpha_x*iz*deltaz;
-		double Dy=D0_y+alpha_y*iz*deltaz;
-		double Dz=D0_z+alpha_z*iz*deltaz;
+		// double Dx=D0_x+alpha_x*iz*deltaz;
+		// double Dy=D0_y+alpha_y*iz*deltaz;
+		// double Dz=D0_z+alpha_z*iz*deltaz;
 		//BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		//std::cout<<"begining (x,y)=("<<x<<","<<y<<")"<<std::endl;
 		ComputeSingleLine(output,y,iz);
