@@ -41,7 +41,7 @@ This simulation output is compatibile with multi-threading. -->
 <save_ntuple>1</save_ntuple>
 <!-- Flag to switch saving of ROOT tree witch custom event structure, if not supplied ROOT tree is not saved.
 This simulation output is NOT compatibile with multi-threading. If it is switched ON MT runnig will be automatically disabled. This mode turns out to be much slower, the reason is ROOT I/O - saving histograms with big number of bins to Trees/files takes a lot of time. -->
-<save_custom_event_tree>1</save_custom_event_tree>
+<save_custom_event_tree>0</save_custom_event_tree>
 
 <!-- Flag to switch if sumulation is done in MT mode, If not supplied single threaded mode is used. If saving of custom event tree is used this has no effect - single threaded mode is used -->
 <run_mt>0</run_mt>

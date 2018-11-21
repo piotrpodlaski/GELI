@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Number of normal distribution sigmas used to calculate size of the convolution kernel and its truncation. if different diffusion coefficients are used for different directions largest possible sigma is used. Can be non integer number. -->
 <diffusion>
-	<n_sigmas>3</n_sigmas>
-	<Dx>1.5</Dx>
-	<Dy>1.5</Dy>
-	<Dz>1.5</Dz>
-	<alpha_x>0</alpha_x>
-	<alpha_y>0</alpha_y>
-	<alpha_z>0</alpha_z>
+	<n_sigmas>4</n_sigmas>
+	<Dx>2</Dx>
+	<Dy>2</Dy>
+	<Dz>2</Dz>
+	<alpha_x>0.01</alpha_x>
+	<alpha_y>0.01</alpha_y>
+	<alpha_z>0.01</alpha_z>
 </diffusion>

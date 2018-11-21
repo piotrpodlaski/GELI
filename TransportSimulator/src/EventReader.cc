@@ -55,7 +55,7 @@ void EventReader::ReadPrimaries()
 
 bool EventReader::EndOfFile()
 {
-	std::cout<<"Entry: "<<current_entry<<std::endl;
+	//std::cout<<"Entry: "<<current_entry<<std::endl;
 	if(nEntriesEdep==0)
 		return true;
 	if(current_entry==nEntriesEdep-1)

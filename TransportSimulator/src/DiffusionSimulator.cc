@@ -51,40 +51,48 @@ void DiffusionSimulator::BuildGaussianKernel(double sx, double sy, double sz)
 	BuildGaussianKernel(radius,sx,sy,sz);
 }
 
-double DiffusionSimulator::ComputeSinglePoint(int ix, int iy, int iz, double prev_val)
+void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz)
 {
-	double result=0;
-	int ksize=kernel.GetSizeX();
-	int x=0;
-	if(prev_val==0)
+	double value=input(ix,iy,iz);
+	if(value==0)
+		return;
+	//build kernel only if it is needed
+	if(!kernelBuiltForThisZ)
 	{
-		//everything to the left is zero, because matrix has rounded corners we cannot use only last layer
-		x=ksize/2;
+		double Dx=D0_x+alpha_x*iz*deltaz;
+		double Dy=D0_y+alpha_y*iz*deltaz;
+		double Dz=D0_z+alpha_z*iz*deltaz;
+		BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
+		kernelBuiltForThisZ=true;
 	}
-	for(;x<ksize;x++)
+	for(int x=0;x<kernelSize;x++)
 	{
 		for(int y=0;y<kernelSize;y++)
 		{
 			for(int z=0;z<kernelSize;z++)
 			{
 				//std::cout<<"begin (x,y,z)=("<<x<<","<<y<<","<<z<<")"<<std::endl;
-				int input_posx=x+ix-kernelRadius+1;
-				int input_posy=y+iy-kernelRadius+1;
-				int input_posz=z+iz-kernelRadius+1;
-				//do nothing outside of the input matrix
+				int output_posx=x+ix-kernelRadius+1;
+				int output_posy=y+iy-kernelRadius+1;
+				int output_posz=z+iz-kernelRadius+1;
+				//do nothing outside of the output matrix
 				// /std::cout<<input_posx<<" "<<input_posy<<" "<<input_posz<<std::endl;
-				if(input_posx<0||input_posx>=nBinsX)
+				if(output_posx<0||output_posx>=nBinsX)
 					continue;
-				if(input_posy<0||input_posy>=nBinsY)
+				if(output_posy<0||output_posy>=nBinsY)
 					continue;
-				if(input_posz<0||input_posz>=nBinsZ)
+				if(output_posz<0||output_posz>=nBinsZ)
 					continue;
-				result+=kernel(x,y,z)*input(input_posx,input_posy,input_posz);
+				double to_fill=kernel(x,y,z)*value;
+				//double to_fillx=output_posx*deltax+minx;
+				//double to_filly=output_posy*deltay+miny;
+				//double to_fillz=output_posz*deltaz+minz;
+				//output->Fill(output_posx*deltax,output_posy*deltay,output_posz*deltaz,to_fill);
+				int bin=output->GetBin(output_posx,output_posy,output_posz);
+				output->AddBinContent(bin,to_fill);
 			}
 		}
 	}
-	return result;
-
 }
 
 void DiffusionSimulator::SimulateDiffusion(TH3F* hInput, TH3F* output)
@@ -96,13 +104,18 @@ void DiffusionSimulator::SimulateDiffusion(TH3F* hInput, TH3F* output)
 	deltax=hInput->GetXaxis()->GetBinWidth(1);
 	deltay=hInput->GetYaxis()->GetBinWidth(1);
 	deltaz=hInput->GetZaxis()->GetBinWidth(1);
-	std::cout<<nBinsX<<" "<<nBinsY<<" "<<nBinsZ<<std::endl;
+	minx=hInput->GetXaxis()->GetBinLowEdge(1);
+	miny=hInput->GetYaxis()->GetBinLowEdge(1);
+	minz=hInput->GetZaxis()->GetBinLowEdge(1);
+	//std::cout<<nBinsX<<" "<<nBinsY<<" "<<nBinsZ<<std::endl;
 	//std::cout<<"Kernel Done "<<kernelRadius<<" "<<kernelSize<< std::endl;
 	//make sure that output histo exists
+	kernelBuiltForThisZ=false;
 	for(int z=0;z<nBinsZ;z++)
 	{
-		std::cout<<"Begining z="<<z<<std::endl;
+		//std::cout<<"Begining z="<<z<<std::endl;
 		ComputeSinglePlane(output, z);
+		kernelBuiltForThisZ=false;
 		//std::cout<<"Done z="<<z<<std::endl;
 	}
 }
@@ -114,7 +127,7 @@ void DiffusionSimulator::ComputeSinglePlane(TH3F* output, int iz)
 		double Dx=D0_x+alpha_x*iz*deltaz;
 		double Dy=D0_y+alpha_y*iz*deltaz;
 		double Dz=D0_z+alpha_z*iz*deltaz;
-		BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
+		//BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		//std::cout<<"begining (x,y)=("<<x<<","<<y<<")"<<std::endl;
 		ComputeSingleLine(output,y,iz);
 		/*if(value!=0)
@@ -124,14 +137,12 @@ void DiffusionSimulator::ComputeSinglePlane(TH3F* output, int iz)
 	}
 }
 
-double DiffusionSimulator::ComputeSingleLine(TH3F* output, int iy, int iz)
+void DiffusionSimulator::ComputeSingleLine(TH3F* output, int iy, int iz)
 {
-	double value=1.;
 	for(int x=0;x<nBinsX;x++)
 	{
-		value=ComputeSinglePoint(x,iy,iz, value);
-		output->SetBinContent(output->GetBin(x+1,iy+1,iz+1),value);
+		ComputeSinglePoint(output, x,iy,iz);
+		//output->SetBinContent(output->GetBin(x+1,iy+1,iz+1),value);
 	}
-	return 0;
 }
 

@@ -9,41 +9,34 @@ int main()
 {
 	gStyle->SetOptStat(1001111);
 	gStyle->SetNumberContours(999);
-	Matrix3D m(2,2,2,1);
-	//m(2,2,2)=12;
-	std::cout<<m(1,1,1)<<std::endl;
-	m.Normalize();
-	std::cout<<m(1,1,1)<<std::endl;
-	m.GetSizeX();
-	m.GetSizeY();
-	m.GetSizeZ();
-	//SimEvent::SetHistogram(175,-175,175,100,-100,100,100,-100,100);
 	EventReader* ev_reader=new EventReader("test.root");
 	SimEvent* ev=new SimEvent();
 	int a=0;
-
-	auto f=[](int x, int y, int z)->double { return x*x; };
-	m=Matrix3D::BuildMatrixFromFunction(5,f);
-	// /std::cout<<m.GetSizeX();
-	for(int i=0;i<m.GetSizeX();i++)
-		std::cout<<m(i,0,0)<<std::endl;
 	DiffusionSimulator s;
 	if(0);
+	int i=0;
 	while(!ev_reader->EndOfFile())
 	{	
+		std::cout<<"Reading event "<<i<<"...";
 		ev_reader->ReadEvent(ev);
+		std::cout<<" done!"<<std::endl;
+		std::cout<<"Simulating diffusion..."<<std::flush;
 		//s.SimulateDiffusion(ev->GetPrimaryHisto(),ev->GetAfterTransportHisto());
+		std::cout<<" done!"<<std::endl;
 		//m=Matrix3D::BuildMatrixFromTH3(ev->GetPrimaryHisto());
+		i++;
 	}
+	std::cout<<i<<std::endl;
 
 
+//return 0;
 	TCanvas* c=new TCanvas("c","",1024,768);
 	c->Divide(2,2);
 	c->Print("evs.pdf[");
 	TH3F* hhh=ev->GetPrimaryHisto();
 	TH3F* hhh_diff=ev->GetAfterTransportHisto();
-	//hhh=new TH3F("hh","",51,-25,25,51,-25,25,51,-25,25);
-	//hhh_diff=new TH3F("hh","",51,-25,25,51,-25,25,51,-25,25);
+	//hhh=new TH3F("hh","",151,-250,250,151,-250,250,151,-250,250);
+	//hhh_diff=new TH3F("hh","",151,-250, 250,151,-250,250,151,-250,250);
 
 	hhh->Fill(0.,0.,0.,100.);
 	c->cd(1);//->SetLogz();
@@ -62,8 +55,8 @@ int main()
 	((TH2F*)hhh_diff->Project3D("zx"))->Draw("colz0");
 	c->cd(3);
 	((TH2F*)hhh_diff->Project3D("xy"))->Draw("colz0	");
-	c->cd(4);
-	hhh_diff->Draw();
+	c->cd(4);//->SetLogy();
+	hhh_diff->Draw("surf");
 	c->Print("evs.pdf");
 	c->Print("evs.pdf]");
 
