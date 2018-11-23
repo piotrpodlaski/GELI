@@ -5,18 +5,21 @@
 #include "CentralConfig.hh"
 #include "Matrix3D.hh"
 
+class SimEvent;
 
 class DiffusionSimulator
 {
 public:
 	DiffusionSimulator();
-	void BuildGaussianKernel(int radius,double sigma_x, double sigma_y, double sigma_z);
 	void BuildGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
+	void BuildProperGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
 	void SimulateDiffusion(TH3F* input, TH3F* output);
+	void SimulateDiffusion(SimEvent *ev);
 private:
 	void ComputeSinglePoint(TH3F* output, int ix, int iy, int iz);
 	void ComputeSingleLine(TH3F* output, int iy, int iz);
 	void ComputeSinglePlane(TH3F* output, int iz);
+	void BuildGaussianKernel(int radius,double sigma_x, double sigma_y, double sigma_z);
 
 	CentralConfig* config;
 	Matrix3D kernel;

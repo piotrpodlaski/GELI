@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Configutation File for TPC transport simulator -->
+
+<!-- Flag to switch ON/OFF diffusion simulator -->
+<simulate_diffusion>1</simulate_diffusion>
+<!-- Flag to switch ON/OFF attachment simulator -->
+<simulate_attachment>1</simulate_attachment>
+
+
 <diffusion>
 	<!--
 	Diffusion is simulated by smearing energy deposit in each bin into 3D gauss.
-	Diffusion coefficient is a sigma of 3D gauss (in mm) which is a result of difussing point energy deposit. Coefficient depends on z (amount of time that energy deposits spends in a chamber is a linear function of z coordinate). This dependence is linear:
-	D(z)=D0+\alpha z
-	In this equation D0 is diffusion coefficient ath the bottom of a chamber and \alpha is slope parameter, both D0 and \alha can be changed independently for all axes. Note, that in equation above z=0 is NOT the coordinate of the center of the detecotor. z=0 corresponds to place clostest to the readout electrode and grows further from it. 
+	Diffusion coefficient is a sigma of 3D gauss (in mm) which is a result of difussing point energy deposit. Coefficient depends on d (distance from the readout electrode). This dependence is linear:
+	D(z)=D0+\alpha d
+	In this equation D0 is diffusion coefficient ath the bottom of a chamber and \alpha is slope parameter, both D0 and \alha can be changed independently for all axes. Note, that in equation above d=0 is the top of the active volume.
 	 -->
 
 	<!-- Number of normal distribution sigmas used to calculate radius of the convolution kernel and its truncation. If different diffusion coefficients are used for different directions largest possible sigma is used. Can be non integer number. -->
-	 <n_sigmas>5</n_sigmas>
+	<n_sigmas>4</n_sigmas>
 	 <!-- D0 parameters for x,y and z (in mm) -->
 	<Dx>2</Dx>
 	<Dy>2</Dy>
 	<Dz>2</Dz>
 	<!-- alpha parameters for x,y and z (dimmensionless, histogram axes are in mm)-->
-	<alpha_x>0.02</alpha_x>
-	<alpha_y>0.02</alpha_y>
-	<alpha_z>0.02</alpha_z>
+	<alpha_x>0.01</alpha_x>
+	<alpha_y>0.01</alpha_y>
+	<alpha_z>0.01</alpha_z>
 </diffusion>
+
+<attachment>
+	<!-- 
+	Attachment simulation is don by multiplying energy deposit by exponential decay in z described with equation:
+	Edep=Edep*A_0*exp(-\beta d)
+	In this equation is the distance from the readout electrode. A_0 is a constant describing energy deposit (charge) losses at z=0 (bottom of the active volume)
+	-->
+	<!-- A_0 constant, dimmensionless -->
+	<A0>1</A0>
+	<!-- \beta coefficient, should be provided in 1/mm uit -->
+	<beta>0.0</beta>
+</attachment>

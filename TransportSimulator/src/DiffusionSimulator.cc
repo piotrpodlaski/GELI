@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "TString.h"
 #include <iostream>
+#include "SimEvent.hh"
 
 
 DiffusionSimulator::DiffusionSimulator()
@@ -48,7 +49,46 @@ void DiffusionSimulator::BuildGaussianKernel(double sx, double sy, double sz)
 	int ry=ceil(nSigmas*sy);
 	int rz=ceil(nSigmas*sz);
 	radius=std::max(rx,std::max(ry,rz));
-	BuildGaussianKernel(radius,sx,sy,sz);
+	//BuildGaussianKernel(radius,sx,sy,sz);
+	BuildProperGaussianKernel(sx,sy,sz);
+}
+
+void DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, double sz)
+{
+	//three sigma radius
+	int radius;
+	int rx=ceil(nSigmas*sx);
+	int ry=ceil(nSigmas*sy);
+	int rz=ceil(nSigmas*sz);
+	radius=std::max(rx,std::max(ry,rz));
+	auto dummy_func= [](int a, int b, int c)->double {return 0;};
+	kernel=Matrix3D::BuildMatrixFromFunction(radius,dummy_func);
+	auto proper_gauss=[=](int x, int y, int z)->double
+	{
+		//integral of gaussian in single bin:
+		double int_x=0.5*std::erf((x+deltax/2.)/(sx*sqrt(2)))-0.5*std::erf((x-deltax/2.)/(sx*sqrt(2)));
+		double int_y=0.5*std::erf((y+deltay/2.)/(sy*sqrt(2)))-0.5*std::erf((y-deltay/2.)/(sy*sqrt(2)));
+		double int_z=0.5*std::erf((z+deltaz/2.)/(sz*sqrt(2)))-0.5*std::erf((z-deltaz/2.)/(sz*sqrt(2)));
+		return int_x*int_y*int_z;
+	};
+
+	kernel=Matrix3D::BuildMatrixFromFunction(radius,proper_gauss);
+	kernelRadius=radius;
+	kernelSize=kernel.GetSizeX();//sizes in all dimmensions are identical
+	//cut bins outside radius
+	double s2x=(nSigmas*sx-0.5)*(nSigmas*sx-0.5);
+	double s2y=(nSigmas*sy-0.5)*(nSigmas*sy-0.5);
+	double s2z=(nSigmas*sz-0.5)*(nSigmas*sz-0.5);
+	for(int x=0;x<kernelSize;x++)
+		for(int y=0;y<kernelSize;y++)
+			for(int z=0;z<kernelSize;z++)
+				if((x-radius+1.)*(x-radius+1.)/s2x+(y-radius+1.)*(y-radius+1.)/s2y+(z-radius+1)*(z-radius+1)/s2z>1)
+					kernel(x,y,z)=0;
+	
+	kernel.Normalize();
+
+	//std::cout<<kernelRadius<<" "<<kernelSize<<" "<<sqrt(s2y)<<std::endl;
+
 }
 
 void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz)
@@ -59,9 +99,9 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 	//build kernel only if it is needed
 	if(!kernelBuiltForThisZ)
 	{
-		double Dx=D0_x+alpha_x*iz*deltaz;
-		double Dy=D0_y+alpha_y*iz*deltaz;
-		double Dz=D0_z+alpha_z*iz*deltaz;
+		double Dx=D0_x+alpha_x*(nBinsZ-iz-1)*deltaz;
+		double Dy=D0_y+alpha_y*(nBinsZ-iz-1)*deltaz;
+		double Dz=D0_z+alpha_z*(nBinsZ-iz-1)*deltaz;
 		BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		kernelBuiltForThisZ=true;
 	}
@@ -72,9 +112,9 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 			for(int z=0;z<kernelSize;z++)
 			{
 				//std::cout<<"begin (x,y,z)=("<<x<<","<<y<<","<<z<<")"<<std::endl;
-				int output_posx=x+ix-kernelRadius+1;
-				int output_posy=y+iy-kernelRadius+1;
-				int output_posz=z+iz-kernelRadius+1;
+				int output_posx=x+ix-kernelRadius+2;
+				int output_posy=y+iy-kernelRadius+2;
+				int output_posz=z+iz-kernelRadius+2;
 				//do nothing outside of the output matrix
 				// /std::cout<<input_posx<<" "<<input_posy<<" "<<input_posz<<std::endl;
 				if(output_posx<0||output_posx>=nBinsX)
@@ -120,6 +160,12 @@ void DiffusionSimulator::SimulateDiffusion(TH3F* hInput, TH3F* output)
 		kernelBuiltForThisZ=false;
 		//std::cout<<"Done z="<<z<<std::endl;
 	}
+}
+
+void DiffusionSimulator::SimulateDiffusion(SimEvent *ev)
+{	
+	SimulateDiffusion(ev->GetPrimaryHisto(), ev->GetAfterTransportHisto());
+	ev->SetDiffusion();
 }
 
 void DiffusionSimulator::ComputeSinglePlane(TH3F* output, int iz)

@@ -161,6 +161,7 @@ void GELIPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
 
    particleGun->GeneratePrimaryVertex(anEvent);
+   particleGun->GeneratePrimaryVertex(anEvent);
 
 
 }

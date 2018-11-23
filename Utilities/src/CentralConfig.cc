@@ -14,7 +14,7 @@ CentralConfig::CentralConfig()
 {
 	result = config.load_file(config_file.c_str());
 	if (!result)
-		std::cerr<<"\e[31mError opening central config file. Check if file exists!\e[0m"<<std::endl;
+		std::cerr<<"\e[31mError opening central config file. Check if file exists, and that the formatting is correct!!\e[0m"<<std::endl;
 }
 
 bool CentralConfig::Has(std::string field_name)

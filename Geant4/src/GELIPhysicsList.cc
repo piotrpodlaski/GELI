@@ -56,7 +56,7 @@
 
 GELIPhysicsList::GELIPhysicsList():  G4VUserPhysicsList()
 {
-  defaultCutValue = 200*micrometer;
+  defaultCutValue = 0*micrometer;
   cutForGamma     = defaultCutValue;
   cutForElectron  = defaultCutValue;
   cutForPositron  = defaultCutValue;
@@ -138,7 +138,7 @@ void GELIPhysicsList::ConstructEM()
     
     G4eIonisation* eIoni = new G4eIonisation();
     G4eBremsstrahlung* eBrem = new G4eBremsstrahlung();
-    eIoni->SetStepFunction(0.0001, 500*um);  
+    eIoni->SetStepFunction(0.0001, 50*um);  
 	//eBrem->SetStepFunction(0.00001, 1*um); 
     
     if (particleName == "gamma") 
@@ -178,7 +178,7 @@ void GELIPhysicsList::ConstructEM()
    {
 
     G4ionIonisation* ionIoni = new G4ionIonisation();
-    ionIoni->SetStepFunction(0.000001, 500*um);
+    ionIoni->SetStepFunction(0.000001, 50*um);
     ph->RegisterProcess(ionIoni,                 particle);
     ph->RegisterProcess(new G4NuclearStopping(), particle);      
     
@@ -188,7 +188,7 @@ void GELIPhysicsList::ConstructEM()
    
     G4ionIonisation* ionIoni = new G4ionIonisation();
     ionIoni->SetEmModel(new G4IonParametrisedLossModel());
-    ionIoni->SetStepFunction(0.1, 500*um);
+    ionIoni->SetStepFunction(0.1, 50*um);
     ph->RegisterProcess(ionIoni,                 particle);
     ph->RegisterProcess(new G4NuclearStopping(), particle);                   
     
