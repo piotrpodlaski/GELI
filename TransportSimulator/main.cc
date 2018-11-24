@@ -48,12 +48,12 @@ int main()
 		std::cout<<" done!"<<std::endl;
 		//m=Matrix3D::BuildMatrixFromTH3(ev->GetPrimaryHisto());
 		i++;
-		break;
+		//break;
 	}
 	std::cout<<i<<std::endl;
 
 
-//return 0;
+	//return 0;
 	TCanvas* c=new TCanvas("c","",1024,768);
 	TCanvas* c1=new TCanvas("c1","",1024,768);
 	c->Divide(3,2);

@@ -4,6 +4,7 @@
 
 #include "CentralConfig.hh"
 #include "Matrix3D.hh"
+#include <functional>
 
 class SimEvent;
 
@@ -40,6 +41,7 @@ private:
 	double D0_x, D0_y, D0_z; //diffusion coeficients along all directions
 	double alpha_x, alpha_y, alpha_z; //slope for diffusion coefficient
 	bool kernelBuiltForThisZ;
+	std::string kernelType;
 
 	
 };

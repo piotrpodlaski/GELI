@@ -25,6 +25,9 @@
 	<alpha_x>0.01</alpha_x>
 	<alpha_y>0.01</alpha_y>
 	<alpha_z>0.01</alpha_z>
+	<!-- Type of the kernel used for smearing, options are: ProperGaussian and BinCenterGaussian. Proper kernel takes integrals of 3D gauss in each bin, while BinCenterGaussian uses value of the distrubution in the center of the bin -->
+	<kernel_type>ProperGaussian</kernel_type>
+	<!-- <kernel_type>BinCenterGaussian</kernel_type> -->
 </diffusion>
 
 <attachment>

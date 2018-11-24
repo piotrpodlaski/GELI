@@ -17,6 +17,7 @@ DiffusionSimulator::DiffusionSimulator()
 	alpha_x=config->GetD("diffusion","alpha_x");
 	alpha_y=config->GetD("diffusion","alpha_y");
 	alpha_z=config->GetD("diffusion","alpha_z");
+	kernelType=config->Get("diffusion","kernel_type");
 }
 
 void DiffusionSimulator::BuildGaussianKernel(int radius,double sx, double sy, double sz)
@@ -102,7 +103,10 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 		double Dx=D0_x+alpha_x*(nBinsZ-iz-1)*deltaz;
 		double Dy=D0_y+alpha_y*(nBinsZ-iz-1)*deltaz;
 		double Dz=D0_z+alpha_z*(nBinsZ-iz-1)*deltaz;
-		BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
+		if(kernelType=="ProperGaussian")
+			BuildProperGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
+		else if(kernelType=="BinCenterGaussian")
+			BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		kernelBuiltForThisZ=true;
 	}
 	for(int x=0;x<kernelSize;x++)
