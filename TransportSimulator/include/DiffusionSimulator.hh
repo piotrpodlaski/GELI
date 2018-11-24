@@ -1,30 +1,32 @@
 #ifndef DIFFUSIONSIMULATOR_H
 #define DIFFUSIONSIMULATOR_H
 
-
-#include "CentralConfig.hh"
 #include "Matrix3D.hh"
 #include <functional>
+#include <map>
 
+class CentralConfig;
 class SimEvent;
 
 class DiffusionSimulator
 {
 public:
 	DiffusionSimulator();
-	void BuildGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
-	void BuildProperGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
+	Matrix3D BuildGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
+	Matrix3D BuildProperGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
 	void SimulateDiffusion(TH3F* input, TH3F* output);
 	void SimulateDiffusion(SimEvent *ev);
 private:
 	void ComputeSinglePoint(TH3F* output, int ix, int iy, int iz);
 	void ComputeSingleLine(TH3F* output, int iy, int iz);
 	void ComputeSinglePlane(TH3F* output, int iz);
-	void BuildGaussianKernel(int radius,double sigma_x, double sigma_y, double sigma_z);
+	void BuildKernels();
+	Matrix3D BuildGaussianKernel(int radius,double sigma_x, double sigma_y, double sigma_z);
 
 	CentralConfig* config;
 	Matrix3D kernel;
 	Matrix3D input;
+	std::map<int,Matrix3D> kernels;
 	int kernelRadius;
 	int kernelSize;
 	//size of input historgam:
@@ -41,6 +43,7 @@ private:
 	double D0_x, D0_y, D0_z; //diffusion coeficients along all directions
 	double alpha_x, alpha_y, alpha_z; //slope for diffusion coefficient
 	bool kernelBuiltForThisZ;
+	bool areKernelsBuilt;
 	std::string kernelType;
 
 	

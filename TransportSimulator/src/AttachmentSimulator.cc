@@ -7,11 +7,13 @@ AttachmentSimulator::AttachmentSimulator()
 	config=CentralConfig::GetInstance();
 	startValue=config->GetD("attachment","A0");
 	beta=config->GetD("attachment","beta");
+	isAttenuationBuilt=false;
 }
 
-void AttachmentSimulator::SimulateAttachment(SimEvent *ev, bool takeAfterTransportHisto)
+void AttachmentSimulator::SimulateAttachment(SimEvent *ev)
 {
 	TH3F* input;
+	bool takeAfterTransportHisto=ev->HasDiffusion();
 	if(takeAfterTransportHisto)
 		input=ev->GetAfterTransportHisto();
 	else
@@ -24,7 +26,11 @@ void AttachmentSimulator::SimulateAttachment(SimEvent *ev, bool takeAfterTranspo
 	deltax=input->GetXaxis()->GetBinWidth(1);
 	deltay=input->GetYaxis()->GetBinWidth(1);
 	deltaz=input->GetZaxis()->GetBinWidth(1);
-	BuildExpAttenuation();
+	if(!isAttenuationBuilt)
+	{
+		BuildExpAttenuation();
+		isAttenuationBuilt=true;
+	}
 	//minx=innput->GetXaxis()->GetBinLowEdge(1);
 	//miny=innput->GetYaxis()->GetBinLowEdge(1);
 	//minz=innput->GetZaxis()->GetBinLowEdge(1);

@@ -84,5 +84,6 @@ void EventReader::ReadEvent(SimEvent* evt)
 		}
 		evt->Fill(x,y,z,Edep);
 	}
+	std::cout<<"Event reading done!"<<std::endl;
 }
 

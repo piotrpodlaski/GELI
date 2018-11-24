@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Configutation File for TPC transport simulator -->
 
+<input_file_name>test.root</input_file_name>
+<output_file_name>out.root</output_file_name>
+
 <!-- Flag to switch ON/OFF diffusion simulator -->
 <simulate_diffusion>1</simulate_diffusion>
 <!-- Flag to switch ON/OFF attachment simulator -->

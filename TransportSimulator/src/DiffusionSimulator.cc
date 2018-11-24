@@ -5,6 +5,7 @@
 #include "TString.h"
 #include <iostream>
 #include "SimEvent.hh"
+#include "CentralConfig.hh"
 
 
 DiffusionSimulator::DiffusionSimulator()
@@ -18,9 +19,10 @@ DiffusionSimulator::DiffusionSimulator()
 	alpha_y=config->GetD("diffusion","alpha_y");
 	alpha_z=config->GetD("diffusion","alpha_z");
 	kernelType=config->Get("diffusion","kernel_type");
+	areKernelsBuilt=false;
 }
 
-void DiffusionSimulator::BuildGaussianKernel(int radius,double sx, double sy, double sz)
+Matrix3D DiffusionSimulator::BuildGaussianKernel(int radius,double sx, double sy, double sz)
 {
 	auto gauss=[=](int x, int y, int z)->double
 					{
@@ -40,9 +42,24 @@ void DiffusionSimulator::BuildGaussianKernel(int radius,double sx, double sy, do
 					kernel(x,y,z)=0;
 	
 	kernel.Normalize();
+	return kernel;
 }
 
-void DiffusionSimulator::BuildGaussianKernel(double sx, double sy, double sz)
+void DiffusionSimulator::BuildKernels()
+{
+	for(int iz=0;iz<nBinsZ;iz++)
+	{
+		double Dx=D0_x+alpha_x*(nBinsZ-iz-1)*deltaz;
+		double Dy=D0_y+alpha_y*(nBinsZ-iz-1)*deltaz;
+		double Dz=D0_z+alpha_z*(nBinsZ-iz-1)*deltaz;
+		if(kernelType=="ProperGaussian")
+			kernels[iz]=BuildProperGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
+		else if(kernelType=="BinCenterGaussian")
+			kernels[iz]=BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
+	}
+}
+
+Matrix3D DiffusionSimulator::BuildGaussianKernel(double sx, double sy, double sz)
 {
 	//three sigma radius
 	int radius;
@@ -52,9 +69,10 @@ void DiffusionSimulator::BuildGaussianKernel(double sx, double sy, double sz)
 	radius=std::max(rx,std::max(ry,rz));
 	//BuildGaussianKernel(radius,sx,sy,sz);
 	BuildProperGaussianKernel(sx,sy,sz);
+	return kernel;
 }
 
-void DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, double sz)
+Matrix3D DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, double sz)
 {
 	//three sigma radius
 	int radius;
@@ -87,7 +105,7 @@ void DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, double 
 					kernel(x,y,z)=0;
 	
 	kernel.Normalize();
-
+	return kernel;
 	//std::cout<<kernelRadius<<" "<<kernelSize<<" "<<sqrt(s2y)<<std::endl;
 
 }
@@ -98,6 +116,7 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 	if(value==0)
 		return;
 	//build kernel only if it is needed
+	/*
 	if(!kernelBuiltForThisZ)
 	{
 		double Dx=D0_x+alpha_x*(nBinsZ-iz-1)*deltaz;
@@ -109,6 +128,18 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 			BuildGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		kernelBuiltForThisZ=true;
 	}
+	*/
+	//build kernels only once
+	if(!areKernelsBuilt)
+	{
+		std::cout<<"Building Kernels..."<<std::flush;
+		BuildKernels();
+		std::cout<<" done"<<std::endl;
+		areKernelsBuilt=true;
+	}
+	kernel=kernels[iz];
+	kernelSize=kernel.GetSizeX();
+	kernelRadius=(kernelSize+1)/2;
 	for(int x=0;x<kernelSize;x++)
 	{
 		for(int y=0;y<kernelSize;y++)

@@ -10,7 +10,7 @@ class AttachmentSimulator
 {
 public:
 	AttachmentSimulator();
-	void SimulateAttachment(SimEvent* ev, bool takeAfterTransportHisto=true);
+	void SimulateAttachment(SimEvent* ev);
 private:
 	CentralConfig* config;
 	std::vector<double> attenuation;
@@ -21,6 +21,7 @@ private:
 	int nBinsY;
 	int nBinsZ;
 	double deltax,deltay,deltaz; //bin widths.
+	bool isAttenuationBuilt;
 
 
 };
