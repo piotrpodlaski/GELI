@@ -37,6 +37,7 @@ void AttachmentSimulator::SimulateAttachment(SimEvent *ev, bool takeAfterTranspo
 				value=value*attenuation[nBinsZ-z];//beacuse readout is on the top of the active volume
 				output->SetBinContent(bin,value);
 			}
+	ev->SetAttachment();
 }
 
 void AttachmentSimulator::BuildExpAttenuation()
