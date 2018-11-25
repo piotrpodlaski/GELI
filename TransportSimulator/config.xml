@@ -5,9 +5,9 @@
 <output_file_name>out.root</output_file_name>
 
 <!-- Flag to switch ON/OFF diffusion simulator -->
-<simulate_diffusion>1</simulate_diffusion>
+<simulate_diffusion>0</simulate_diffusion>
 <!-- Flag to switch ON/OFF attachment simulator -->
-<simulate_attachment>1</simulate_attachment>
+<simulate_attachment>0</simulate_attachment>
 
 
 <diffusion>

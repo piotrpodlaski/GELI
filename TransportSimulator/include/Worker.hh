@@ -1,6 +1,7 @@
 #ifndef WORKER_H
 #define WORKER_H
 
+#include <mutex>
 
 class EventReader;
 class CentralConfig;
@@ -14,7 +15,9 @@ class Worker
 {
 public:
 	Worker(EventReader* ev_reader);
+	~Worker();
 	void operator()();
+	void Run();
 private:
 	EventReader *reader;
 	CentralConfig *config;
@@ -24,7 +27,10 @@ private:
 	bool simulateAttachment;
 	TTree* tree;
 	TFile* out_file;
-	SimEvent *ev;
+	SimEvent *event;
+	static int nWorkers;
+	int workerID;
+	static std::mutex write_mutex;
 
 };
 

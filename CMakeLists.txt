@@ -16,7 +16,7 @@ else()
 endif()
 
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -g")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -g -O3")
 
 #----------------------------------------------------------------------------
 # Setup Geant4 include directories and compile definitions

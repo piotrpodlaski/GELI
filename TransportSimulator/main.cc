@@ -40,11 +40,11 @@ int main()
 
 		std::cout<<"Reading event "<<i<<"...";
 		ev_reader->ReadEvent(ev);
-		break;
+		//break;
 		std::cout<<" done!"<<std::endl;
 		std::cout<<"Simulating diffusion..."<<std::flush;
-		diffusion.SimulateDiffusion(ev);
-		attachment.SimulateAttachment(ev);
+		//diffusion.SimulateDiffusion(ev);
+		//attachment.SimulateAttachment(ev);
 		std::cout<<" done!"<<std::endl;
 		//m=Matrix3D::BuildMatrixFromTH3(ev->GetPrimaryHisto());
 		i++;

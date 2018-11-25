@@ -132,9 +132,7 @@ void DiffusionSimulator::ComputeSinglePoint(TH3F* output, int ix, int iy, int iz
 	//build kernels only once
 	if(!areKernelsBuilt)
 	{
-		std::cout<<"Building Kernels..."<<std::flush;
 		BuildKernels();
-		std::cout<<" done"<<std::endl;
 		areKernelsBuilt=true;
 	}
 	kernel=kernels[iz];

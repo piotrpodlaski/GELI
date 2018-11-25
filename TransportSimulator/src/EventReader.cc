@@ -1,4 +1,6 @@
 #include "EventReader.hh"
+#include <thread>
+#include <mutex>
 
 EventReader::EventReader(TString fname)
 {
@@ -64,8 +66,11 @@ bool EventReader::EndOfFile()
 		return false;
 }
 
+std::mutex event_read_mutex;
+
 void EventReader::ReadEvent(SimEvent* evt)
 {
+	std::lock_guard<std::mutex> guard(event_read_mutex);
 	if(current_entry==0)
 	{
 		edep_tree->GetEntry(0);
