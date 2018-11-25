@@ -44,7 +44,7 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 <save_custom_event_tree>0</save_custom_event_tree>
 
 <!-- Flag to switch if sumulation is done in MT mode, If not supplied single threaded mode is used. If saving of custom event tree is used this has no effect - single threaded mode is used -->
-<run_mt>0</run_mt>
+<run_mt>1</run_mt>
 
 <!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
 <number_mt_threads>0</number_mt_threads>

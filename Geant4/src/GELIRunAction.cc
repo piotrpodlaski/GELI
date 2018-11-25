@@ -9,10 +9,11 @@
 
 
 
-GELIRunAction::GELIRunAction()
+GELIRunAction::GELIRunAction(GELIAnalysisManager *ana)
 {   
   saveRndm = 1;
   GELIAnalysisManager::ConfigureOutput();
+  analysis=ana;
    
 }
 
@@ -22,8 +23,6 @@ GELIRunAction::~GELIRunAction()
 
 void GELIRunAction::BeginOfRunAction(const G4Run* aRun)
 {  
-  //Analysis must be handled by master and workers
-  GELIAnalysisManager* analysis = GELIAnalysisManager::GetInstance();
   analysis->book();
 
   if (IsMaster())    
@@ -47,8 +46,6 @@ void GELIRunAction::BeginOfRunAction(const G4Run* aRun)
 
 void GELIRunAction::EndOfRunAction(const G4Run* aRun)
 {  
-  
-  GELIAnalysisManager* analysis = GELIAnalysisManager::GetInstance();
   analysis->finish();
   if (IsMaster())    
     G4cout << "Total number of event = " << aRun->GetNumberOfEvent() << G4endl;

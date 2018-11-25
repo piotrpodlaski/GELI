@@ -24,9 +24,9 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELISteppingAction::GELISteppingAction(const 
-					     GELIDetectorConstruction* det)
+					     GELIDetectorConstruction* det, GELIAnalysisManager *ana)
 :Detector(det)
-{ }
+{ analysis=ana;}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -40,7 +40,6 @@ void GELISteppingAction::UserSteppingAction(const G4Step* aStep)
 { 
   //Collection at SSD in N-tuples. Electrons and photons separated
   //Prestep point in World, next volume MeasureVolume, process transportation
- 	GELIAnalysisManager* analysis = GELIAnalysisManager::GetInstance();	
  	G4double x, y, z, Edep; 
  	G4int event_number;
  	G4ThreeVector v1;

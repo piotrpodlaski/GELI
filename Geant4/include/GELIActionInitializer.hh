@@ -4,6 +4,7 @@
 #include "G4VUserActionInitialization.hh"
 #include "G4VSteppingVerbose.hh"
 #include "globals.hh"
+#include "GELIAnalysisManager.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -17,6 +18,8 @@ public:
   void Build() const;
   void BuildForMaster() const;
   G4VSteppingVerbose* InitializeSteppingVerbose() const;
+private:
+	GELIAnalysisManager * analysis;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -5,6 +5,7 @@
 
 #include "G4UserEventAction.hh"
 #include "globals.hh"
+#include "GELIAnalysisManager.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -12,7 +13,7 @@ class GELIEventAction : public G4UserEventAction
 {
   public:
   
-    GELIEventAction();
+    GELIEventAction(GELIAnalysisManager *ana);
    ~GELIEventAction();
 
     void BeginOfEventAction(const G4Event*);
@@ -22,6 +23,7 @@ class GELIEventAction : public G4UserEventAction
     void SetPrintModulo(G4int    val)  {printModulo = val;};
         
   private:
+    GELIAnalysisManager* analysis;
     G4String                 drawFlag;
     G4int                    printModulo;         
 };

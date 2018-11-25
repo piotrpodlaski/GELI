@@ -10,9 +10,11 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-GELIEventAction::GELIEventAction()
+GELIEventAction::GELIEventAction(GELIAnalysisManager* ana)
   :drawFlag("all"),printModulo(10000)
-{}
+{
+	analysis=ana;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -32,7 +34,6 @@ void GELIEventAction::BeginOfEventAction(const G4Event* evt)
 
 void GELIEventAction::EndOfEventAction(const G4Event* evt)
 {
-	GELIAnalysisManager *analysis= GELIAnalysisManager::GetInstance();
 	G4int event_number=evt->GetEventID();
 	for(int vtxId=0;vtxId<evt->GetNumberOfPrimaryVertex();vtxId++)
 	{

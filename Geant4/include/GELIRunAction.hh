@@ -16,7 +16,7 @@ class GELIRunAction : public G4UserRunAction
 {
 public:
   
-  GELIRunAction();
+  GELIRunAction(GELIAnalysisManager* ana);
   ~GELIRunAction();
 
   void BeginOfRunAction(const G4Run*);
@@ -28,7 +28,7 @@ public:
 
 private:
   G4int saveRndm;
-  GELIAnalysisManager *analysisManager;
+  GELIAnalysisManager *analysis;
 
 };
 

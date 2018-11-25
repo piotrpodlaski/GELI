@@ -6,6 +6,7 @@
 #include "G4VPVParameterisation.hh"
 #include "G4PVParameterised.hh"
 #include "G4Tubs.hh"
+#include "GELIAnalysisManager.hh"
 
 class GELIDetectorConstruction;
 class GELIAnalysisManager;
@@ -15,13 +16,14 @@ class GELIAnalysisManager;
 class GELISteppingAction : public G4UserSteppingAction
 {
 public:
-  GELISteppingAction(const GELIDetectorConstruction*);
+  GELISteppingAction(const GELIDetectorConstruction*, GELIAnalysisManager*);
   ~GELISteppingAction();
   
   void UserSteppingAction(const G4Step*);
   
 private:
   const GELIDetectorConstruction* Detector; 
+  GELIAnalysisManager* analysis;
   
 };
 
