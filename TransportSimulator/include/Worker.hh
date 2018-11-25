@@ -16,7 +16,6 @@ class Worker
 public:
 	Worker(EventReader* ev_reader);
 	~Worker();
-	void operator()();
 	void Run();
 private:
 	EventReader *reader;

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 
 #include "SimEvent.hh"
 #include "TFile.h"
@@ -12,12 +13,15 @@
 
 class EventReader
 {
+	typedef std::vector<double> vect;
 public:
 	EventReader(TString fname);
 	~EventReader();
 	void ReadEvent(SimEvent* event);
 	bool EndOfFile();
+	static void BuildEvent(SimEvent* event, vect *vx, vect *vy, vect *vz, vect *vEdep);
 private:
+	TString file_name;
 	TFile *input_file;
 	TTree *edep_tree;
 	TTree *primary_tree;
@@ -27,7 +31,7 @@ private:
 	int nEntriesEdep;
 	int current_entry;
 	int current_event;
-	double x,y,z,Edep;//for energy deposit tree
+	std::vector<double> *x=0,*y=0,*z=0,*Edep=0;//for energy deposit tree
 	int event;
 	void ReadPrimaries();
 	

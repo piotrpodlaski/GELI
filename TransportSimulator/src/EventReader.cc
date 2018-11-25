@@ -4,7 +4,8 @@
 
 EventReader::EventReader(TString fname)
 {
-	input_file=new TFile(fname);
+	file_name=fname;
+	input_file=new TFile(file_name);
 	input_file->GetObject("EDep",edep_tree);
 	input_file->GetObject("prim",primary_tree);
 	nEntriesPrim=primary_tree->GetEntries();
@@ -55,39 +56,40 @@ void EventReader::ReadPrimaries()
 	primaries_map[prim_event]=prim_vect;
 }
 
+std::mutex event_read_mutex;
+
 bool EventReader::EndOfFile()
 {
-	//std::cout<<"Entry: "<<current_entry<<std::endl;
+	std::lock_guard<std::mutex> guard(event_read_mutex);
+	//std::cout<<"Getting entry: "<<current_entry<<std::endl;
 	if(nEntriesEdep==0)
 		return true;
-	if(current_entry==nEntriesEdep-1)
+	if(current_entry==nEntriesEdep)
 		return true;
 	else
 		return false;
 }
 
-std::mutex event_read_mutex;
+
 
 void EventReader::ReadEvent(SimEvent* evt)
 {
-	std::lock_guard<std::mutex> guard(event_read_mutex);
-	if(current_entry==0)
-	{
-		edep_tree->GetEntry(0);
-		current_event=event;
-	}
+	std::cout<<"Reading event "<<current_entry<<" from "<<file_name<<" done!"<<std::endl;
 	evt->Clear();
-	while(true)
+	edep_tree->GetEntry(current_entry++);
+	for(int i=0;i<x->size();i++)
 	{
-		edep_tree->GetEntry(current_entry++);
-		if(current_event!=event||current_entry==nEntriesEdep)
-		{
-			evt->SetPrimaries(primaries_map[current_event]);
-			current_event=event;
-			current_entry--;
-			break;
-		}
-		evt->Fill(x,y,z,Edep);
+		evt->Fill(x->at(i),y->at(i),z->at(i),Edep->at(i));
+	}
+	
+}
+
+void EventReader::BuildEvent(SimEvent* evt, vect *vx, vect *vy, vect *vz, vect *vEdep)
+{
+	evt->Clear();
+	for(int i=0;i<vx->size();i++)
+	{
+		evt->Fill(vx->at(i),vy->at(i),vz->at(i),vEdep->at(i));
 	}
 	std::cout<<"Event reading done!"<<std::endl;
 }

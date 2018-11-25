@@ -37,28 +37,11 @@ Worker::Worker(EventReader *ev_reader)
 Worker::~Worker()
 {
 	std::lock_guard<std::mutex> guard(write_mutex);
-	out_file->cd();
-	tree->Write("t");
-	out_file->Close();
+
 	//delete tree;
 	//delete out_file;
 }
 
-void Worker::operator()()
-{
-	std::cout<<workerID<<std::endl;
-	while(!reader->EndOfFile())
-	{
-		reader->ReadEvent(event);
-		if(simulateDiffusion)
-			diffusion->SimulateDiffusion(event);
-		if(simulateAttachment)
-			attachment->SimulateAttachment(event);
-		tree->Fill();
-
-	}
-	//delete this;
-}
 
 void Worker::Run()
 {
@@ -73,5 +56,8 @@ void Worker::Run()
 		tree->Fill();
 
 	}
-	delete this;
+	out_file->cd();
+	tree->Write("t");
+	out_file->Close();
+	//delete this;
 }

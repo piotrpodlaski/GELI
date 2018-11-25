@@ -1,23 +1,18 @@
 #include "EventReader.hh"
 #include "Worker.hh"
-#include <thread>
 
 
-int main()
+int main(int argc, char** argv)
 {
-	EventReader* ev_reader=new EventReader("test.root");
-	std::vector<Worker*> workers;
-	std::vector<std::thread*> threads;
-	int nWorkers=8;
-	for(int i=0;i<nWorkers;i++)
-		workers.push_back(new Worker(ev_reader));
-	//workers[0]->Run();
-	//return 0;
-	for(auto worker_ptr: workers)
-		threads.push_back(new std::thread(&Worker::Run, worker_ptr));
+	if(argc<2)
+	{
+		std::cout<<"Usage: ./"<<argv[0]<<" <file with MC data>"<<std::endl;
+		return 1;
+	}	
+	EventReader* ev_reader=new EventReader(argv[1]);
+	Worker worker(ev_reader);
+	worker.Run();
 
-	for(auto thread : threads)
-		thread->join();
 
 }
 

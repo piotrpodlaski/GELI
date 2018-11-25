@@ -9,11 +9,13 @@
 #include "SimEvent.hh"
 #include "TFile.h"
 #include "TTree.h"
+#include <vector>
 //#include "G4AnalysisManager.hh"
 
 class GELIAnalysisManager
 {
-public:  
+public:
+	GELIAnalysisManager(); 
  	~GELIAnalysisManager();
  	//For MT mode output files have to be opened in RunAction constructor,
  	//not in AnalysisManager constructor - without it merging of the Ntuples does not work
@@ -22,7 +24,7 @@ public:
  	void finish();
  	static GELIAnalysisManager* GetInstance();
  	void Fill(G4double x, G4double y, G4double z,G4double eDep, G4int event_number);
- 	void SaveEvent();
+ 	void SaveEvent(G4int eventID);
  	void AddPrimary(G4double x, G4double y, G4double z,
  					G4double px, G4double py, G4double pz,
  					G4double energy, G4int id, G4int event_number);
@@ -30,7 +32,6 @@ private:
  	static GELIAnalysisManager* instance;
   
 private:
- 	GELIAnalysisManager();
 // 	G4AnalysisManager* analysisManager;
 	SimEvent *event;
 	TFile* file;
@@ -40,6 +41,10 @@ private:
 	bool saveCustomTree;
 	bool HasEdepLimits; //flag for presence of Edep limits
 	double xL, xU, yL, yU, zL, zU;//limits for Edep storage
+	std::vector<G4double> *vx;
+	std::vector<G4double> *vy;
+	std::vector<G4double> *vz;
+	std::vector<G4double> *vEdep;
 };
 #endif
 

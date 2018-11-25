@@ -84,12 +84,16 @@ void GELIAnalysisManager::book()
       file_name="ntuple.root";
     analysisManager->OpenFile(file_name.c_str());
     analysisManager->SetFirstNtupleId(1);
+    vx=new std::vector<G4double>;
+    vy=new std::vector<G4double>;
+    vz=new std::vector<G4double>;
+    vEdep=new std::vector<G4double>;
     //ntuple to store energy deposit
     analysisManager->CreateNtuple("EDep", "EDep");
-    analysisManager->CreateNtupleDColumn("x");
-    analysisManager->CreateNtupleDColumn("y");
-    analysisManager->CreateNtupleDColumn("z");
-    analysisManager->CreateNtupleDColumn("Edep");
+    analysisManager->CreateNtupleDColumn("x", *vx);
+    analysisManager->CreateNtupleDColumn("y", *vy);
+    analysisManager->CreateNtupleDColumn("z", *vz);
+    analysisManager->CreateNtupleDColumn("Edep", *vEdep);
     analysisManager->CreateNtupleIColumn("event");
     analysisManager->FinishNtuple();
 
@@ -143,13 +147,17 @@ void GELIAnalysisManager::Fill(G4double x,G4double y,G4double z,G4double Edep, G
 
   if(saveNtuple)
   {
-    G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
-    analysisManager->FillNtupleDColumn(1,0, x);
-    analysisManager->FillNtupleDColumn(1,1, y);
-    analysisManager->FillNtupleDColumn(1,2, z);
-    analysisManager->FillNtupleDColumn(1,3, Edep);
-    analysisManager->FillNtupleIColumn(1,4, event_number);
-    analysisManager->AddNtupleRow(1);
+    // G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
+    // analysisManager->FillNtupleDColumn(1,0, x);
+    // analysisManager->FillNtupleDColumn(1,1, y);
+    // analysisManager->FillNtupleDColumn(1,2, z);
+    // analysisManager->FillNtupleDColumn(1,3, Edep);
+    // analysisManager->FillNtupleIColumn(1,4, event_number);
+    // analysisManager->AddNtupleRow(1);
+    vx->push_back(x);
+    vy->push_back(y);
+    vz->push_back(z);
+    vEdep->push_back(Edep);
   }
 
   if(saveCustomTree)
@@ -160,6 +168,7 @@ void GELIAnalysisManager::Fill(G4double x,G4double y,G4double z,G4double Edep, G
 }
 void GELIAnalysisManager::finish() 
 {  
+  if(0);
   if(saveNtuple)
   {
     G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
@@ -176,8 +185,19 @@ void GELIAnalysisManager::finish()
 //  delete analysisManager;
 }
 
-void GELIAnalysisManager::SaveEvent()
+void GELIAnalysisManager::SaveEvent(G4int eventID)
 {
+  if(0);
+  if(saveNtuple)
+  {
+    G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
+    //analysisManager->FillNtupleIColumn(1,4, eventID);
+    analysisManager->AddNtupleRow(1);
+    vx->clear();
+    vy->clear();
+    vz->clear();
+    vEdep->clear(); 
+  }
   if(saveCustomTree)
   {
     tree->Fill();

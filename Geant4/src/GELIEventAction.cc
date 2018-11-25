@@ -54,7 +54,7 @@ void GELIEventAction::EndOfEventAction(const G4Event* evt)
 		}
 
 	}
-  	analysis->SaveEvent();
+  	analysis->SaveEvent(event_number);
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
