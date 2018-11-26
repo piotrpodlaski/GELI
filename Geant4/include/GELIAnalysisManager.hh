@@ -27,7 +27,7 @@ public:
  	void SaveEvent(G4int eventID);
  	void AddPrimary(G4double x, G4double y, G4double z,
  					G4double px, G4double py, G4double pz,
- 					G4double energy, G4int id, G4int event_number);
+ 					G4double energy, G4int id, G4int event_number, G4int A=0, G4int Z=0);
 private:  
  	static GELIAnalysisManager* instance;
   

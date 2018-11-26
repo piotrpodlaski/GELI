@@ -11,7 +11,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELIEventAction::GELIEventAction(GELIAnalysisManager* ana)
-  :drawFlag("all"),printModulo(10000)
+  :drawFlag("all"),printModulo(100)
 {
 	analysis=ana;
 }
@@ -26,7 +26,7 @@ GELIEventAction::~GELIEventAction()
 void GELIEventAction::BeginOfEventAction(const G4Event* evt)
 {  
   G4int evtNb = evt->GetEventID();
- //if (evtNb%printModulo == 0) 
+ if (evtNb%printModulo == 0) 
    G4cout << "\n---> Begin Of Event: " << evtNb << G4endl;
 }
 
@@ -42,7 +42,7 @@ void GELIEventAction::EndOfEventAction(const G4Event* evt)
 		{
 			G4PrimaryParticle* primPart =vtx->GetPrimary(primId);
 			G4double x,y,z,px,py,pz, energy;
-			G4int id;
+			G4int id, A,Z;
 			x=vtx->GetX0();
 			y=vtx->GetY0();
 			z=vtx->GetZ0();
@@ -51,7 +51,9 @@ void GELIEventAction::EndOfEventAction(const G4Event* evt)
 			pz=primPart->GetMomentum().getZ();
 			energy=primPart->GetKineticEnergy();
 			id=primPart->GetPDGcode();
-			analysis->AddPrimary(x,y,z,px,py,pz,energy,id,event_number);
+			A=primPart->GetG4code()->GetAtomicMass();
+			Z=primPart->GetG4code()->GetAtomicNumber();
+			analysis->AddPrimary(x,y,z,px,py,pz,energy,id,event_number,A,Z);
 		}
 
 	}

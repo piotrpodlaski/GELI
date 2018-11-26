@@ -59,7 +59,7 @@ void GELIAnalysisManager::ConfigureOutput()
 {
   G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
   analysisManager->SetVerboseLevel(1);
-  analysisManager->SetNtupleMerging(true);
+  analysisManager->SetNtupleMerging(false);
 }
 
 
@@ -107,6 +107,8 @@ void GELIAnalysisManager::book()
     analysisManager->CreateNtupleDColumn("pz");
     analysisManager->CreateNtupleDColumn("E");
     analysisManager->CreateNtupleIColumn("id");
+    analysisManager->CreateNtupleIColumn("A");
+    analysisManager->CreateNtupleIColumn("Z");
     analysisManager->CreateNtupleIColumn("event");
     analysisManager->FinishNtuple();
 
@@ -191,7 +193,7 @@ void GELIAnalysisManager::SaveEvent(G4int eventID)
   if(saveNtuple)
   {
     G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
-    //analysisManager->FillNtupleIColumn(1,4, eventID);
+    analysisManager->FillNtupleIColumn(1,4, eventID);
     analysisManager->AddNtupleRow(1);
     vx->clear();
     vy->clear();
@@ -207,7 +209,7 @@ void GELIAnalysisManager::SaveEvent(G4int eventID)
 
 void GELIAnalysisManager::AddPrimary(G4double x, G4double y, G4double z,
           G4double px, G4double py, G4double pz,
-          G4double energy, G4int id, G4int event_number)
+          G4double energy, G4int id, G4int event_number, G4int A, G4int Z)
 {
   if(saveCustomTree)
   {
@@ -220,6 +222,8 @@ void GELIAnalysisManager::AddPrimary(G4double x, G4double y, G4double z,
     primary.pz=pz;
     primary.E=energy;
     primary.particleID=id;
+    primary.A=A;
+    primary.Z=Z;
     event->AddPrimaryParticle(primary);
   }
 
@@ -234,7 +238,9 @@ void GELIAnalysisManager::AddPrimary(G4double x, G4double y, G4double z,
     analysisManager->FillNtupleDColumn(2,5, pz);
     analysisManager->FillNtupleDColumn(2,6, energy);
     analysisManager->FillNtupleIColumn(2,7, id);
-    analysisManager->FillNtupleIColumn(2,8, event_number);
+    analysisManager->FillNtupleIColumn(2,8, A);
+    analysisManager->FillNtupleIColumn(2,9, Z);
+    analysisManager->FillNtupleIColumn(2,10, event_number);
     analysisManager->AddNtupleRow(2);
   }
 }
