@@ -22,6 +22,8 @@
 #include <string>
 #include <time.h>
 
+#include "GeometryConfig.hh"
+
 
 
 int main(int argc,char** argv) {
@@ -126,6 +128,9 @@ G4RunManager* runManager;
   float diff ((float)t2-(float)t1);
   float seconds = diff / CLOCKS_PER_SEC;
   std::cout<<"Total simulation time"<<"\t"<<seconds<<"\n";
+
+  GeometryConfig* geoconf=GeometryConfig::GetInstance();
+  geoconf->ParseGeometry();
   return 0;
 }
 

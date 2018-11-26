@@ -174,6 +174,7 @@ private:
 
   void DefineMaterials();
   G4VPhysicalVolume* ConstructCalorimeter();     
+  G4VPhysicalVolume* ConstructPP();     
 };
 
 

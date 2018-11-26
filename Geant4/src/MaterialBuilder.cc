@@ -1,6 +1,8 @@
-#include "MaterialBuilder.h"
+#include "MaterialBuilder.hh"
 #include "G4NistManager.hh"
 #include "globals.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4PhysicalConstants.hh"
 
 MaterialBuilder* MaterialBuilder::instance=nullptr;
 
@@ -109,8 +111,30 @@ void MaterialBuilder::BuildMaterials()
 	LaboratoryVacuum->AddMaterial( Argon,    fractionmass = 0.0128 ) ;
 	materials["laboratoryvacuum"]=LaboratoryVacuum;
 
+	G4Material* SiO2 = 
+	new G4Material("quartz",density= 2.200*g/cm3, ncomponents=2);
+	SiO2->AddElement(Si, natoms=1);
+	SiO2->AddElement(O , natoms=2);
 
+	density = 1.2*g/cm3;
+	G4Material* Epoxy = new G4Material("Epoxy" , density, ncomponents=2);
+	Epoxy->AddElement(H, natoms=2);
+	Epoxy->AddElement(C, natoms=2);
 
+	density = 1.86*g/cm3;
+	G4Material* FR4 = new G4Material("FR4"  , density, ncomponents=2);
+	FR4->AddMaterial(SiO2, fractionmass=0.528);
+	FR4->AddMaterial(Epoxy, fractionmass=0.472);
+
+	materials["FR4"]=FR4;
+	G4double z,a;
+	materials["copper"]=new G4Material("Copper", z= 29., a= 63.546*g/mole, density= 8.96*g/cm3);
+
+	G4Material *Peek = new G4Material("Peek",   density = 1.31*g/cm3, 3);
+  	Peek->AddMaterial(nist_manager->FindOrBuildMaterial("G4_C"), 76*perCent);
+  	Peek->AddMaterial(nist_manager->FindOrBuildMaterial("G4_H"),  8*perCent);
+  	Peek->AddMaterial(nist_manager->FindOrBuildMaterial("G4_O"), 16*perCent);
+  	materials["peek"] = Peek ;
 
 
 	}

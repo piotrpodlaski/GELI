@@ -18,9 +18,7 @@ struct SolidDescriptor {
 public:
 	G4String name; ///< name of the solid
 	G4String filename; ///< filename for .stl model
-	std::vector<G4ThreeVector> pos; ///<vector with positions of solid's copies
-	std::vector<G4RotationMatrix*> rot; ///<vector with rotations of solid's copies
-	G4String material;
+	G4String material; ///<material name of the solid
 	G4Color color; ///<color of the solid
 };
 

@@ -86,6 +86,8 @@ void SimEvent::Clear()
 	if(hPrimaryEnergyDeposit)
 		hPrimaryEnergyDeposit->Reset();
 	primaries.clear();
+	SetDiffusion(0);
+	SetAttachment(0);
 }
 
 void SimEvent::SetPrimaries(Primaries prim)

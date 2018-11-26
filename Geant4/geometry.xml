@@ -1,21 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<solid>
-	<name>pumpkin</name>
-	<filename>pumpkin.stl</filename>
-	<position>
-		<x>0</x>
-		<y>0</y>
-		<z>0</z>
-	</position>
-	<rotation>
-		<x>0</x>
-		<y>0</y>
-		<z>0</z>
-	</rotation>
-	<material>water</material>
-	<color>
-		<r>128</r>
-		<g>128</g>
-		<b>128</b>
-	</color>
-</solid>
+
+<model_path>/home/piotrek/GELI/Geant4/GEANT_elitpc_model_20180302/STL/</model_path>
+
+<materials>
+	<aluminium>
+		<r>132</r>
+		<g>135</g>
+		<b>137</b>
+		<alpha>1</alpha>
+	</aluminium>
+	<peek>
+		<r>222</r>
+		<g>184</g>
+		<b>135</b>
+		<alpha>1</alpha>
+	</peek>
+	<kapton>
+		<r>236</r>
+		<g>206</g>
+		<b>106</b>
+		<alpha>1</alpha>
+	</kapton>
+	<copper>
+		<r>184</r>
+		<g>115</g>
+		<b>51</b>
+		<alpha>1</alpha>
+	</copper>
+	<stainless>
+		<r>132</r>
+		<g>135</g>
+		<b>137</b>
+		<alpha>0.1</alpha>
+	</stainless>
+	<FR4>
+		<r>4</r>
+		<g>179</g>
+		<b>109</b>
+		<alpha>1</alpha>
+	</FR4>
+</materials>
+
+<solids>
+	<!-- KAPTON -->
+	<gemkap material="kapton">*gem_kapton*</gemkap>
+	<window material="kapton">*ISO_KF40_window_kapton*</window>
+
+	<!-- STAINLESS STEEL -->
+	<conn material="stainless">*drift_conn*</conn>
+	<M2 material="stainless">*M2*</M2>
+	<pcb_comp material="stainless">*pcb_compression_plate*</pcb_comp>
+	<vessel_collar material="stainless">*vessel_collar*</vessel_collar>
+	<vessel_barrel_wall material="stainless">*vessel_barrel_wall*</vessel_barrel_wall>
+	<KF40_weld material="stainless">*ISO_KF40_weld_flange*</KF40_weld>
+	<vessel_endcap1 material="stainless">*vessel_endcap1*</vessel_endcap1>
+	<vessel_endcap2 material="stainless">*vessel_endcap2*</vessel_endcap2>
+	<KF40_nipple material="stainless">*ISO_KF40_full_nipple_130mm*</KF40_nipple>
+	<KF40_window_flange material="stainless">*ISO_KF40_window_flange_35mm*</KF40_window_flange>
+	<KF40_centering_ring material="stainless">*ISO_KF40_centering_ring_modified*</KF40_centering_ring>
+	<pfeifer material="stainless">*PFEIFFER_170SFK040-060*</pfeifer>
+
+	<!-- COPPER -->
+	<gem_cu1 material="copper">*gem_cu_layer1*</gem_cu1>
+	<gem_cu2 material="copper">*gem_cu_layer2*</gem_cu2>
+	<pcb_gnd_top material="copper">*pcb_gnd_top*</pcb_gnd_top>
+	<pcb_gnd_bottom material="copper">*pcb_gnd_bottom*</pcb_gnd_bottom>
+
+	<!-- ALUMINIUM: -->
+	<drift_strip1 material="aluminium">*drift_strip1*</drift_strip1>
+	<drift_strip2 material="aluminium">*drift_strip2*</drift_strip2>
+	<cathode_plate material="aluminium">*cathode_plate*</cathode_plate>
+	<KF40_clamp material="aluminium">*ISO_KF40_clamp*</KF40_clamp>
+
+	<!-- PEEK: -->
+	<gem_frame material="peek">*gem_frame*</gem_frame>
+	<drift_rod material="peek">*drift_rod*</drift_rod>
+	<drift_screw material="peek">*drift_screw*</drift_screw>
+	<drift_spacer material="peek">*drift_spacer*</drift_spacer>
+	<drift_spacer2 material="peek">*drift_spacer2*</drift_spacer2>
+	<drift_frame1 material="peek">*drift_frame1*</drift_frame1>
+	<drift_spacer2 material="peek">*drift_frame2*</drift_spacer2>
+
+	<!-- FR4: -->
+	<pcb_core material="FR4">*pcb_readout_core*</pcb_core>
+</solids>
+
+
+
+
+
+

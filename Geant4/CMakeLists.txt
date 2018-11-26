@@ -20,7 +20,7 @@ target_link_libraries(GELI SimEvent)
 # relies on these scripts being in the current working directory.
 #
 set(purging_magnet_SCRIPTS
-    MacroTesting.mac vis.mac PurgMag3D.TABLE config.xml gps.mac
+    MacroTesting.mac vis.mac PurgMag3D.TABLE config.xml gps.mac geometry.xml
   )
 
 foreach(_script ${purging_magnet_SCRIPTS})

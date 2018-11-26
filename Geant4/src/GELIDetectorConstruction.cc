@@ -45,6 +45,8 @@
 #include <glob.h>
 #include <sstream>
 
+#include "VolumeBuilder.hh"
+
 
 
 // #include <boost/progress.hpp>
@@ -100,8 +102,9 @@ GELIDetectorConstruction::~GELIDetectorConstruction()
 G4VPhysicalVolume* GELIDetectorConstruction::Construct()
 
 {
-  DefineMaterials();
-  return ConstructCalorimeter();
+  //DefineMaterials();
+  //return ConstructCalorimeter();
+  return ConstructPP();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -258,6 +261,26 @@ G4Material* CO2 = new G4Material(name="Carbonic gas", density = 0.1805*mg/cm3, n
  AluminiumMaterial=alu;
 
 }
+
+
+G4VPhysicalVolume* GELIDetectorConstruction::ConstructPP()
+{
+    G4NistManager * nist_manager = G4NistManager::Instance();
+    G4Material * air = nist_manager->FindOrBuildMaterial("G4_AIR");
+    G4Material * water = nist_manager->FindOrBuildMaterial("G4_WATER");
+
+    G4VSolid* world_solid = new G4Box("world_solid", 100*cm, 100*cm, 100*cm);
+    G4LogicalVolume* world_logical = new G4LogicalVolume(world_solid, air,"world_logical",0,0,0);
+    G4VPhysicalVolume* world_physical = new G4PVPlacement(0, G4ThreeVector(), world_logical,
+                                       "world_physical", 0, false, 0);
+    world_logical->SetVisAttributes(G4VisAttributes::Invisible);
+
+    VolumeBuilder* builder = new VolumeBuilder();
+    builder->BuildVolumes(world_logical);
+    return world_physical;
+    for(int i=0;i<100;i++)
+      std::cout<<"dupa"<<std::endl;
+  }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 G4VPhysicalVolume* GELIDetectorConstruction::ConstructCalorimeter()
