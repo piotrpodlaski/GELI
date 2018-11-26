@@ -36,6 +36,8 @@ void EventReader::ReadPrimaries()
 	primary_tree->SetBranchAddress("pz",&particle.pz);
 	primary_tree->SetBranchAddress("E",&particle.E);
 	primary_tree->SetBranchAddress("id",&particle.particleID);
+	primary_tree->SetBranchAddress("A",&particle.A);
+	primary_tree->SetBranchAddress("Z",&particle.Z);
 	primary_tree->SetBranchAddress("event",&prim_event);
 	
 	primary_tree->GetEntry(0);
@@ -56,11 +58,9 @@ void EventReader::ReadPrimaries()
 	primaries_map[prim_event]=prim_vect;
 }
 
-std::mutex event_read_mutex;
 
 bool EventReader::EndOfFile()
 {
-	std::lock_guard<std::mutex> guard(event_read_mutex);
 	//std::cout<<"Getting entry: "<<current_entry<<std::endl;
 	if(nEntriesEdep==0)
 		return true;
@@ -81,7 +81,7 @@ void EventReader::ReadEvent(SimEvent* evt)
 	{
 		evt->Fill(x->at(i),y->at(i),z->at(i),Edep->at(i));
 	}
-	
+	evt->SetPrimaries(primaries_map[event]);
 }
 
 void EventReader::BuildEvent(SimEvent* evt, vect *vx, vect *vy, vect *vz, vect *vEdep)
@@ -91,6 +91,7 @@ void EventReader::BuildEvent(SimEvent* evt, vect *vx, vect *vy, vect *vz, vect *
 	{
 		evt->Fill(vx->at(i),vy->at(i),vz->at(i),vEdep->at(i));
 	}
-	std::cout<<"Event reading done!"<<std::endl;
+
+	std::cout<<"Event building done!"<<std::endl;
 }
 

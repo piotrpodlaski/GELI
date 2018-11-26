@@ -10,26 +10,26 @@
 #include <iostream>
 #include "TString.h"
 #include <mutex>
+#include "EfficiencySimulator.hh"
 
 int Worker::nWorkers=0;
 std::mutex Worker::write_mutex;
 
-Worker::Worker(EventReader *ev_reader)
+Worker::Worker(EventReader *ev_reader, std::string fname)
 {
 	workerID=nWorkers++;
 	reader=ev_reader;
 	config=CentralConfig::GetInstance();
 	diffusion=new DiffusionSimulator();
 	attachment=new AttachmentSimulator();
+	efficiency=new EfficiencySimulator();
 	simulateDiffusion=config->GetI("simulate_diffusion");
 	simulateAttachment=config->GetI("simulate_attachment");
+	simulateEfficiency=config->GetI("simulate_efficiency");
 	event=new SimEvent();
-	std::string out_name=config->Get("output_file_name");
-	std::string thread_id_str="_";
-	thread_id_str+=std::to_string(workerID);
-	out_name.insert(out_name.find('.'),thread_id_str);
-	out_file=new TFile(out_name.c_str(),"RECREATE");
-	tree=new TTree(Form("t%d",workerID),"");
+	fname="transport_"+fname;
+	out_file=new TFile(fname.c_str(),"RECREATE");
+	tree=new TTree("t","");
 	tree->Branch("evt","SimEvent",event);
 }
 
@@ -53,11 +53,13 @@ void Worker::Run()
 			diffusion->SimulateDiffusion(event);
 		if(simulateAttachment)
 			attachment->SimulateAttachment(event);
+		if(simulateEfficiency)
+			efficiency->SimulateEfficiency(event);
 		tree->Fill();
 
 	}
 	out_file->cd();
-	tree->Write("t");
+	tree->Write();
 	out_file->Close();
 	//delete this;
 }

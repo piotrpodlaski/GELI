@@ -8,6 +8,8 @@
 #include "CentralConfig.hh"
 
 
+
+
 DiffusionSimulator::DiffusionSimulator()
 {
 	config=CentralConfig::GetInstance();
@@ -49,9 +51,9 @@ void DiffusionSimulator::BuildKernels()
 {
 	for(int iz=0;iz<nBinsZ;iz++)
 	{
-		double Dx=D0_x+alpha_x*(nBinsZ-iz-1)*deltaz;
-		double Dy=D0_y+alpha_y*(nBinsZ-iz-1)*deltaz;
-		double Dz=D0_z+alpha_z*(nBinsZ-iz-1)*deltaz;
+		double Dx=D0_x+alpha_x*iz*deltaz;
+		double Dy=D0_y+alpha_y*iz*deltaz;
+		double Dz=D0_z+alpha_z*iz*deltaz;
 		if(kernelType=="ProperGaussian")
 			kernels[iz]=BuildProperGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		else if(kernelType=="BinCenterGaussian")
@@ -80,8 +82,6 @@ Matrix3D DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, dou
 	int ry=ceil(nSigmas*sy);
 	int rz=ceil(nSigmas*sz);
 	radius=std::max(rx,std::max(ry,rz));
-	auto dummy_func= [](int a, int b, int c)->double {return 0;};
-	kernel=Matrix3D::BuildMatrixFromFunction(radius,dummy_func);
 	auto proper_gauss=[=](int x, int y, int z)->double
 	{
 		//integral of gaussian in single bin:

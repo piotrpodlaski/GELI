@@ -40,7 +40,7 @@ void AttachmentSimulator::SimulateAttachment(SimEvent *ev)
 			{
 				int bin=input->GetBin(x,y,z);
 				double value=input->GetBinContent(bin);
-				value=value*attenuation[nBinsZ-z];//beacuse readout is on the top of the active volume
+				value=value*attenuation[z];
 				output->SetBinContent(bin,value);
 			}
 	ev->SetAttachment();
@@ -51,8 +51,9 @@ void AttachmentSimulator::BuildExpAttenuation()
 	for(int i=0;i<nBinsZ;i++)
 	{
 		double value;
-		//compute attenuation, tske value in the center of the bin
+		//compute attenuation, take value in the center of the bin
 		value=startValue*exp(-beta*(i*deltaz+deltaz/2.));
 		attenuation.push_back(value);
+		//std::cout<<value<<std::endl;
 	}
 }

@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 		return 1;
 	}	
 	EventReader* ev_reader=new EventReader(argv[1]);
-	Worker worker(ev_reader);
+	Worker worker(ev_reader,argv[1]);
 	worker.Run();
 
 

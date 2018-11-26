@@ -9,7 +9,7 @@
 struct PrimaryParticle
 {
 	double x,y,z,px,py,pz,E;
-	int particleID;
+	int particleID, A, Z;
 };
 
 typedef std::vector<PrimaryParticle> Primaries;
@@ -48,8 +48,8 @@ private:
 	Primaries primaries;
 	TH3F* hPrimaryEnergyDeposit;
 	TH3F* hEnergyDepositAfterTransport;
-	bool isBackground;
-	bool hasBackground;
+//	bool isBackground;
+//	bool hasBackground;
 	bool hasDiffusion;
 	bool hasAttachment;
 
