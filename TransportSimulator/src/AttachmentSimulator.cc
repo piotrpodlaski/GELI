@@ -40,8 +40,11 @@ void AttachmentSimulator::SimulateAttachment(SimEvent *ev)
 			{
 				int bin=input->GetBin(x,y,z);
 				double value=input->GetBinContent(bin);
+				if(value==0)
+					continue;
 				value=value*attenuation[z];
 				output->SetBinContent(bin,value);
+				//std::cout<<value<<std::endl;
 			}
 	ev->SetAttachment();
 }

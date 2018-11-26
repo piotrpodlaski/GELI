@@ -18,15 +18,15 @@
 	 -->
 
 	<!-- Number of normal distribution sigmas used to calculate radius of the convolution kernel and its truncation. If different diffusion coefficients are used for different directions largest possible sigma is used. Can be non integer number. -->
-	<n_sigmas>4</n_sigmas>
+	<n_sigmas>5</n_sigmas>
 	 <!-- D0 parameters for x,y and z (in mm) -->
-	<Dx>1</Dx>
-	<Dy>1</Dy>
-	<Dz>1</Dz>
+	<Dx>0.5</Dx>
+	<Dy>0.5</Dy>
+	<Dz>0.5</Dz>
 	<!-- alpha parameters for x,y and z (dimmensionless, histogram axes are in mm)-->
-	<alpha_x>0.008</alpha_x>
-	<alpha_y>0.008</alpha_y>
-	<alpha_z>0.008</alpha_z>
+	<alpha_x>0.2</alpha_x>
+	<alpha_y>0.2</alpha_y>
+	<alpha_z>0.2</alpha_z>
 	<!-- Type of the kernel used for smearing, options are: ProperGaussian and BinCenterGaussian. Proper kernel takes integrals of 3D gauss in each bin, while BinCenterGaussian uses value of the distrubution in the center of the bin -->
 	<kernel_type>ProperGaussian</kernel_type>
 	<!-- <kernel_type>BinCenterGaussian</kernel_type> -->

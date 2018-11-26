@@ -51,9 +51,9 @@ void DiffusionSimulator::BuildKernels()
 {
 	for(int iz=0;iz<nBinsZ;iz++)
 	{
-		double Dx=D0_x+alpha_x*iz*deltaz;
-		double Dy=D0_y+alpha_y*iz*deltaz;
-		double Dz=D0_z+alpha_z*iz*deltaz;
+		double Dx=D0_x+alpha_x*sqrt(iz*deltaz);
+		double Dy=D0_y+alpha_y*sqrt(iz*deltaz);
+		double Dz=D0_z+alpha_z*sqrt(iz*deltaz);
 		if(kernelType=="ProperGaussian")
 			kernels[iz]=BuildProperGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		else if(kernelType=="BinCenterGaussian")
@@ -95,9 +95,9 @@ Matrix3D DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, dou
 	kernelRadius=radius;
 	kernelSize=kernel.GetSizeX();//sizes in all dimmensions are identical
 	//cut bins outside radius
-	double s2x=(nSigmas*sx-0.5)*(nSigmas*sx-0.5);
-	double s2y=(nSigmas*sy-0.5)*(nSigmas*sy-0.5);
-	double s2z=(nSigmas*sz-0.5)*(nSigmas*sz-0.5);
+	double s2x=(rx-0.5)*(rx-0.5);
+	double s2y=(ry-0.5)*(ry-0.5);
+	double s2z=(rz-0.5)*(rz-0.5);
 	for(int x=0;x<kernelSize;x++)
 		for(int y=0;y<kernelSize;y++)
 			for(int z=0;z<kernelSize;z++)
