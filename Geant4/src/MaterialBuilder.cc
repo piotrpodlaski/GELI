@@ -3,6 +3,7 @@
 #include "globals.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
+#include "CentralConfig.hh"
 
 MaterialBuilder* MaterialBuilder::instance=nullptr;
 
@@ -29,6 +30,8 @@ void MaterialBuilder::BuildMaterials()
 	G4double temperature, pressure;
 	//Define elements:
 	G4Element*   H  = new G4Element ("Hydrogen", "H", 1. ,  1.01*g/mole);
+	G4Element*   He  = new G4Element ("Helium", "He", 2. ,  4.0*g/mole);
+
 	G4Element*   N  = new G4Element ("Nitrogen", "N", 7., 14.01*g/mole);
 	G4Element*   O  = new G4Element ("Oxygen"  , "O", 8. , 16.00*g/mole);
 	G4Element*   Ar = new G4Element ("Argon" , "Ar", 18., 39.948*g/mole );
@@ -69,11 +72,26 @@ void MaterialBuilder::BuildMaterials()
 	StainlessSteel->AddElement(Ni, fractionmass=0.09);
 	materials["stainless"]=StainlessSteel;
 
-	G4Material* CO2 = new G4Material(name="Carbonic gas", density = 0.1805*mg/cm3, ncomponents=2,
-		kStateGas,temperature=293.*kelvin, pressure    = 0.1*bar);
+	CentralConfig* config=CentralConfig::GetInstance();
+	float p_he=config->GetD("gas_mixture","he");
+	float p_co2=config->GetD("gas_mixture","co2");
+
+	G4Material* CO2 = new G4Material(name="Carbonic gas", density = 1.805*mg/cm3, ncomponents=2,
+		kStateGas,temperature=293.*kelvin, pressure    = p_co2*bar);
 	CO2->AddElement(C, natoms=1);
 	CO2->AddElement(O, natoms=2);
 	materials["co2"]=CO2;
+
+	G4Material* He_gas = new G4Material(name="Helium gas", density = 0.1645*mg/cm3, ncomponents=1,
+		kStateGas,temperature=293.*kelvin, pressure  = p_he*bar);
+	He_gas->AddElement(He, natoms=1);
+	materials["he"]=He_gas;
+
+	G4Material* mixture = new G4Material(name="mixture", density=p_co2*1.805*mg/cm3+p_he*0.1645*mg/cm3, ncomponents=2,
+ 		kStateGas,temperature,(p_co2+p_co2)*bar);
+	mixture->AddMaterial(He_gas, fractionmass=p_he/(p_he+p_co2));
+	mixture->AddMaterial(CO2, fractionmass=p_co2/(p_he+p_co2));
+	materials["mixture"]=mixture;
 
     // Vacuum
 	density     = 1.e-5*g/cm3;
@@ -134,7 +152,7 @@ void MaterialBuilder::BuildMaterials()
   	Peek->AddMaterial(nist_manager->FindOrBuildMaterial("G4_C"), 76*perCent);
   	Peek->AddMaterial(nist_manager->FindOrBuildMaterial("G4_H"),  8*perCent);
   	Peek->AddMaterial(nist_manager->FindOrBuildMaterial("G4_O"), 16*perCent);
-  	materials["peek"] = Peek ;
+  	materials["peek"] = Peek;
 
 
 	}

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Path to geometry config file. If not supplied 'geometry.cfg' is used -->
+<!-- Path to geometry config file. -->
 <geometry_config_path>./geometry.xml</geometry_config_path>
 
-<!-- Unit of angles in geometry config file (deg/rad). If not supplied rad is used -->
-<angle_unit>deg</angle_unit>
+<!-- Gas mixture parameters -->
+<gas_mixture>
+	<!-- mixture components and their partial pressures in bars -->
+	<co2>0.1</co2>
+	<he>0.0</he>
+</gas_mixture>
 
 <!-- Name of the file in which simulation custom events will be saved, if not supplied out.root is used -->
 <output_file_name>test.root</output_file_name>
@@ -12,7 +16,7 @@
 <ntuple_file_name>ntuple.root</ntuple_file_name>
 
 
-<!-- Configuration of energy deposit histogram for custom event structure, has to be supplied, lack of it in config will cause crash of the simulation -->
+<!-- Configuration of energy deposit histogram for custom event structure -->
 <energy_deposit_histogram>
 	<nBinsX>350</nBinsX>
 	<nBinsY>200</nBinsY>

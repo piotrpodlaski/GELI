@@ -56,7 +56,7 @@ void GeometryConfig::ParseGeometry()
 		{
 			//std::cout<<glob_result.gl_pathv[i]<<std::endl;
 			SolidDescriptor s;
-			s.name=solid_name+std::to_string(instance++);
+			s.name=solid_name+"_"+std::to_string(instance++);
 			s.filename=glob_result.gl_pathv[i];
 			s.material=material_name;
 			s.color=material_colors[material_name];
