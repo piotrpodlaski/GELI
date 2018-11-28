@@ -53,4 +53,8 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 <!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
 <number_mt_threads>0</number_mt_threads>
 
+<!-- Path to file with magnetic field table -->
+<magnetic_field_map>PurgMag3D.TABLE</magnetic_field_map>
+<!-- Offset along x axis for magnetic field in mm  -->
+<magnetic_field_offset>0</magnetic_field_offset>
 

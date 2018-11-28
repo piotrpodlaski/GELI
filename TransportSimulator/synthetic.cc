@@ -65,22 +65,25 @@ int main()
 	
 	TH2F* pyx, *pzy, *pxz;
 	TH1F *px, *py, *pz;
-	c->cd(1);//->SetLogz();
+	c->cd(1)->SetRightMargin(0.12);//->SetLogz();
 	pyx=((TH2F*)h->Project3D("yx"));
+	pyx->GetYaxis()->SetTitleOffset(1.5);
 	pyx->Draw("colz");
-	c->cd(2);//->SetLogz();
+	c->cd(2)->SetRightMargin(0.12);//->SetLogz();
 	pzy=((TH2F*)h->Project3D("zy"));
+	pzy->GetYaxis()->SetTitleOffset(1.5);
 	pzy->Draw("colz");
-	c->cd(3);//->SetLogz();
+	c->cd(3)->SetRightMargin(0.12);//->SetLogz();
 	pxz=((TH2F*)h->Project3D("xz"));
+	pxz->GetYaxis()->SetTitleOffset(1.5);
 	pxz->Draw("colz");
-	c->cd(4);//->SetLogy();//->SetLogz();
+	c->cd(4)->SetRightMargin(0.12);//->SetLogy();//->SetLogz();
 	px=((TH1F*)h->ProjectionX());
 	px->Draw("hist");
-	c->cd(5);//->SetLogy();//->SetLogz();
+	c->cd(5)->SetRightMargin(0.12);//->SetLogy();//->SetLogz();
 	py=((TH1F*)h->ProjectionY());
 	py->Draw("hist");
-	c->cd(6);//->SetGridx();//->SetLogz();
+	c->cd(6)->SetRightMargin(0.12);//->SetGridx();//->SetLogz();
 	pz=((TH1F*)h->ProjectionZ());
 	pz->Draw("hist");
 	c->Print("evs.pdf");
@@ -123,24 +126,28 @@ int main()
 	attachment.SimulateAttachment(ev);
 	
 	c1->cd();
-	c->cd(1);//->SetLogz();
+	c->cd(1)->SetRightMargin(0.12);//->SetLogz();
 	pyx=((TH2F*)h->Project3D("yx"));
+	pyx->GetYaxis()->SetTitleOffset(1.5);
 	pyx->Draw("colz");
-	c->cd(2);//->SetLogz();
+	c->cd(2)->SetRightMargin(0.12);//->SetLogz();
 	pzy=((TH2F*)h->Project3D("zy"));
+	pzy->GetYaxis()->SetTitleOffset(1.5);
 	pzy->Draw("colz");
-	c->cd(3);//->SetLogz();
+	c->cd(3)->SetRightMargin(0.12);//->SetLogz();
 	pxz=((TH2F*)h->Project3D("xz"));
+	pxz->GetYaxis()->SetTitleOffset(1.5);
 	pxz->Draw("colz");
-	c->cd(4);//->SetLogy();//->SetLogz();
+	c->cd(4)->SetRightMargin(0.12);//->SetLogy();//->SetLogz();
 	px=((TH1F*)h->ProjectionX());
 	px->Draw("hist");
-	c->cd(5);//->SetLogy();//->SetLogz();
+	c->cd(5)->SetRightMargin(0.12);//->SetLogy();//->SetLogz();
 	py=((TH1F*)h->ProjectionY());
 	py->Draw("hist");
-	c->cd(6);//->SetGridx();//->SetLogz();
+	c->cd(6)->SetRightMargin(0.12);//->SetGridx();//->SetLogz();
 	pz=((TH1F*)h->ProjectionZ());
-	pz->Draw("hist");	c->Print("evs.pdf");
+	pz->Draw("hist");
+	c->Print("evs.pdf");
 
 	c->Print("evs.pdf]");
 
