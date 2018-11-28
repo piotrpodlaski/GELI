@@ -21,9 +21,9 @@ GELIActionInitializer::GELIActionInitializer() :
 
 void GELIActionInitializer::Build() const 
 {
-  const GELIDetectorConstruction* detector = 
-        static_cast<const GELIDetectorConstruction*>
-        (G4RunManager::GetRunManager()->GetUserDetectorConstruction()); 
+//  const GELIDetectorConstruction* detector = 
+//        static_cast<const GELIDetectorConstruction*>
+//        (G4RunManager::GetRunManager()->GetUserDetectorConstruction()); 
 
   SetUserAction(new GELIPrimaryGeneratorAction());
   GELIAnalysisManager * analysis = new GELIAnalysisManager();
@@ -31,7 +31,7 @@ void GELIActionInitializer::Build() const
   SetUserAction(new GELIRunAction(analysis));
   SetUserAction(new GELIEventAction(analysis));
   SetUserAction(new GELITrackingAction()); 
-  SetUserAction(new GELISteppingAction(detector,analysis));
+  SetUserAction(new GELISteppingAction(analysis));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

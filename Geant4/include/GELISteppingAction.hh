@@ -16,13 +16,12 @@ class GELIAnalysisManager;
 class GELISteppingAction : public G4UserSteppingAction
 {
 public:
-  GELISteppingAction(const GELIDetectorConstruction*, GELIAnalysisManager*);
+  GELISteppingAction(GELIAnalysisManager*);
   ~GELISteppingAction();
   
   void UserSteppingAction(const G4Step*);
   
-private:
-  const GELIDetectorConstruction* Detector; 
+private: 
   GELIAnalysisManager* analysis;
   
 };

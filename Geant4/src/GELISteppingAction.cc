@@ -2,7 +2,6 @@
 #include <fstream>
 #include "GELISteppingAction.hh"
 #include "GELIRunAction.hh"
-#include "GELIDetectorConstruction.hh"
 
 #include "G4SteppingManager.hh"
 #include "G4VTouchable.hh"
@@ -23,10 +22,10 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-GELISteppingAction::GELISteppingAction(const 
-					     GELIDetectorConstruction* det, GELIAnalysisManager *ana)
-:Detector(det)
-{ analysis=ana;}
+GELISteppingAction::GELISteppingAction(GELIAnalysisManager *ana)
+{
+	analysis=ana;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 

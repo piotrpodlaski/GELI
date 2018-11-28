@@ -72,9 +72,9 @@ GELITabulatedField3D::GELITabulatedField3D(const char* filename,
   // Read in the data
   double xval,yval,zval,bx,by,bz;
   double permeability; // Not used in this example.
-  for (ix=0; ix<nx; ix++) {
+  for (iz=0; iz<nz; iz++) {
     for (iy=0; iy<ny; iy++) {
-      for (iz=0; iz<nz; iz++) {
+      for (ix=0; ix<nx; ix++) {
         file >> xval >> yval >> zval >> bx >> by >> bz >> permeability;
         if ( ix==0 && iy==0 && iz==0 ) {
           minx = xval * lenUnit;
@@ -132,9 +132,9 @@ void GELITabulatedField3D::GetFieldValue(const double point[4],
   double z = point[2];// + fZoffset;
 
   // Check that the point is within the defined region 
-  if ( x>=minx && x<=maxx &&
-       y>=miny && y<=maxy && 
-       z>=minz && z<=maxz ) {
+  if ( x>minx && x<maxx &&
+       y>miny && y<maxy && 
+       z>minz && z<maxz ) {
     
     // Position of given point within region, normalized to the range
     // [0,1]
