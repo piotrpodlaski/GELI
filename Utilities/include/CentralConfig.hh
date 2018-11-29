@@ -4,13 +4,9 @@
 #include <iostream>
 #include "pugixml.hh"
 
-#include <G4String.hh>
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <G4ThreeVector.hh>
-#include <G4Color.hh>
-#include <G4ThreeVector.hh>
 #include <stdlib.h>
 #include <string>
 

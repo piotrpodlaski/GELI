@@ -1,8 +1,16 @@
+
+
+
 include_directories(${CMAKE_SOURCE_DIR}/Utilities/include)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hh)
+
+#Find and include Gean4 package:
+
+find_package(Geant4 REQUIRED)
+include(${Geant4_USE_FILE})
 
 
 #----------------------------------------------------------------------------
