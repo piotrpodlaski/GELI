@@ -8,12 +8,13 @@ namespace{
 }
 
 GELITabulatedField3D::GELITabulatedField3D(const char* filename, 
-						 double zOffset ) 
+						 G4double zOffset ) 
   :fZoffset(zOffset),invertX(false),invertY(false),invertZ(false)
 {    
  
-  double lenUnit= meter;
-  double fieldUnit= tesla; 
+  G4double lenUnit= meter;
+  G4double fieldUnit= tesla; 
+  std::cout<<fieldUnit;
   G4cout << "\n-----------------------------------------------------------"
 	 << "\n      Magnetic field"
 	 << "\n-----------------------------------------------------------";
@@ -123,13 +124,13 @@ GELITabulatedField3D::GELITabulatedField3D(const char* filename,
 	 << "\n-----------------------------------------------------------" << endl;
 }
 
-void GELITabulatedField3D::GetFieldValue(const double point[4],
-				      double *Bfield ) const
+void GELITabulatedField3D::GetFieldValue(const G4double point[4],
+				      G4double *Bfield ) const
 {
 
-  double x = point[0]+fZoffset;//przesuniecie pola bo os x wzdluz wiazki
-  double y = point[1];
-  double z = point[2];// + fZoffset;
+  G4double x = point[0]+fZoffset;//przesuniecie pola bo os x wzdluz wiazki
+  G4double y = point[1];
+  G4double z = point[2];// + fZoffset;
 
   // Check that the point is within the defined region 
   if ( x>minx && x<maxx &&

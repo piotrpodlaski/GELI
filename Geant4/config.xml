@@ -48,7 +48,7 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 <save_custom_event_tree>0</save_custom_event_tree>
 
 <!-- Flag to switch if sumulation is done in MT mode, If not supplied single threaded mode is used. If saving of custom event tree is used this has no effect - single threaded mode is used -->
-<run_mt>1</run_mt>
+<run_mt>0</run_mt>
 
 <!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
 <number_mt_threads>0</number_mt_threads>
@@ -56,5 +56,5 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 <!-- Path to file with magnetic field table -->
 <magnetic_field_map>PurgMag3D.TABLE</magnetic_field_map>
 <!-- Offset along x axis for magnetic field in mm  -->
-<magnetic_field_offset>0</magnetic_field_offset>
+<magnetic_field_offset>145</magnetic_field_offset>
 

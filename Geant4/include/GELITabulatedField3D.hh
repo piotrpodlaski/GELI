@@ -16,9 +16,9 @@ class GELITabulatedField3D
 {
   
   // Storage space for the table
-  vector< vector< vector< double > > > xField;
-  vector< vector< vector< double > > > yField;
-  vector< vector< vector< double > > > zField;
+  vector< vector< vector< G4double > > > xField;
+  vector< vector< vector< G4double > > > yField;
+  vector< vector< vector< G4double > > > zField;
   // The dimensions of the table
   int nx,ny,nz; 
   // The physical limits of the defined region
@@ -29,7 +29,7 @@ class GELITabulatedField3D
   bool invertX, invertY, invertZ;
 
 public:
-  GELITabulatedField3D(const char* filename, double zOffset );
+  GELITabulatedField3D(const char* filename, G4double zOffset );
   void  GetFieldValue( const  double Point[4],
 		       double *Bfield          ) const;
 };
