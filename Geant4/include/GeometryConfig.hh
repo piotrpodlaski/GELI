@@ -19,10 +19,10 @@ class GeometryConfig
 public:
 	static GeometryConfig* GetInstance();
 	std::vector<SolidDescriptor> GetSolids();
-	void ParseGeometry();
 
 private:
 	GeometryConfig();
+	void ParseGeometry();
 	static GeometryConfig* instance;
 	std::vector<SolidDescriptor> solids;
 	//void ParseGeometry();

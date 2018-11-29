@@ -10,7 +10,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELIEventAction::GELIEventAction(GELIAnalysisManager* ana)
-  :drawFlag("all"),printModulo(100)
+  :drawFlag("all"),printModulo(10000)
 {
 	analysis=ana;
 }

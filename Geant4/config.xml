@@ -43,12 +43,12 @@
 <!-- Flag to switch saving of N-tuple with energy deposits, if not supplied N-tuple is not saved.
 This simulation output is compatibile with multi-threading. -->
 <save_ntuple>1</save_ntuple>
-<!-- Flag to switch saving of ROOT tree witch custom event structure, if not supplied ROOT tree is not saved.
+<!-- Flag to switch saving of ROOT tree with custom event structure, if not supplied ROOT tree is not saved.
 This simulation output is NOT compatibile with multi-threading. If it is switched ON MT runnig will be automatically disabled. This mode turns out to be much slower, the reason is ROOT I/O - saving histograms with big number of bins to Trees/files takes a lot of time. -->
 <save_custom_event_tree>0</save_custom_event_tree>
 
 <!-- Flag to switch if sumulation is done in MT mode, If not supplied single threaded mode is used. If saving of custom event tree is used this has no effect - single threaded mode is used -->
-<run_mt>0</run_mt>
+<run_mt>1</run_mt>
 
 <!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
 <number_mt_threads>0</number_mt_threads>
@@ -56,5 +56,28 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 <!-- Path to file with magnetic field table -->
 <magnetic_field_map>PurgMag3D.TABLE</magnetic_field_map>
 <!-- Offset along x axis for magnetic field in mm  -->
-<magnetic_field_offset>145</magnetic_field_offset>
+<magnetic_field_offset>-200</magnetic_field_offset>
+
+<primary_generator>
+	<!-- Type of the promary generator, only one can be uncommented: -->
+	<!-- Custom amma beam generator written by A.Fijalkowska: -->
+	<generator_type>GammaBeam</generator_type>
+	<!-- GeneraL Particle Source from Geant4, configurable with macros: -->
+	<!-- <generator_type>GPS</generator_type> -->
+	<!-- Parameters of GammaBeam generator: -->
+	 <GammaBeam>
+	 	<!-- 
+		Energy for gamma beam, options are:
+		0 = 5.8 MeV
+		1 = 8.3 MeV
+		2 = 13 MeV
+		3 = 17 MeV 
+		 -->
+		<n_gammas_to_prepare>1000000</n_gammas_to_prepare>
+		<gamma_energy>1</gamma_energy>
+		<!-- Source position offset for x coordinae in mm: -->
+		<position_offset>-700</position_offset>
+	</GammaBeam>
+
+</primary_generator>
 

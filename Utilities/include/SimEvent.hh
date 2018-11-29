@@ -34,6 +34,8 @@ public:
 	void SetAttachment(bool att=true){hasAttachment=att;}
 	bool HasDiffusion(){ return hasDiffusion; }
 	bool HasAttachment(){ return hasAttachment; }
+	double PrimaryIntegral();
+	double AfterTransportIntegral();
 private:
 	static unsigned int nBinsX;
 	static unsigned int nBinsY;

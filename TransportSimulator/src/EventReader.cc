@@ -5,12 +5,15 @@
 EventReader::EventReader(TString fname)
 {
 	file_name=fname;
+	config=CentralConfig::GetInstance();
+	nEventsToMerge=config->GetI("n_background_events");
 	input_file=new TFile(file_name);
 	input_file->GetObject("EDep",edep_tree);
 	input_file->GetObject("prim",primary_tree);
 	nEntriesPrim=primary_tree->GetEntries();
 	nEntriesEdep=edep_tree->GetEntries();
-	ReadPrimaries();
+	if(nEventsToMerge==1)
+		ReadPrimaries();
 	current_entry=0;
 
 	edep_tree->SetBranchAddress("x",&x);
@@ -18,6 +21,7 @@ EventReader::EventReader(TString fname)
 	edep_tree->SetBranchAddress("z",&z);
 	edep_tree->SetBranchAddress("Edep",&Edep);
 	edep_tree->SetBranchAddress("event",&event);
+	
 }
 
 void EventReader::ReadPrimaries()
@@ -74,14 +78,21 @@ bool EventReader::EndOfFile()
 
 void EventReader::ReadEvent(SimEvent* evt)
 {
-	std::cout<<"Reading event "<<current_entry<<" from "<<file_name<<" done!"<<std::endl;
+	std::cout<<"Reading event "<<current_entry<<" from "<<file_name<<std::flush;
 	evt->Clear();
-	edep_tree->GetEntry(current_entry++);
-	for(int i=0;i<x->size();i++)
+	for(int event=0;event<nEventsToMerge;event++)
 	{
-		evt->Fill(x->at(i),y->at(i),z->at(i),Edep->at(i));
+		if(current_entry==nEntriesEdep)
+			break;
+		edep_tree->GetEntry(current_entry++);
+		for(int i=0;i<x->size();i++)
+		{
+			evt->Fill(x->at(i),y->at(i),z->at(i),Edep->at(i));
+		}
+		if(nEventsToMerge==1)
+			evt->SetPrimaries(primaries_map[event]);
 	}
-	evt->SetPrimaries(primaries_map[event]);
+	std::cout<<" done!"<<std::endl;
 }
 
 void EventReader::BuildEvent(SimEvent* evt, vect *vx, vect *vy, vect *vz, vect *vEdep)

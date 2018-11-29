@@ -25,12 +25,16 @@ void DrawProjs(TCanvas* c,TH3F* h)
 	pxz->Draw("colz");
 	c->cd(4)->SetRightMargin(0.12);//->SetLogy();//->SetLogz();
 	px=((TH1F*)h->ProjectionX());
+	//px->Rebin(4);
 	px->Draw("hist");
 	c->cd(5)->SetRightMargin(0.12);//->SetLogy();//->SetLogz();
 	py=((TH1F*)h->ProjectionY());
+	//py->Rebin(4);
 	py->Draw("hist");
+
 	c->cd(6)->SetRightMargin(0.12);//->SetGridx();//->SetLogz();
 	pz=((TH1F*)h->ProjectionZ());
+	//pz->Rebin(4);
 	pz->Draw("hist");
 }
 
@@ -38,7 +42,7 @@ int main()
 {
 	gStyle->SetOptStat(0);
 	gStyle->SetNumberContours(999);
-	//SimEvent::SetHistogram(200,-100,100,200,-100,100,200,-100,100);
+	SimEvent::SetHistogram(300,-150,150,150,-75,75,180,-90,90);
 	EventReader* ev_reader=new EventReader("test.root");
 	SimEvent* ev=new SimEvent();
 	int a=0;
@@ -48,6 +52,9 @@ int main()
 	int i=0;
 		TCanvas* c=new TCanvas("c","",1024,768);
 	c->Divide(3,2);
+	// c->cd(1)->SetLogz();
+	// c->cd(2)->SetLogz();
+	// c->cd(3)->SetLogz();
 
 	c->Print("evs.pdf[");
 
@@ -56,11 +63,12 @@ int main()
 
 		std::cout<<"Reading event "<<i<<"...";
 		ev_reader->ReadEvent(ev);
+		std::cout<<"Energy Deposit: "<<ev->PrimaryIntegral()<<std::endl;
 		TH3F* h=ev->GetPrimaryHisto();
 		DrawProjs(c,h);
 		c->Print("evs.pdf");
 		diffusion.SimulateDiffusion(ev);
-		attachment.SimulateAttachment(ev);
+//		attachment.SimulateAttachment(ev);
 		h=ev->GetAfterTransportHisto();
 		
 		DrawProjs(c,h);

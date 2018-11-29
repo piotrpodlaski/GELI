@@ -138,7 +138,7 @@ void GELIPhysicsList::ConstructEM()
     
     G4eIonisation* eIoni = new G4eIonisation();
     G4eBremsstrahlung* eBrem = new G4eBremsstrahlung();
-    eIoni->SetStepFunction(0.0001, 50*um);  
+    eIoni->SetStepFunction(0.0000001, 50*um);  
 	//eBrem->SetStepFunction(0.00001, 1*um); 
     
     if (particleName == "gamma") 

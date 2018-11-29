@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<model_path>/home/piotreks/GELI/Geant4/GEANT_elitpc_model_20180302/STL/</model_path>
+<model_path>/home/piotrek/GELI/Geant4/GEANT_elitpc_model_20180302/STL/</model_path>
 
 <materials>
 	<aluminium>

@@ -9,9 +9,21 @@ file(GLOB headers ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hh)
 
 #Find and include Gean4 package:
 
-find_package(Geant4 REQUIRED)
+find_package(Geant4 REQUIRED ui_all vis_all)
 include(${Geant4_USE_FILE})
 
+
+
+#include GammaBeam simulator in the project
+if(DEFINED GAMMA_PATH)
+	include_directories(${GAMMA_PATH}/include)
+	add_definitions(-DUSE_GAMMA_BEAM_GENERATOR)
+	if(DEFINED GAMMA_BIN_PATH)
+		LINK_DIRECTORIES(${GAMMA_BIN_PATH})
+	else()
+		LINK_DIRECTORIES(${GAMMA_PATH}/build)
+	endif()
+endif()
 
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
@@ -21,6 +33,9 @@ target_link_libraries(GELI ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} ${cadmesh_LIBRA
 target_link_libraries(GELI cadmesh)
 target_link_libraries(GELI utils)
 target_link_libraries(GELI SimEvent)
+if(DEFINED GAMMA_PATH)
+	target_link_libraries(GELI GammaBeam)
+endif()
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -28,7 +43,7 @@ target_link_libraries(GELI SimEvent)
 # relies on these scripts being in the current working directory.
 #
 set(purging_magnet_SCRIPTS
-    MacroTesting.mac vis.mac PurgMag3D.TABLE config.xml gps.mac geometry.xml
+    MacroTesting.mac vis.mac PurgMag3D.TABLE config.xml gps.mac geometry.xml gamma.mac
   )
 
 foreach(_script ${purging_magnet_SCRIPTS})

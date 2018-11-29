@@ -29,7 +29,18 @@ include_directories(${CADMESH_INCLUDE_DIRS})
 #   add_definitions(-DDEBUG_INTERPOLATING_FIELD)
 # endif()
 
+option(BUILD_GEANT_MODULE "Build Geant4 simulation" ON)
+option(BUILD_TRANSPORT_MODULE "Build TransportSimulator" ON)
+
+
+#utilities are build by default
 ADD_SUBDIRECTORY(Utilities)
-ADD_SUBDIRECTORY(Geant4)
-ADD_SUBDIRECTORY(TransportSimulator)
+
+if(BUILD_GEANT_MODULE)
+	ADD_SUBDIRECTORY(Geant4)
+endif()
+
+if(BUILD_TRANSPORT_MODULE)
+	ADD_SUBDIRECTORY(TransportSimulator)
+endif()
 

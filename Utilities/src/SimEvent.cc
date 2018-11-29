@@ -94,3 +94,13 @@ void SimEvent::SetPrimaries(Primaries prim)
 {
 	primaries=prim;
 }
+
+double SimEvent::PrimaryIntegral()
+{
+	return hPrimaryEnergyDeposit->Integral();
+}
+
+double SimEvent::AfterTransportIntegral()
+{
+	return hEnergyDepositAfterTransport->Integral();
+}

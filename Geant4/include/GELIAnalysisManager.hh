@@ -40,6 +40,7 @@ private:
 	bool saveNtuple;
 	bool saveCustomTree;
 	bool HasEdepLimits; //flag for presence of Edep limits
+	bool isBackground;
 	double xL, xU, yL, yU, zL, zU;//limits for Edep storage
 	std::vector<G4double> *vx;
 	std::vector<G4double> *vy;

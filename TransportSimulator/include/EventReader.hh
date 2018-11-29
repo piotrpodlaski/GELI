@@ -34,6 +34,7 @@ private:
 	std::vector<double> *x=0,*y=0,*z=0,*Edep=0;//for energy deposit tree
 	int event;
 	void ReadPrimaries();
+	int nEventsToMerge;
 	
 };
 

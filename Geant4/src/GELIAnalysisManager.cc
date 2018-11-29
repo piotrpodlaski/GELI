@@ -37,7 +37,11 @@ GELIAnalysisManager::GELIAnalysisManager()
   {
     saveCustomTree=false; 
   }
-
+  std::string generatorType=config->Get("primary_generator","generator_type");
+  if(generatorType=="GammaBeam")
+    isBackground=true;
+  else 
+    isBackground=false;
   if(config->Has("energy_deposit_limits"))
   {
     xL=config->GetD("energy_deposit_limits", "xLow");
@@ -227,7 +231,7 @@ void GELIAnalysisManager::AddPrimary(G4double x, G4double y, G4double z,
     event->AddPrimaryParticle(primary);
   }
 
-  if(saveNtuple)
+  if(saveNtuple&&!isBackground)
   {
     G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
     analysisManager->FillNtupleDColumn(2,0, x);

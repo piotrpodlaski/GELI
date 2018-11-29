@@ -18,7 +18,7 @@
 	 -->
 
 	<!-- Number of normal distribution sigmas used to calculate radius of the convolution kernel and its truncation. If different diffusion coefficients are used for different directions largest possible sigma is used. Can be non integer number. -->
-	<n_sigmas>5</n_sigmas>
+	<n_sigmas>4</n_sigmas>
 	 <!-- D0 parameters for x,y and z (in mm) -->
 	<Dx>0.5</Dx>
 	<Dy>0.5</Dy>
@@ -43,3 +43,6 @@
 	<!-- \beta coefficient, should be provided in 1/mm uit -->
 	<beta>0.01</beta>
 </attachment>
+
+<!-- Number of events to merge int single event - for background events -->
+<n_background_events>10000000</n_background_events>

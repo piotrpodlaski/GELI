@@ -128,9 +128,6 @@ G4RunManager* runManager;
   float diff ((float)t2-(float)t1);
   float seconds = diff / CLOCKS_PER_SEC;
   std::cout<<"Total simulation time"<<"\t"<<seconds<<"\n";
-
-  GeometryConfig* geoconf=GeometryConfig::GetInstance();
-  geoconf->ParseGeometry();
   return 0;
 }
 
