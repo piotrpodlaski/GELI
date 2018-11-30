@@ -44,14 +44,13 @@ G4VPhysicalVolume* GELIDetectorConstruction::Construct()
 void GELIDetectorConstruction::ConstructSDandField()
 {
 //  Magnetic Field - Purging magnet
-//
-
+  CentralConfig* config=CentralConfig::GetInstance();
+  if(config->GetI("magnetic_field","magnetic_field_ON"))
   if (magneticField.Get() == 0)
   {
-    CentralConfig* config=CentralConfig::GetInstance();
 
-    std::string mag_file_name=config->Get("magnetic_field_map");
-    double mag_offset=config->GetD("magnetic_field_offset");
+    std::string mag_file_name=config->Get("magnetic_field","magnetic_field_map");
+    double mag_offset=config->GetD("magnetic_field","magnetic_field_offset");
     G4MagneticField* GELIField= new GELITabulatedField3D(mag_file_name.c_str(), mag_offset*mm);
     magneticField.Put(GELIField);
 

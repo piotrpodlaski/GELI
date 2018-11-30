@@ -42,7 +42,7 @@ int main()
 {
 	gStyle->SetOptStat(0);
 	gStyle->SetNumberContours(999);
-	SimEvent::SetHistogram(300,-150,150,150,-75,75,180,-90,90);
+	SimEvent::SetHistogram(400,-200,200,200,-100,100,200,-100,100);
 	EventReader* ev_reader=new EventReader("test.root");
 	SimEvent* ev=new SimEvent();
 	int a=0;

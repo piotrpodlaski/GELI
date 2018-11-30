@@ -7,9 +7,6 @@
 #include <string>
 #include "CentralConfig.hh"
 
-#ifdef USE_GAMMA_BEAM_GENERATOR
-	#include "GammaSource.h"
-#endif
 
 
 class G4ParticleGun;
@@ -29,6 +26,7 @@ public:
   
 private:
 	void PrepareGammaPrimaries();
+	void PrepareGeneratorPrimaries();
 	CentralConfig* config;
 	G4ParticleGun* particleGun;
 	G4GeneralParticleSource *GPSGun;
@@ -36,11 +34,23 @@ private:
 	int gammaEnergy;
 	double sourcePositionOffset;
 	G4ParticleDefinition* gamma;
+	G4ParticleDefinition* genericIon;
 	unsigned int nGammasInEvent;
+	//variables for gamma beam:
 	std::vector<G4double> energies;
 	std::vector<G4ThreeVector> positions;
 	std::vector<G4ThreeVector> momenta;
+	//variables for event generator:
+	std::vector<G4double> theta1;
+	std::vector<G4double> theta2;
+	std::vector<G4double> phi1;
+	std::vector<G4double> phi2;
+	std::vector<G4double> energy1;
+	std::vector<G4double> energy2;
+	std::string generatorConfigName;
+	int A1, A2, Z1, Z2;
 	int nGammas;
+	int nEvents;
 };
 
 #endif

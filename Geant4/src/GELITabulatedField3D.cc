@@ -128,7 +128,7 @@ void GELITabulatedField3D::GetFieldValue(const G4double point[4],
 				      G4double *Bfield ) const
 {
 
-  G4double x = point[0]+fZoffset;//przesuniecie pola bo os x wzdluz wiazki
+  G4double x = point[0]-fZoffset;//przesuniecie pola bo os x wzdluz wiazki
   G4double y = point[1];
   G4double z = point[2];// + fZoffset;
 

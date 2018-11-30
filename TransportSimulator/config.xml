@@ -24,9 +24,9 @@
 	<Dy>0.5</Dy>
 	<Dz>0.5</Dz>
 	<!-- alpha parameters for x,y and z (dimmensionless, histogram axes are in mm)-->
-	<alpha_x>0.2</alpha_x>
-	<alpha_y>0.2</alpha_y>
-	<alpha_z>0.2</alpha_z>
+	<alpha_x>0.02</alpha_x>
+	<alpha_y>0.02</alpha_y>
+	<alpha_z>0.02</alpha_z>
 	<!-- Type of the kernel used for smearing, options are: ProperGaussian and BinCenterGaussian. Proper kernel takes integrals of 3D gauss in each bin, while BinCenterGaussian uses value of the distrubution in the center of the bin -->
 	<kernel_type>ProperGaussian</kernel_type>
 	<!-- <kernel_type>BinCenterGaussian</kernel_type> -->
@@ -45,4 +45,4 @@
 </attachment>
 
 <!-- Number of events to merge into single event. For non background runs should be 1 -->
-<n_background_events>10000000</n_background_events>
+<n_background_events>1</n_background_events>

@@ -188,7 +188,7 @@ void GELIPhysicsList::ConstructEM()
    
     G4ionIonisation* ionIoni = new G4ionIonisation();
     ionIoni->SetEmModel(new G4IonParametrisedLossModel());
-    ionIoni->SetStepFunction(0.1, 50*um);
+    ionIoni->SetStepFunction(0.000001, 50*um);
     ph->RegisterProcess(ionIoni,                 particle);
     ph->RegisterProcess(new G4NuclearStopping(), particle);                   
     

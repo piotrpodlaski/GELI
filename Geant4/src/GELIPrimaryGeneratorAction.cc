@@ -5,14 +5,24 @@
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
+#include "G4IonTable.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4Electron.hh"
 #include "G4Alpha.hh"
 #include "G4Gamma.hh"
 #include <vector>
-
+#include "G4GenericIon.hh"
 #include "G4String.hh"
 #include "G4GeneralParticleSource.hh"
+#include <cmath>
+
+
+#ifdef USE_GAMMA_BEAM_GENERATOR
+  #include "GammaSource.h"
+#endif
+#ifdef USE_EVENT_GENERATOR
+  #include "GELIEventGenerator.hh"
+#endif
 
 G4Mutex mPreparePrimaries = G4MUTEX_INITIALIZER;
 
@@ -21,12 +31,16 @@ G4Mutex mPreparePrimaries = G4MUTEX_INITIALIZER;
 GELIPrimaryGeneratorAction::GELIPrimaryGeneratorAction()
 {
   gamma=G4Gamma::GammaDefinition();
+  genericIon=G4GenericIon::GenericIonDefinition();
   config=CentralConfig::GetInstance();
   sourcePositionOffset=config->GetD("primary_generator","GammaBeam","position_offset");
   gammaEnergy=config->GetI("primary_generator","GammaBeam","gamma_energy");
   generatorType=config->Get("primary_generator", "generator_type");
   nGammas=config->GetI("primary_generator","GammaBeam","n_gammas_to_prepare");
 
+  nEvents=config->GetI("primary_generator","EventGenerator","n_events_to_prepare");
+
+  generatorConfigName=config->Get("EventGenerator","config_file");
   if(generatorType=="GPS")
   {
     GPSGun=new G4GeneralParticleSource(); 
@@ -39,6 +53,13 @@ GELIPrimaryGeneratorAction::GELIPrimaryGeneratorAction()
     PrepareGammaPrimaries();
   }
   #endif
+  #ifdef USE_EVENT_GENERATOR
+  else if(generatorType=="EventGenerator")
+  {
+    particleGun=new G4ParticleGun(1);
+    PrepareGeneratorPrimaries();
+  }
+  #endif
   else
     G4Exception("GELIPrimaryGeneratorAction::GELIGELIPrimaryGeneratorAction","ELITPC",FatalException,
       "Undefined primary generator, check config file.If GammaBeam is selected make sure that software is compiled with support for GammaBeam");
@@ -47,8 +68,8 @@ GELIPrimaryGeneratorAction::GELIPrimaryGeneratorAction()
 
 void GELIPrimaryGeneratorAction::PrepareGammaPrimaries()
 {
-  G4AutoLock l(&mPreparePrimaries);
   #ifdef USE_GAMMA_BEAM_GENERATOR
+  G4AutoLock l(&mPreparePrimaries);
   GammaSource* gammaSource = new GammaSource(gammaEnergy,sourcePositionOffset);
   positions.clear();
   momenta.clear();
@@ -67,6 +88,22 @@ void GELIPrimaryGeneratorAction::PrepareGammaPrimaries()
   #endif 
 }
 
+void GELIPrimaryGeneratorAction::PrepareGeneratorPrimaries()
+{
+  #ifdef USE_EVENT_GENERATOR
+  G4AutoLock l(&mPreparePrimaries);
+  GELIEventGenerator* eventGenerator=new GELIEventGenerator();
+  A1=eventGenerator->GetFirstProdMassNumber();
+  A2=eventGenerator->GetSecondProdMassNumber();
+  Z1=eventGenerator->GetFirstProdAtomicNumber();
+  Z2=eventGenerator->GetSecondProdAtomicNumber();
+  for(int i=0;i<nEvents;i++)
+  {
+    eventGenerator->FillVectors(theta1, theta2, phi1, phi2, energy1, energy2);
+  }
+  #endif
+
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -95,6 +132,35 @@ void GELIPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     particleGun->GeneratePrimaryVertex(anEvent);
   }
   #endif
+  #ifdef USE_EVENT_GENERATOR
+  else if(generatorType=="EventGenerator")
+  {
+    int eventId=anEvent->GetEventID();
+    eventId=eventId%nEvents;
+    double th1=theta1.at(eventId);
+    double th2=theta2.at(eventId);
+    double ph1=phi1.at(eventId);
+    double ph2=phi2.at(eventId);
+    
+    G4ThreeVector direction1(cos(th1), sin(th1)*cos(ph1),sin(th1)*sin(ph1));
+    G4ThreeVector direction2(cos(th2), sin(th2)*cos(ph2),sin(th2)*sin(ph2));
+    std::cout<<energy1.at(eventId)<<"ENERGY!!!!!!\n";
+    G4IonTable* iTable = G4IonTable::GetIonTable();
+    G4ParticleDefinition *firstProduct = iTable->GetIon(Z1, A1, 0.);
+    G4ParticleDefinition *secondProduct = iTable->GetIon(Z2, A2, 0.);
+    particleGun->SetParticleDefinition(firstProduct);
+    particleGun->SetParticleEnergy(energy1.at(eventId));
+    particleGun->SetParticlePosition(G4ThreeVector(0.,0.,0.));
+    particleGun->SetParticleMomentumDirection(direction1);
+    particleGun->GeneratePrimaryVertex(anEvent);
+    particleGun->SetParticleDefinition(secondProduct);
+    particleGun->SetParticleEnergy(energy2.at(eventId));
+    particleGun->SetParticlePosition(G4ThreeVector(0.,0.,0.));
+    particleGun->SetParticleMomentumDirection(direction2);
+    particleGun->GeneratePrimaryVertex(anEvent);
+  }
+  #endif
+
 
 
 }

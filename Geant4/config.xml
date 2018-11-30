@@ -35,8 +35,8 @@
 	<xUp>175</xUp>
 	<yLow>-100</yLow>
 	<yUp>100</yUp>
-	<zLow>-100</zLow>
-	<zUp>100</zUp>
+	<zLow>-98</zLow>
+	<zUp>98</zUp>
 </energy_deposit_limits>
 
 
@@ -48,20 +48,26 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 <save_custom_event_tree>0</save_custom_event_tree>
 
 <!-- Flag to switch if sumulation is done in MT mode, If not supplied single threaded mode is used. If saving of custom event tree is used this has no effect - single threaded mode is used -->
-<run_mt>1</run_mt>
+<run_mt>0</run_mt>
 
 <!-- Flag to select number of threads in MT mode, values <1 set number of threads to number of cores in the system -->
 <number_mt_threads>0</number_mt_threads>
 
-<!-- Path to file with magnetic field table -->
-<magnetic_field_map>PurgMag3D.TABLE</magnetic_field_map>
-<!-- Offset along x axis for magnetic field in mm  -->
-<magnetic_field_offset>-200</magnetic_field_offset>
+<magnetic_field>
+	<magnetic_field_ON>1</magnetic_field_ON>
+	<!-- Path to file with magnetic field table -->
+	<magnetic_field_map>PurgMag3D.TABLE</magnetic_field_map>
+	<!-- Offset along x axis for magnetic field in mm  -->
+	<magnetic_field_offset>200</magnetic_field_offset>
+
+</magnetic_field>
 
 <primary_generator>
 	<!-- Type of the promary generator, only one can be uncommented: -->
-	<!-- Custom amma beam generator written by A.Fijalkowska: -->
-	<generator_type>GammaBeam</generator_type>
+	<!-- Custom gamma beam generator written by A.Fijalkowska: -->
+	<!-- <generator_type>GammaBeam</generator_type> -->
+	<!-- Custom event generator written by A.Fijalkowska: -->
+	<generator_type>EventGenerator</generator_type>
 	<!-- GeneraL Particle Source from Geant4, configurable with macros: -->
 	<!-- <generator_type>GPS</generator_type> -->
 	<!-- Parameters of GammaBeam generator: -->
@@ -78,6 +84,11 @@ This simulation output is NOT compatibile with multi-threading. If it is switche
 		<!-- Source position offset for x coordinae in mm: -->
 		<position_offset>-700</position_offset>
 	</GammaBeam>
+
+	<EventGenerator>
+		<config_file>/home/piotrek/gamma/EventGenerator/Config.xml</config_file>
+		<n_events_to_prepare>10</n_events_to_prepare>
+	</EventGenerator>
 
 </primary_generator>
 
