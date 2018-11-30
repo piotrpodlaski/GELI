@@ -51,9 +51,9 @@ void DiffusionSimulator::BuildKernels()
 {
 	for(int iz=0;iz<nBinsZ;iz++)
 	{
-		double Dx=D0_x+alpha_x*sqrt(iz*deltaz);
-		double Dy=D0_y+alpha_y*sqrt(iz*deltaz);
-		double Dz=D0_z+alpha_z*sqrt(iz*deltaz);
+		double Dx=sqrt(D0_x*D0_x+alpha_x*iz*deltaz);
+		double Dy=sqrt(D0_y*D0_y+alpha_y*iz*deltaz);
+		double Dz=sqrt(D0_z*D0_z+alpha_z*iz*deltaz);
 		if(kernelType=="ProperGaussian")
 			kernels[iz]=BuildProperGaussianKernel(Dx/deltax,Dy/deltay,Dz/deltaz);
 		else if(kernelType=="BinCenterGaussian")
