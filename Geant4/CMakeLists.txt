@@ -14,15 +14,16 @@ include(${Geant4_USE_FILE})
 
 
 
+find_package(GammaBeam)
+find_package(Generator)
+
+
 #include GammaBeam simulator in the project
-if(DEFINED GAMMA_PATH)
-	include_directories(${GAMMA_PATH}/include)
+if(GammaBeam_FOUND)
 	add_definitions(-DUSE_GAMMA_BEAM_GENERATOR)
-	if(DEFINED GAMMA_BIN_PATH)
-		LINK_DIRECTORIES(${GAMMA_BIN_PATH})
-	else()
-		LINK_DIRECTORIES(${GAMMA_PATH}/build)
-	endif()
+endif()
+if(Generator_FOUND)
+	add_definitions(-DUSE_EVENT_GENERATOR)
 endif()
 
 #----------------------------------------------------------------------------
@@ -33,8 +34,11 @@ target_link_libraries(GELI ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} ${cadmesh_LIBRA
 target_link_libraries(GELI cadmesh)
 target_link_libraries(GELI utils)
 target_link_libraries(GELI SimEvent)
-if(DEFINED GAMMA_PATH)
+if(GammaBeam_FOUND)
 	target_link_libraries(GELI GammaBeam)
+endif()
+if(Generator_FOUND)
+	target_link_libraries(GELI Generator)
 endif()
 
 #----------------------------------------------------------------------------
