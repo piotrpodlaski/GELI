@@ -1,3 +1,4 @@
+#ifdef USE_EVENT_GENERATOR
 #include "GELIEventGenerator.hh"
 #include "CentralConfig.hh"
 
@@ -16,7 +17,6 @@ GELIEventGenerator::GELIEventGenerator()
 	firstProdAtomicNumber=configFile->GetFirstProdAtomicNumber();
 	secondProdMassNumber=configFile->GetSecondProdMassNumber();
 	secondProdAtomicNumber=configFile->GetSecondProdAtomicNumber();
-	std::cout<<setup->GetTargetMass()<<"CdcddcdcDCDCDCDCDCDCCDCDC\n";
 
 }
 
@@ -42,3 +42,4 @@ void GELIEventGenerator::FillVectors(vec &theta1, vec &theta2, vec &phi1, vec &p
 	std::cout<<r.thetaLABfirst<<" "<<r.thetaLABsec<<" "<<r.energyLABfirst<<" "<<r.energyLABsec<<std::endl;
 
 }
+#endif

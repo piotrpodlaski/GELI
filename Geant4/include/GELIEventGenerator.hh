@@ -1,6 +1,6 @@
 #ifndef GELIEVENTGENERATOR_H
 #define GELIEVENTGENERATOR_H
-
+#ifdef USE_EVENT_GENERATOR
 #include "ReactionResult.hpp"
 #include "SimulationSetup.hpp"
 #include "ConfigFile.hpp"
@@ -35,5 +35,5 @@ private:
     int secondProdAtomicNumber;
 
 };
-
+#endif
 #endif
