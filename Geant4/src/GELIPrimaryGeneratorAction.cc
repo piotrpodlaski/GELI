@@ -24,9 +24,24 @@
   #include "GELIEventGenerator.hh"
 #endif
 
+//storage and flag for gamma beam:
+std::vector<G4double> GELIPrimaryGeneratorAction::energies;
+std::vector<G4ThreeVector> GELIPrimaryGeneratorAction::positions;
+std::vector<G4ThreeVector> GELIPrimaryGeneratorAction::momenta;
+bool GELIPrimaryGeneratorAction::gammaPrepared=false;
+
+
+//storage and flag for event generator:
+std::vector<G4double> GELIPrimaryGeneratorAction::theta1;
+std::vector<G4double> GELIPrimaryGeneratorAction::theta2;
+std::vector<G4double> GELIPrimaryGeneratorAction::phi1;
+std::vector<G4double> GELIPrimaryGeneratorAction::phi2;
+std::vector<G4double> GELIPrimaryGeneratorAction::energy1;
+std::vector<G4double> GELIPrimaryGeneratorAction::energy2;
+bool GELIPrimaryGeneratorAction::generatorPrepared=false;
+
 G4Mutex mPreparePrimaries = G4MUTEX_INITIALIZER;
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELIPrimaryGeneratorAction::GELIPrimaryGeneratorAction()
 {
@@ -70,6 +85,8 @@ void GELIPrimaryGeneratorAction::PrepareGammaPrimaries()
 {
   #ifdef USE_GAMMA_BEAM_GENERATOR
   G4AutoLock l(&mPreparePrimaries);
+  if(gammaPrepared)
+    return;
   GammaSource* gammaSource = new GammaSource(gammaEnergy,sourcePositionOffset);
   positions.clear();
   momenta.clear();
@@ -85,6 +102,7 @@ void GELIPrimaryGeneratorAction::PrepareGammaPrimaries()
     momenta.push_back(G4ThreeVector(momentum.at(0),momentum.at(1),momentum.at(2)));
     energies.push_back(energy);
   }
+  gammaPrepared=true;
   #endif 
 }
 
@@ -92,6 +110,8 @@ void GELIPrimaryGeneratorAction::PrepareGeneratorPrimaries()
 {
   #ifdef USE_EVENT_GENERATOR
   G4AutoLock l(&mPreparePrimaries);
+  if(generatorPrepared)
+    return;
   GELIEventGenerator* eventGenerator=new GELIEventGenerator();
   A1=eventGenerator->GetFirstProdMassNumber();
   A2=eventGenerator->GetSecondProdMassNumber();
@@ -101,19 +121,18 @@ void GELIPrimaryGeneratorAction::PrepareGeneratorPrimaries()
   {
     eventGenerator->FillVectors(theta1, theta2, phi1, phi2, energy1, energy2);
   }
+  generatorPrepared=true;
   #endif
 
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELIPrimaryGeneratorAction::~GELIPrimaryGeneratorAction()
 {
   delete particleGun;
-  }
+}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
-
+ 
 void GELIPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
 

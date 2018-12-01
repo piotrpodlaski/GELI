@@ -17,7 +17,6 @@ GELIEventGenerator::GELIEventGenerator()
 	firstProdAtomicNumber=configFile->GetFirstProdAtomicNumber();
 	secondProdMassNumber=configFile->GetSecondProdMassNumber();
 	secondProdAtomicNumber=configFile->GetSecondProdAtomicNumber();
-
 }
 
 ReactionResult GELIEventGenerator::GetReactionProducts()
