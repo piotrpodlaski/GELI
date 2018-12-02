@@ -1,3 +1,8 @@
+/**
+ * @file GELIDetectorConstruction.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIDetectorConstruction class
+ */
 
 #include "GELIDetectorConstruction.hh"
 #include "G4Box.hh"

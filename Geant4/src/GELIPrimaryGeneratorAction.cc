@@ -1,3 +1,9 @@
+/**
+ * @file GELIPrimaryGeneratorAction.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIPrimaryGeneratorAction class
+ */
+
 #include "GELIPrimaryGeneratorAction.hh"
 
 #include "G4SystemOfUnits.hh"
@@ -11,7 +17,6 @@
 #include "G4Alpha.hh"
 #include "G4Gamma.hh"
 #include <vector>
-#include "G4GenericIon.hh"
 #include "G4String.hh"
 #include "G4GeneralParticleSource.hh"
 #include <cmath>
@@ -46,7 +51,6 @@ G4Mutex mPreparePrimaries = G4MUTEX_INITIALIZER;
 GELIPrimaryGeneratorAction::GELIPrimaryGeneratorAction()
 {
   gamma=G4Gamma::GammaDefinition();
-  genericIon=G4GenericIon::GenericIonDefinition();
   config=CentralConfig::GetInstance();
   sourcePositionOffset=config->GetD("primary_generator","GammaBeam","position_offset");
   gammaEnergy=config->GetI("primary_generator","GammaBeam","gamma_energy");

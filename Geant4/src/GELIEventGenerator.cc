@@ -1,3 +1,9 @@
+/**
+ * @file GELIEventGenerator.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIEventGenerator class
+ */
+
 #ifdef USE_EVENT_GENERATOR
 #include "GELIEventGenerator.hh"
 #include "CentralConfig.hh"

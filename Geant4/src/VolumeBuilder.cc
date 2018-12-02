@@ -1,3 +1,9 @@
+/**
+ * @file VolumeBuilder.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of VolumeBuilder class
+ */
+
 #include "VolumeBuilder.hh"
 #include "G4VSolid.hh"
 #include "globals.hh"

@@ -1,3 +1,9 @@
+/**
+ * @file SimEvent.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of SimEvent class and PrimaryParticle struct
+ */
+
 #include "SimEvent.hh"
 
 #include<iostream>

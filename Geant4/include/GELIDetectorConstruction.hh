@@ -1,3 +1,8 @@
+/**
+ * @file GELIDetectorConstruction.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIDetectorConstruction class
+ */
 #ifndef GELIDETECTORCONSTRUCTION_H
 #define GELIDETECTORCONSTRUCTION_H
 
@@ -43,10 +48,10 @@ class GELIDetectorConstruction : public G4VUserDetectorConstruction
     void ConstructSDandField();
 
   private:
-    G4VSolid * world_solid;
-    G4LogicalVolume* world_logical;
-    G4VPhysicalVolume* world_physical;
-    G4Cache<G4MagneticField*> magneticField;
+    G4VSolid * world_solid; ///< Pointer to solid of world volume
+    G4LogicalVolume* world_logical; ///< Pointer to world logical volume
+    G4VPhysicalVolume* world_physical; ///< Pointer to world physical volume
+    G4Cache<G4MagneticField*> magneticField; ///< Thread local magnetic field handler
 };
 
 #endif

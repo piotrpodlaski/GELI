@@ -1,3 +1,10 @@
+/**
+ * @file EventReader.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of EventReader class
+ */
+
+
 #include "EventReader.hh"
 #include <thread>
 #include <mutex>

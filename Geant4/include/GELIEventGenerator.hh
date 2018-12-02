@@ -1,3 +1,9 @@
+/**
+ * @file GELIEventGenerator.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIEventGenerator class
+ */
+
 #ifndef GELIEVENTGENERATOR_H
 #define GELIEVENTGENERATOR_H
 #ifdef USE_EVENT_GENERATOR
@@ -63,17 +69,17 @@ private:
 	 */
 	ReactionResult GetReactionProducts();
 	
-	SimulationSetup* setup;
-	ConfigFile* configFile;
-    SimulationSetupFactory* simulationSetupFactory;
-    Photodisintegration *photodisintegration;
-    double targetMass;
-    double firstProdMassMass;
-    double secProdMassMass;
-    int firstProdMassNumber;
-    int firstProdAtomicNumber;
-    int secondProdMassNumber;
-    int secondProdAtomicNumber;
+	SimulationSetup* setup; ///< Pointer to EventGeneraor's SimulationSetup
+	ConfigFile* configFile; ///< Pointer to EventGeneraor's ConfigFile
+    SimulationSetupFactory* simulationSetupFactory; ///< Pointer to EventGeneraor's SimulationSetupFactory
+    Photodisintegration *photodisintegration; ///< Pointer to EventGeneraor's Photodisintegration
+    double targetMass; ///< Mass of the target nucleus 
+    double firstProdMassMass; ///< Mass of the first reaction product
+    double secProdMassMass; ///< Mass of the second reaction product
+    int firstProdMassNumber; ///< Mass number of the first reaction product
+    int firstProdAtomicNumber; ///< Atimic number of the first reaction product
+    int secondProdMassNumber; ///< Mass number of the second reaction product
+    int secondProdAtomicNumber; ///< Atomic number of the second reaction product
 
 };
 #endif

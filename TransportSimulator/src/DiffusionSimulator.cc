@@ -1,3 +1,9 @@
+/**
+ * @file DiffusionSimulator.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of DiffusionSimulator class
+ */
+
 #include "DiffusionSimulator.hh"
 #include <cmath>
 #include <functional>
@@ -185,12 +191,10 @@ void DiffusionSimulator::SimulateDiffusion(TH3F* hInput, TH3F* output)
 	//clear output histo, just in case:
 	output->Clear();	
 
-	kernelBuiltForThisZ=false;
 	for(int z=0;z<nBinsZ;z++)
 	{
 		//std::cout<<"Begining z="<<z<<std::endl;
 		ComputeSinglePlane(output, z);
-		kernelBuiltForThisZ=false;
 		//std::cout<<"Done z="<<z<<std::endl;
 	}
 }

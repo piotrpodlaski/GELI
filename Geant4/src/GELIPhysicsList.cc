@@ -1,3 +1,9 @@
+/**
+ * @file GELIPhysicsList.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIPhysicsList class
+ */
+
 #include "G4BuilderType.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4ProcessManager.hh"

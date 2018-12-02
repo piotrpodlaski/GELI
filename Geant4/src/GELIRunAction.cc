@@ -1,3 +1,9 @@
+/**
+ * @file GELIRunAction.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIRunAction class
+ */
+
 #include "GELIRunAction.hh"
 
 #include "G4Run.hh"

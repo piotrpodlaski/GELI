@@ -1,3 +1,9 @@
+/**
+ * @file GELISteppingVerbose.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELISteppingVerbose class
+ */
+
 #include "GELISteppingVerbose.hh"
 #include "G4SteppingManager.hh"
 

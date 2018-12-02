@@ -1,3 +1,9 @@
+/**
+ * @file GELISteppingAction.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELISteppingAction class
+ */
+
 #include <iostream>
 #include <fstream>
 #include "GELISteppingAction.hh"

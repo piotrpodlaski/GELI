@@ -1,4 +1,8 @@
-
+/**
+ * @file GELIEventAction.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIEventAction class
+ */
 
 #ifndef GELIEventAction_h
 #define GELIEventAction_h 1
@@ -46,8 +50,8 @@ class GELIEventAction : public G4UserEventAction
     void SetPrintModulo(G4int    val)  {printModulo = val;};
         
   private:
-    GELIAnalysisManager* analysis;
-    G4int                    printModulo;         
+    GELIAnalysisManager* analysis; ///< Pointer to GELIAnalysisManager object that handles file output
+    G4int printModulo; ///< Modulo printing value for event number
 };
 
 #endif

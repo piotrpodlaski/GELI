@@ -1,3 +1,9 @@
+/**
+ * @file GELISteppingVerbose.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELISteppingVerbose class
+ */
+
 #ifndef GELISteppingVerbose_h
 #define GELISteppingVerbose_h 1
 

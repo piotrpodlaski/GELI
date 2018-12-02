@@ -1,3 +1,8 @@
+/**
+ * @file GELITabulatedField3D.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELITabulatedField3D class
+ */
 
 #include "GELITabulatedField3D.hh"
 #include "G4SystemOfUnits.hh"
@@ -8,8 +13,8 @@ namespace{
 }
 
 GELITabulatedField3D::GELITabulatedField3D(const char* filename, 
-						 G4double zOffset ) 
-  :fZoffset(zOffset),invertX(false),invertY(false),invertZ(false)
+						 G4double xOffset ) 
+  :fXoffset(xOffset),invertX(false),invertY(false),invertZ(false)
 {    
  
   G4double lenUnit= meter;
@@ -104,7 +109,7 @@ GELITabulatedField3D::GELITabulatedField3D(const char* filename,
 	 << minx/cm << " " << miny/cm << " " << minz/cm << " cm "
 	 << "\n ---> Max values x,y,z: " 
 	 << maxx/cm << " " << maxy/cm << " " << maxz/cm << " cm "
-	 << "\n ---> The field will be offset by " << zOffset/cm << " cm " << endl;
+	 << "\n ---> The field will be offset by " << xOffset/cm << " cm " << endl;
 
   // Should really check that the limits are not the wrong way around.
   if (maxx < minx) {swap(maxx,minx); invertX = true;} 
@@ -128,7 +133,7 @@ void GELITabulatedField3D::GetFieldValue(const G4double point[4],
 				      G4double *Bfield ) const
 {
 
-  G4double x = point[0]-fZoffset;//przesuniecie pola bo os x wzdluz wiazki
+  G4double x = point[0]-fXoffset;//przesuniecie pola bo os x wzdluz wiazki
   G4double y = point[1];
   G4double z = point[2];// + fZoffset;
 

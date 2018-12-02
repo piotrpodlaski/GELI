@@ -1,6 +1,10 @@
-#include <GeometryConfig.hh>
+/**
+ * @file GeometryConfig.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GeometryConfig class
+ */
 
-//#include "globals.hh"
+#include <GeometryConfig.hh>
 #include "G4SystemOfUnits.hh"
 #include "globals.hh"
 #include <stdio.h>

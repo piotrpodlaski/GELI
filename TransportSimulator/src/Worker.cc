@@ -1,3 +1,9 @@
+/**
+ * @file Worker.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of Worker class
+ */
+
 #include "Worker.hh"
 #include "EventReader.hh"
 #include "CentralConfig.hh"
@@ -9,23 +15,19 @@
 #include <functional>
 #include <iostream>
 #include "TString.h"
-#include <mutex>
-#include "EfficiencySimulator.hh"
+#include "GainSimulator.hh"
 
-int Worker::nWorkers=0;
-std::mutex Worker::write_mutex;
 
 Worker::Worker(EventReader *ev_reader, std::string fname)
 {
-	workerID=nWorkers++;
 	reader=ev_reader;
 	config=CentralConfig::GetInstance();
 	diffusion=new DiffusionSimulator();
 	attachment=new AttachmentSimulator();
-	efficiency=new EfficiencySimulator();
+	gain=new GainSimulator();
 	simulateDiffusion=config->GetI("simulate_diffusion");
 	simulateAttachment=config->GetI("simulate_attachment");
-	simulateEfficiency=config->GetI("simulate_efficiency");
+	simulateGain=config->GetI("simulate_gain");
 	event=new SimEvent();
 	fname="transport_"+fname;
 	out_file=new TFile(fname.c_str(),"RECREATE");
@@ -36,7 +38,7 @@ Worker::Worker(EventReader *ev_reader, std::string fname)
 
 Worker::~Worker()
 {
-	std::lock_guard<std::mutex> guard(write_mutex);
+
 
 	//delete tree;
 	//delete out_file;
@@ -45,7 +47,6 @@ Worker::~Worker()
 
 void Worker::Run()
 {
-	std::cout<<workerID<<std::endl;
 	while(!reader->EndOfFile())
 	{
 		reader->ReadEvent(event);
@@ -53,8 +54,8 @@ void Worker::Run()
 			diffusion->SimulateDiffusion(event);
 		if(simulateAttachment)
 			attachment->SimulateAttachment(event);
-		if(simulateEfficiency)
-			efficiency->SimulateEfficiency(event);
+		if(simulateGain)
+			gain->SimulateGain(event);
 		tree->Fill();
 
 	}

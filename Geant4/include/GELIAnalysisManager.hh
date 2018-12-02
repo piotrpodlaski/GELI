@@ -1,3 +1,9 @@
+/**
+ * @file GELIAnalysisManager.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIAnalysisManager class
+ */
+
 #ifndef GELIANALYSISMANAGER_H
 #define GELIANALYSISMANAGER_H
 
@@ -79,19 +85,24 @@ public:
 
   
 private:
-	SimEvent *event;
-	TFile* file;
-	TTree* tree;
-	CentralConfig *config;
-	bool saveNtuple;
-	bool saveCustomTree;
-	bool HasEdepLimits; //flag for presence of Edep limits
-	bool isBackground;
-	double xL, xU, yL, yU, zL, zU;//limits for Edep storage
-	std::vector<G4double> *vx;
-	std::vector<G4double> *vy;
-	std::vector<G4double> *vz;
-	std::vector<G4double> *vEdep;
+	SimEvent *event;///<Pointer to SimEvent object
+	TFile* file;///< Output file for SimEvent storage
+	TTree* tree;///<TTree for SimEvent storage
+	CentralConfig *config; ///< CentralConfig pointer
+	bool saveNtuple; ///< Flag for Ntuple storage
+	bool saveCustomTree; ///< Flag for SimEvent storage
+	bool HasEdepLimits; ///< Flag for presence of Edep limits
+	bool isBackground; ///< Flag to tel if event is a backgroun event
+	double xL; ///< X low limit for energy deposit storage
+	double xU; ///< X up limit for energy deposit storage
+	double yL; ///< Y low limit for energy deposit storage
+	double yU; ///< Y up limit for energy deposit storage
+	double zL; ///< Z low limit for energy deposit storage
+	double zU; ///< Z up limit for energy deposit storage
+	std::vector<G4double> *vx; ///< Storage for x coordinate of energy deposit in single event
+	std::vector<G4double> *vy; ///< Storage for y coordinate of energy deposit in single event
+	std::vector<G4double> *vz; ///< Storage for z coordinate of energy deposit in single event
+	std::vector<G4double> *vEdep; ///< Storage for value of energy deposit in single event
 };
 #endif
 

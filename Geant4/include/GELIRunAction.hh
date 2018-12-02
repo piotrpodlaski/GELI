@@ -1,4 +1,8 @@
-
+/**
+ * @file GELIRunAction.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIRunAction class
+ */
 
 #ifndef GELIRunAction_h
 #define GELIRunAction_h 1
@@ -51,8 +55,8 @@ public:
 
 
 private:
-  G4int saveRndm;
-  GELIAnalysisManager *analysis;
+  G4int saveRndm; ///< Flag for saving random engine parameters at the end of the run
+  GELIAnalysisManager *analysis; ///< Pointer to GELIAnalysisManager handling file storage
 
 };
 

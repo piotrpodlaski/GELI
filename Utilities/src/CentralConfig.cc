@@ -1,3 +1,9 @@
+/**
+ * @file CentralConfig.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of CentralConfig class
+ */
+
 #include <CentralConfig.hh>
 
 

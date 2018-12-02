@@ -1,3 +1,9 @@
+/**
+ * @file GELIActionInitializer.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIActionInitializer class
+ */
+
 #ifndef GELIACTIONINITIALIZER_H
 #define GELIACTIONINITIALIZER_H
 
@@ -7,7 +13,9 @@
 
 
 /**
- * @brief      Action initializer foe Geant4 simulation
+ * @class      GELIActionInitializer
+ *
+ * @brief      Action initializer for Geant4 simulation
  */
 class GELIActionInitializer : public G4VUserActionInitialization
 {

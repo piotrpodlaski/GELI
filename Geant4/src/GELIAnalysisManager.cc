@@ -1,3 +1,9 @@
+/**
+ * @file GELIAnalysisManager.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIAnalysisManager class
+ */
+
 #include "GELIAnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
 

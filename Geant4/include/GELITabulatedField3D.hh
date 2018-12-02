@@ -1,3 +1,8 @@
+/**
+ * @file GELITabulatedField3D.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELITabulatedField3D class
+ */
 
 #include "globals.hh"
 #include "G4MagneticField.hh"
@@ -16,19 +21,28 @@ using namespace std;
  */
 class GELITabulatedField3D : public G4MagneticField
 {
-  
-  // Storage space for the table
-  vector< vector< vector< G4double > > > xField;
-  vector< vector< vector< G4double > > > yField;
-  vector< vector< vector< G4double > > > zField;
+  vector< vector< vector< G4double > > > xField; ///< Storage for x coordinate od magnetic field
+  vector< vector< vector< G4double > > > yField; ///< Storage for y coordinate od magnetic field
+  vector< vector< vector< G4double > > > zField; ///< Storage for z coordinate od magnetic field
   // The dimensions of the table
-  int nx,ny,nz; 
+  int nx; ///<Number of bins in x
+  int ny; ///<Number of bins in y
+  int nz; ///<Number of bins in z
   // The physical limits of the defined region
-  double minx, maxx, miny, maxy, minz, maxz;
+  double minx; ///< Low limit for x coordinate
+  double maxx; ///< Up limit for x coordinate
+  double miny; ///< Low limit for y coordinate
+  double maxy; ///< Up limit for y coordinate
+  double minz; ///< Low limit for z coordinate
+  double maxz; ///< Up limit for z coordinate
   // The physical extent of the defined region
-  double dx, dy, dz;
-  double fZoffset;
-  bool invertX, invertY, invertZ;
+  double dx; ///< Width of the bin in x coordinate
+  double dy; ///< Width of the bin in y coordinate
+  double dz; ///< Width of the bin in z coordinate
+  double fXoffset; ///< Offset of the magnetic field in x coordinate
+  bool invertX; ///< Flag to tell if x coordinate should be inverted
+  bool invertY; ///< Flag to tell if y coordinate should be inverted
+  bool invertZ; ///< Flag to tell if z coordinate should be inverted
 
 public:
 

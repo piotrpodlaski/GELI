@@ -1,7 +1,7 @@
 /**
- * @struct SolidDescriptor
- * @brief      Structure to hold information about solids inside detector
- *             geometry.
+ * @file SolidDescriptor.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of SolidDescriptor struct
  */
 #ifndef SOLIDDESCRIPTOR_H
 #define SOLIDDESCRIPTOR_H
@@ -13,7 +13,11 @@
 #include <G4Types.hh>
 #include <vector>
 #include <iostream>
-
+/**
+ * @struct SolidDescriptor
+ * @brief      Structure to hold information about solids inside detector
+ *             geometry.
+ */
 struct SolidDescriptor {
 public:
 	G4String name; ///< name of the solid

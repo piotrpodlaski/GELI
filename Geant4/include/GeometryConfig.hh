@@ -1,3 +1,9 @@
+/**
+ * @file GeometryConfig.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GeometryConfig class
+ */
+
 #ifndef GEOMETRYCONFIG_H
 #define GEOMETRYCONFIG_H
 
@@ -43,15 +49,15 @@ private:
 	 * @brief      Parses geometry config file
 	 */
 	void ParseGeometry();
-	static GeometryConfig* instance;
-	std::vector<SolidDescriptor> solids;
+	static GeometryConfig* instance; ///< Pointer to uniqe instance of GeometryConfig class
+	std::vector<SolidDescriptor> solids; ///< Vector with solids
 	//void ParseGeometry();
-	std::string config_name="geometry.xml";
-	CentralConfig* central_config;
-	pugi::xml_document config;
-	pugi::xml_parse_result result;
-	std::map<std::string, G4Color> material_colors;
-	std::string path_to_stl;
+	std::string config_name="geometry.xml"; ///< Name of geometry config file
+	CentralConfig* central_config; ///< Pointer to CentralConfig object
+	pugi::xml_document config; ///< XML parser node for top level document
+	pugi::xml_parse_result result; ///< Result of XML parser
+	std::map<std::string, G4Color> material_colors; ///< Map with material colors 
+	std::string path_to_stl; ///< Parth to directory with 3D model STL files
 	
 };
 

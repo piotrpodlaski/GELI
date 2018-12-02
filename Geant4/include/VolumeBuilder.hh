@@ -1,3 +1,9 @@
+/**
+ * @file VolumeBuilder.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of VolumeBuilder class
+ */
+
 #ifndef VOLUMEBUILDER_H
 #define VOLUMEBUILDER_H
 
@@ -52,10 +58,10 @@ private:
 	 */
 	G4LogicalVolume* BuildLogical(SolidDescriptor solid);
 
-	std::map<G4String,G4VSolid*> solids;
-	std::map<G4String,G4LogicalVolume*> logical_volumes;
-	std::map<G4String,G4VPhysicalVolume*> physical_volumes;
-	std::map<G4String,G4VisAttributes*> vis_attributes;
+	std::map<G4String,G4VSolid*> solids; ///< Map to hold pointers to created solids
+	std::map<G4String,G4LogicalVolume*> logical_volumes;///< Map to hold created logical volumes
+	std::map<G4String,G4VPhysicalVolume*> physical_volumes; ///< Map to hold created physical volumes
+	std::map<G4String,G4VisAttributes*> vis_attributes; ///< Map to hold created visualization attributes
 	/**
 	 * Pointer to instance of MaterialBuilder class
 	 */

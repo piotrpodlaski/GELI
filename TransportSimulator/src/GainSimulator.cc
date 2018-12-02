@@ -1,38 +1,44 @@
-#include "EfficiencySimulator.hh"
+/**
+ * @file GainSimulator.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GainSimulator class
+ */
+
+#include "GainSimulator.hh"
 #include "TH2F.h"
 #include "TH3F.h"
 #include "SimEvent.hh"
 
-EfficiencySimulator::EfficiencySimulator()
+GainSimulator::GainSimulator()
 {
 	config=CentralConfig::GetInstance();
-	hasEfficiency=false;
+	hasGain=false;
 
 }
 
-EfficiencySimulator::EfficiencySimulator(TH2F* efficiencyHisto)
+GainSimulator::GainSimulator(TH2F* gainHisto)
 {
 	config=CentralConfig::GetInstance();
-	hasEfficiency=true;
-	nBinsX=efficiencyHisto->GetNbinsX();
-	nBinsY=efficiencyHisto->GetNbinsY();
-	nBinsZ=efficiencyHisto->GetNbinsZ();
+	hasGain=true;
+	nBinsX=gainHisto->GetNbinsX();
+	nBinsY=gainHisto->GetNbinsY();
+	nBinsZ=gainHisto->GetNbinsZ();
 
-	BuildEfficiency(efficiencyHisto);
+	BuildGain(gainHisto);
 }
 
-void EfficiencySimulator::BuildEfficiency(TH2F* eff)
+void GainSimulator::BuildGain(TH2F* eff)
 {
 	for(int x=1;x<=nBinsX;x++)
 		for(int y=1;y<=nBinsX;y++)
-			efficiency[std::make_pair(x,y)]=eff->GetBinContent(eff->GetBin(x,y));
+			gain[std::make_pair(x,y)]=eff->GetBinContent(eff->GetBin(x,y));
 }
 
-void EfficiencySimulator::SimulateEfficiency(SimEvent* ev)
+void GainSimulator::SimulateGain(SimEvent* ev)
 {
-	if(!hasEfficiency)
+	if(!hasGain)
 	{
-		std::cerr<<"No Efficiency map histogram! Doing nothing!"<<std::endl;
+		std::cerr<<"No Gain map histogram! Doing nothing!"<<std::endl;
 		return;
 	}
 	TH3F* input;
@@ -43,10 +49,10 @@ void EfficiencySimulator::SimulateEfficiency(SimEvent* ev)
 		input=ev->GetPrimaryHisto();
 
 	TH3F* output=ev->GetAfterTransportHisto();
-	if(hasEfficiency)
+	if(hasGain)
 	{
 		for(int z=1;z<=nBinsX;z++)
-			for(auto eff : efficiency)
+			for(auto eff : gain)
 				{
 					int x=eff.first.first;
 					int y=eff.first.second;

@@ -1,3 +1,8 @@
+/**
+ * @file GELISteppingAction.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELISteppingAction class
+ */
 
 #ifndef GELISteppingAction_h
 #define GELISteppingAction_h 1
@@ -42,7 +47,7 @@ public:
   void UserSteppingAction(const G4Step*);
   
 private: 
-  GELIAnalysisManager* analysis;
+  GELIAnalysisManager* analysis; ///< Pointer to GELIAnalysisManager handling file storage
   
 };
 

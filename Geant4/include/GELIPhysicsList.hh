@@ -1,3 +1,8 @@
+/**
+ * @file GELIPhysicsList.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELIPhysicsList class
+ */
 
 #ifndef GELIPhysicsList_h
 #define GELIPhysicsList_h 1

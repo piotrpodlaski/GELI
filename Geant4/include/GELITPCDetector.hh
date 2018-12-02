@@ -1,3 +1,9 @@
+/**
+ * @file GELITPCDetector.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of GELITPCDetector class
+ */
+
 #ifndef GELITPCDETECTOR_H
 #define GELITPCDETECTOR_H
 

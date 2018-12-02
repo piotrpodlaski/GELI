@@ -1,3 +1,9 @@
+/**
+ * @file GELIActionInitializer.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIActionInitializer class
+ */
+
 #include "GELIActionInitializer.hh"
 #include "GELIDetectorConstruction.hh"
 #include "GELIPrimaryGeneratorAction.hh"

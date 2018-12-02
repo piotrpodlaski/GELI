@@ -1,3 +1,9 @@
+/**
+ * @file AttachmentSimulator.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of AttachmentSimulator class
+ */
+
 #include "AttachmentSimulator.hh"
 #include "SimEvent.hh"
 #include <cmath>

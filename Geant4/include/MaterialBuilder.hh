@@ -1,3 +1,9 @@
+/**
+ * @file MaterialBuilder.hh
+ * @author     Piotr Podlaski
+ * @brief      Definition of MaterialBuilder class
+ */
+
 #ifndef MATERIALBUILDER_H
 #define MATERIALBUILDER_H
 
@@ -53,7 +59,7 @@ private:
 	 */
 	void BuildMaterials();
 	/**
-	 * Field holding the map with materials
+	 * Map with materials
 	 */
 	Materials materials;
 	/**

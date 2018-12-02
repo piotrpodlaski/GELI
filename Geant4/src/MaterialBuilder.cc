@@ -1,3 +1,9 @@
+/**
+ * @file MaterialBuilder.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of MaterialBuilder  class
+ */
+
 #include "MaterialBuilder.hh"
 #include "G4NistManager.hh"
 #include "globals.hh"

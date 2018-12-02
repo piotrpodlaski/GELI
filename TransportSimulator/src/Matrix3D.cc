@@ -1,3 +1,9 @@
+/**
+ * @file Matrix3D.cc
+ * @author     Piotr Podlaski
+ * @brief      Implemetation of Matrix3D class
+ */
+
 #include "Matrix3D.hh"
 #include <iostream>
 #include <algorithm>

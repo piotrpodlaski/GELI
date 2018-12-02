@@ -1,3 +1,9 @@
+/**
+ * @file GELIEventAction.cc
+ * @author     Piotr Podlaski
+ * @brief      Implementation of GELIEventAction class
+ */
+
 #include "GELIEventAction.hh"
 
 #include "GELIRunAction.hh"
