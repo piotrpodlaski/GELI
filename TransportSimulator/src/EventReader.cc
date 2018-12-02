@@ -30,7 +30,6 @@ void EventReader::ReadPrimaries()
 		return;
 	int prev_event;
 	int prim_event;
-	int id;
 	PrimaryParticle particle;
 	primary_tree->SetBranchAddress("x",&particle.x);
 	primary_tree->SetBranchAddress("y",&particle.y);

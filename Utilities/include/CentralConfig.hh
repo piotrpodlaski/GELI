@@ -13,7 +13,7 @@
 class CentralConfig
 {
 public:
-	static CentralConfig* GetInstance();
+	static CentralConfig* GetInstance(std::string configFileName="");
 	template<typename... Ts> //varidadic template to allow multi-level config parsing
 	std::string Get(std::string field_name,Ts... args)
 	{
@@ -44,7 +44,7 @@ public:
 	bool Has(std::string field_name);
 
 private:
-	CentralConfig();
+	CentralConfig(std::string configFileName="");
 	pugi::xml_node GetChild(pugi::xml_node parent, std::string field_name);
 	template<typename... Ts>
 	pugi::xml_node GetChild(pugi::xml_node parent, std::string field_name, Ts... args)
@@ -55,7 +55,6 @@ private:
 	static CentralConfig* instance;
 	pugi::xml_document config;
 	pugi::xml_parse_result result;
-	std::string config_file="config.xml";
 };
 
 #endif

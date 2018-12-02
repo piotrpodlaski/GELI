@@ -17,4 +17,13 @@ add_executable(read read.cc ${util_sources} ${util_headers})
 target_link_libraries(read utils)
 target_link_libraries(read SimEvent)
 
+install(TARGETS SimEvent utils 
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+       )
 
+install(
+      FILES
+      ${CMAKE_CURRENT_BINARY_DIR}/libSimEventDict_rdict.pcm
+      ${CMAKE_CURRENT_BINARY_DIR}/libSimEventDict.rootmap
+      DESTINATION lib/)

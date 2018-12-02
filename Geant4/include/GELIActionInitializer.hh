@@ -1,28 +1,43 @@
-#ifndef GELIActionInitializer_h
-#define GELIActionInitializer_h 1
+#ifndef GELIACTIONINITIALIZER_H
+#define GELIACTIONINITIALIZER_H
 
 #include "G4VUserActionInitialization.hh"
 #include "G4VSteppingVerbose.hh"
 #include "globals.hh"
-#include "GELIAnalysisManager.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+/**
+ * @brief      Action initializer foe Geant4 simulation
+ */
 class GELIActionInitializer : public G4VUserActionInitialization
 {
 public:
-
+  /**
+   * @brief      Constructor
+   */
   GELIActionInitializer();
+  /**
+   * @brief      Destructor
+   */
   ~GELIActionInitializer(){;};
-  
+  /**
+   * @brief      Action initializer for worker threads
+   * @details    Implememntation of G4VUserActionInitialization virtual method
+   */
   void Build() const;
+  /**
+   * @brief      Action initializer for master thread, implementation of virtual
+   *             method
+   * @details    Implememntation of G4VUserActionInitialization virtual method
+   */
   void BuildForMaster() const;
+
+  /**
+   * @brief      Initializes stepping verbose
+   */
   G4VSteppingVerbose* InitializeSteppingVerbose() const;
-private:
-	GELIAnalysisManager * analysis;
 };
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif
 

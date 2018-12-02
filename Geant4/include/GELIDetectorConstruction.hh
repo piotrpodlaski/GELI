@@ -16,13 +16,30 @@ class G4LogicalVolume;
 class G4VPhysicalVolume;
 
 
+/**
+ * @class      GELIDetectorConstruction
+ *
+ * @brief      Mandatory DetectorConstruction class
+ */
 class GELIDetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
-
+    /** Constructor*/
     GELIDetectorConstruction();
+    /** Destructor */
     ~GELIDetectorConstruction();
+
+    /**
+     * @brief      Constructs detector geometry @detaild Mandatory
+     *             implementation of G4VUserDetectorConstruction virtual method
+     */
     G4VPhysicalVolume* Construct();
+
+    /**
+     * @brief      Constructs sensitive detectors and fields inside geometry
+     *             @detaild This method condtructs magnetic field used in the
+     *             simulation, no sensitive detectors are used
+     */
     void ConstructSDandField();
 
   private:

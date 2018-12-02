@@ -14,14 +14,34 @@
 #include "pugixml.hh"
 #include <map>
 
+/**
+ * @brief      Class handles parsing and interface to geometry config file
+ * @details    Implemented as a singleton
+ */
 class GeometryConfig
 {
 public:
+
+	/**
+	 * @brief      Access to instance of the class
+	 */
 	static GeometryConfig* GetInstance();
+
+	/**
+	 * @brief      Access to information about solids in the detector geometry
+	 */
 	std::vector<SolidDescriptor> GetSolids();
 
 private:
+
+	/**
+	 * @brief      Constructor
+	 */
 	GeometryConfig();
+
+	/**
+	 * @brief      Parses geometry config file
+	 */
 	void ParseGeometry();
 	static GeometryConfig* instance;
 	std::vector<SolidDescriptor> solids;

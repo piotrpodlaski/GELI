@@ -1,12 +1,9 @@
 #include "GELIAnalysisManager.hh"
 #include "G4SystemOfUnits.hh"
-//#include "SimEvent.hh"
 
-GELIAnalysisManager* GELIAnalysisManager::instance = nullptr;
 
 GELIAnalysisManager::GELIAnalysisManager() 
 {
-  G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
   config=CentralConfig::GetInstance();
   if(config->Has("save_ntuple"))
   {
@@ -70,11 +67,6 @@ void GELIAnalysisManager::ConfigureOutput()
 GELIAnalysisManager::~GELIAnalysisManager() 
 {;}
 
-GELIAnalysisManager* GELIAnalysisManager::GetInstance()
-{
-  if (!instance) instance = new GELIAnalysisManager;
-  return instance;
-}
 
 void GELIAnalysisManager::book() 
 {
@@ -174,7 +166,6 @@ void GELIAnalysisManager::Fill(G4double x,G4double y,G4double z,G4double Edep, G
 }
 void GELIAnalysisManager::finish() 
 {  
-  if(0);
   if(saveNtuple)
   {
     G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();
@@ -193,7 +184,6 @@ void GELIAnalysisManager::finish()
 
 void GELIAnalysisManager::SaveEvent(G4int eventID)
 {
-  if(0);
   if(saveNtuple)
   {
     G4AnalysisManager* analysisManager=G4AnalysisManager::Instance();

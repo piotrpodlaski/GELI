@@ -36,7 +36,10 @@ int main(int argc,char** argv) {
   CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
   G4long seed = time(NULL);
   CLHEP::HepRandom::setTheSeed(seed);
-CentralConfig* config=CentralConfig::GetInstance();
+std::string configFileName="config.xml";
+if(argc>2)
+  configFileName=argv[2];
+CentralConfig* config=CentralConfig::GetInstance(configFileName);
 bool runMT;
 //check if runMT is defined in config file
 if(config->Has("run_mt")&&config->GetI("run_mt"))

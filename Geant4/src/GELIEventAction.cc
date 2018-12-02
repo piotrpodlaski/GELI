@@ -7,20 +7,17 @@
 
 #include"GELIAnalysisManager.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELIEventAction::GELIEventAction(GELIAnalysisManager* ana)
-  :drawFlag("all"),printModulo(10000)
+  :printModulo(10000)
 {
 	analysis=ana;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 GELIEventAction::~GELIEventAction()
 {}
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void GELIEventAction::BeginOfEventAction(const G4Event* evt)
 {  
@@ -29,7 +26,6 @@ void GELIEventAction::BeginOfEventAction(const G4Event* evt)
    G4cout << "\n---> Begin Of Event: " << evtNb << G4endl;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void GELIEventAction::EndOfEventAction(const G4Event* evt)
 {
@@ -58,7 +54,6 @@ void GELIEventAction::EndOfEventAction(const G4Event* evt)
 	}
   	analysis->SaveEvent(event_number);
 }
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 
 

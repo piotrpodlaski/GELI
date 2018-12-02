@@ -77,7 +77,7 @@ GELIPrimaryGeneratorAction::GELIPrimaryGeneratorAction()
   #endif
   else
     G4Exception("GELIPrimaryGeneratorAction::GELIGELIPrimaryGeneratorAction","ELITPC",FatalException,
-      "Undefined primary generator, check config file.If GammaBeam is selected make sure that software is compiled with support for GammaBeam");
+      "Undefined primary generator, check config file. If GammaBeam or EventGenerator is selected make sure that software is compiled with support for those packages");
 }
 
 

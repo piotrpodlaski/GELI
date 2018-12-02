@@ -58,13 +58,8 @@ foreach(_script ${purging_magnet_SCRIPTS})
     )
 endforeach()
 
-#----------------------------------------------------------------------------
-# Add program to the project targets
-# (this avoids the need of typing the program name after make)
-#
-add_custom_target(geli DEPENDS GELI)
 
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-#install(TARGETS PurgMag DESTINATION bin)ADD_SUBDIRECTORY(src)
+install(TARGETS GELI DESTINATION bin)

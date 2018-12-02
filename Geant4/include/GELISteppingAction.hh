@@ -11,14 +11,34 @@
 class GELIDetectorConstruction;
 class GELIAnalysisManager;
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
+/**
+ * @class      GELISteppingAction
+ *
+ * @brief      Class handles action executed during track steps
+ */
 class GELISteppingAction : public G4UserSteppingAction
 {
 public:
-  GELISteppingAction(GELIAnalysisManager*);
+
+  
+  /**
+   * @brief      Constructor
+   *
+   * @details    It takes a pointer to GELIAnalysisManager. It is important,
+   *             that the GELIAnalysisManager class instance is created in
+   *             GELIActionInitializer, only in this configuration it works
+   *             properly in MT mode
+   */
+  GELISteppingAction(GELIAnalysisManager* ana);
+  
   ~GELISteppingAction();
   
+  /**
+   * @brief      Method invoked at each step
+   *
+   * @details    It is used to store energy deposit information into files
+   */
   void UserSteppingAction(const G4Step*);
   
 private: 

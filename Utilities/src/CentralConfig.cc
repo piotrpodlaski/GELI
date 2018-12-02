@@ -3,18 +3,22 @@
 
 CentralConfig* CentralConfig::instance=nullptr;
 
-CentralConfig* CentralConfig::GetInstance()
+CentralConfig* CentralConfig::GetInstance(std::string configFileName)
 {
 	if(instance==nullptr)
-		instance=new CentralConfig();
+		instance=new CentralConfig(configFileName);
 	return instance;
 }
 
-CentralConfig::CentralConfig()
+CentralConfig::CentralConfig(std::string configFileName)
 {
-	result = config.load_file(config_file.c_str());
+	if(configFileName=="")
+		result = config.load_file("config.xml");
+	else
+		result = config.load_file(configFileName.c_str());
+	
 	if (!result)
-		std::cerr<<"\e[31mError opening central config file. Check if file exists, and that the formatting is correct!!\e[0m"<<std::endl;
+		std::cerr<<"\e[31mError opening central config file: "<<configFileName<<". Check if file exists, and that the formatting is correct!!\e[0m"<<std::endl;
 }
 
 bool CentralConfig::Has(std::string field_name)

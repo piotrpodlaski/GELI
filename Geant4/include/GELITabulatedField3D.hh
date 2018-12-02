@@ -9,10 +9,12 @@
 
 using namespace std;
 
-class GELITabulatedField3D
-#ifndef STANDALONE
- : public G4MagneticField
-#endif
+/**
+ * @brief      Class handles interface for magnetic field map
+ * @details    It reads magnetic field map from the file, stores it in memory
+ *             and handles interpolation for tracking purposes
+ */
+class GELITabulatedField3D : public G4MagneticField
 {
   
   // Storage space for the table
@@ -29,7 +31,15 @@ class GELITabulatedField3D
   bool invertX, invertY, invertZ;
 
 public:
-  GELITabulatedField3D(const char* filename, G4double zOffset );
+
+  /**
+   * @brief      Constructor
+   */
+  GELITabulatedField3D(const char* filename, G4double xOffset );
+  
+  /**
+   * @brief      Access to value of the magnetic field used for tracking
+   */
   void  GetFieldValue( const  double Point[4],
 		       double *Bfield          ) const;
 };

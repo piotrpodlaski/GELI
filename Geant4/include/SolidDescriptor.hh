@@ -1,8 +1,8 @@
 /**
-*\struct SolidDescriptor
-*Structure to hold information about solids inside detector geometry.
-*Information is parsed from geometry configuration file
-*/
+ * @struct SolidDescriptor
+ * @brief      Structure to hold information about solids inside detector
+ *             geometry.
+ */
 #ifndef SOLIDDESCRIPTOR_H
 #define SOLIDDESCRIPTOR_H
 
@@ -18,8 +18,8 @@ struct SolidDescriptor {
 public:
 	G4String name; ///< name of the solid
 	G4String filename; ///< filename for .stl model
-	G4String material; ///<material name of the solid
-	G4Color color; ///<color of the solid
+	G4String material; ///< material name of the solid
+	G4Color color; ///< color of the solid
 };
 
 #endif

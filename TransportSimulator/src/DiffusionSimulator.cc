@@ -69,8 +69,8 @@ Matrix3D DiffusionSimulator::BuildGaussianKernel(double sx, double sy, double sz
 	int ry=ceil(nSigmas*sy);
 	int rz=ceil(nSigmas*sz);
 	radius=std::max(rx,std::max(ry,rz));
-	//BuildGaussianKernel(radius,sx,sy,sz);
-	BuildProperGaussianKernel(sx,sy,sz);
+	BuildGaussianKernel(radius,sx,sy,sz);
+	//BuildProperGaussianKernel(sx,sy,sz);
 	return kernel;
 }
 
