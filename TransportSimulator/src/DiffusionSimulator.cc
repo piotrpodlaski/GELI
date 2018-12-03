@@ -31,6 +31,19 @@ DiffusionSimulator::DiffusionSimulator()
 	areKernelsBuilt=false;
 }
 
+void DiffusionSimulator::TruncateKernel(Matrix3D &kernel, double sx, double sy, double sz)
+{
+	double s2x=(nSigmas*sx-0.5)*(nSigmas*sx-0.5);
+	double s2y=(nSigmas*sy-0.5)*(nSigmas*sy-0.5);
+	double s2z=(nSigmas*sz-0.5)*(nSigmas*sz-0.5);
+	int radius=kernelRadius;
+	for(int x=0;x<kernelSize;x++)
+		for(int y=0;y<kernelSize;y++)
+			for(int z=0;z<kernelSize;z++)
+				if((x-radius+1.)*(x-radius+1.)/s2x+(y-radius+1.)*(y-radius+1.)/s2y+(z-radius+1)*(z-radius+1)/s2z>1)
+					kernel(x,y,z)=0;
+}
+
 Matrix3D DiffusionSimulator::BuildGaussianKernel(int radius,double sx, double sy, double sz)
 {
 	auto gauss=[=](int x, int y, int z)->double
@@ -41,15 +54,7 @@ Matrix3D DiffusionSimulator::BuildGaussianKernel(int radius,double sx, double sy
 	kernelRadius=radius;
 	kernelSize=kernel.GetSizeX();//sizes in all dimmensions are identical
 	//cut bins outside radius
-	double s2x=(nSigmas*sx-0.5)*(nSigmas*sx-0.5);
-	double s2y=(nSigmas*sy-0.5)*(nSigmas*sy-0.5);
-	double s2z=(nSigmas*sz-0.5)*(nSigmas*sz-0.5);
-	for(int x=0;x<kernelSize;x++)
-		for(int y=0;y<kernelSize;y++)
-			for(int z=0;z<kernelSize;z++)
-				if((x-radius+1.)*(x-radius+1.)/s2x+(y-radius+1.)*(y-radius+1.)/s2y+(z-radius+1)*(z-radius+1)/s2z>1)
-					kernel(x,y,z)=0;
-	
+	TruncateKernel(kernel,sx,sy,sz);
 	kernel.Normalize();
 	return kernel;
 }
@@ -102,14 +107,7 @@ Matrix3D DiffusionSimulator::BuildProperGaussianKernel(double sx, double sy, dou
 	kernelRadius=radius;
 	kernelSize=kernel.GetSizeX();//sizes in all dimmensions are identical
 	//cut bins outside radius
-	double s2x=(rx-0.5)*(rx-0.5);
-	double s2y=(ry-0.5)*(ry-0.5);
-	double s2z=(rz-0.5)*(rz-0.5);
-	for(int x=0;x<kernelSize;x++)
-		for(int y=0;y<kernelSize;y++)
-			for(int z=0;z<kernelSize;z++)
-				if((x-radius+1.)*(x-radius+1.)/s2x+(y-radius+1.)*(y-radius+1.)/s2y+(z-radius+1)*(z-radius+1)/s2z>1)
-					kernel(x,y,z)=0;
+	TruncateKernel(kernel,sx,sy,sz);
 	
 	kernel.Normalize();
 	return kernel;

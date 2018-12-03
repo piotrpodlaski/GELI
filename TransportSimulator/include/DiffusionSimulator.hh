@@ -26,17 +26,6 @@ public:
 	 * @brief      Constructor
 	 */
 	DiffusionSimulator();
-
-	/**
-	 * @brief      Builds a gaussian diffusion kernel.
-	 * Kernel is built basing on values of gaussian distribution in bin centers
-	 */
-	Matrix3D BuildGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
-	/**
-	 * @brief      Builds a priper gaussian diffusion kernel.
-	 * Kernel is built basing on integrals of gaussian distribution across bins
-	 */
-	Matrix3D BuildProperGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
 	
 	/**
 	 * @brief      Simulates diffusion on input and stores result to output
@@ -48,7 +37,23 @@ public:
 	 */
 	void SimulateDiffusion(SimEvent *ev);
 private:
+	/**
+	 * @brief      Builds a gaussian diffusion kernel.
+	 * Kernel is built basing on values of gaussian distribution in bin centers
+	 */
+	Matrix3D BuildGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
+	/**
+	 * @brief      Builds a priper gaussian diffusion kernel.
+	 * Kernel is built basing on integrals of gaussian distribution across bins
+	 */
+	Matrix3D BuildProperGaussianKernel(double sigma_x, double sigma_y, double sigma_z);
 
+	/**
+	 * @brief      Truncates the kernel
+	 * @details    zeros elements of the kernel whose distance from the center
+	 *             is bigger than the radius of the kernel
+	 */
+	void TruncateKernel(Matrix3D &kernel, double sx, double sy, double sz);
 	/**
 	 * @brief      Calculates diffusion of a single histogram bin.
 	 */
