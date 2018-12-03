@@ -10,7 +10,7 @@
 #include "globals.hh"
 /// \cond
 #include <vector>
-/// \wndcond
+/// \endcond
 #include "G4ThreeVector.hh"
 #include "g4root.hh"
 #include "CentralConfig.hh"

@@ -11,7 +11,7 @@
 #include "globals.hh"
 /// \cond
 #include <iostream>
-/// \cond
+/// \endcond
 #include "GELIAnalysisManager.hh"
 
 

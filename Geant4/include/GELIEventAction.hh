@@ -13,8 +13,9 @@
 
 
 /**
- * @class GELIEventAction
- * @brief Class to handle event action in the simulation
+ * 
+ *
+ * @brief      Class to handle event action in the simulation
  */
 class GELIEventAction : public G4UserEventAction
 {
