@@ -1,3 +1,10 @@
+/**
+ * @file MT.cc
+ * @author     Piotr Podlaski
+ * @brief      Top level TransportSimulator application
+ */
+
+
 #include "EventReader.hh"
 #include "Worker.hh"
 
