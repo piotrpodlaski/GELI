@@ -7,10 +7,11 @@
 #ifndef EVENTREADER_H
 #define EVENTREADER_H
 
+/// \cond
 #include <iostream>
 #include <map>
 #include <vector>
-
+/// \endcond
 #include "SimEvent.hh"
 #include "TFile.h"
 #include "TTree.h"

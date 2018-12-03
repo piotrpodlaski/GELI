@@ -6,7 +6,7 @@
 <!-- Flag to switch ON/OFF attachment simulator -->
 <simulate_attachment>1</simulate_attachment>
 <!-- Flag to switch ON/OFF efficiency simulator -->
-<simulate_efficiency>0</simulate_efficiency>
+<simulate_gain>0</simulate_gain>
 
 
 <diffusion>

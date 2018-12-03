@@ -6,8 +6,10 @@
 
 #ifndef MATRIX3D_H
 #define MATRIX3D_H
+/// \cond
 #include <vector>
 #include <functional>
+/// \endcond
 #include "TH3F.h"
 
 /**

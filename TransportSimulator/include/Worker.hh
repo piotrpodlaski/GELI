@@ -6,9 +6,9 @@
 
 #ifndef WORKER_H
 #define WORKER_H
-
+/// \cond
 #include <string>
-
+/// \endcond
 class EventReader;
 class CentralConfig;
 class TTree;

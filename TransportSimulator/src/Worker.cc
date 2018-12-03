@@ -10,10 +10,10 @@
 #include "DiffusionSimulator.hh"
 #include "AttachmentSimulator.hh"
 #include "SimEvent.hh"
+/// \cond
 #include <string>
-#include <thread>
-#include <functional>
 #include <iostream>
+/// \endcond
 #include "TString.h"
 #include "GainSimulator.hh"
 

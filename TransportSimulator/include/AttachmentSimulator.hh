@@ -8,8 +8,9 @@
 #define ATTACHMENTSIMULATOR_H
 
 #include "CentralConfig.hh"
+/// \cond
 #include <vector>
-
+/// \endcond
 class SimEvent;
 
 /**

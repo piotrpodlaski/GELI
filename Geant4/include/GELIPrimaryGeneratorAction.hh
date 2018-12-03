@@ -10,7 +10,9 @@
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4GeneralParticleSource.hh"
 #include "globals.hh"
+/// \cond
 #include <string>
+/// \endcond
 #include "CentralConfig.hh"
 
 

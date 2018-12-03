@@ -8,9 +8,11 @@
 #include "G4MagneticField.hh"
 #include "G4ios.hh"
 
+/// \cond
 #include <fstream>
 #include <vector>
 #include <cmath>
+/// \endcond
 
 using namespace std;
 

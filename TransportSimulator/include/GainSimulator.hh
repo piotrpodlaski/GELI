@@ -7,8 +7,10 @@
 #ifndef GAINSIMULATOR_H
 #define GAINSIMULATOR_H
 
+/// \cond
 #include <map>
 #include <utility>
+/// \endcond
 #include "CentralConfig.hh"
 
 class TH2F;

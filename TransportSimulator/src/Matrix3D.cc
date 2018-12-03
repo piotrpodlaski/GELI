@@ -5,9 +5,11 @@
  */
 
 #include "Matrix3D.hh"
+/// \cond
 #include <iostream>
 #include <algorithm>
 #include <numeric>
+/// \endcond
 
 Matrix3D::Matrix3D() :sizeX(0), sizeY(0), sizeZ(0)
 {}

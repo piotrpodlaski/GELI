@@ -7,9 +7,11 @@
 #ifndef VOLUMEBUILDER_H
 #define VOLUMEBUILDER_H
 
+/// \cond
 #include <iostream>
 #include <memory>
 #include <map>
+/// \endcond
 #include "G4String.hh"
 #include "G4Material.hh"
 #include "CADMesh.hh"

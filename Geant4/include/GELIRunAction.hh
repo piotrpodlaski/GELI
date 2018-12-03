@@ -9,7 +9,9 @@
 
 #include "G4UserRunAction.hh"
 #include "globals.hh"
+/// \cond
 #include <iostream>
+/// \cond
 #include "GELIAnalysisManager.hh"
 
 

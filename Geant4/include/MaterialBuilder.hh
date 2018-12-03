@@ -9,7 +9,9 @@
 
 #include "G4String.hh"
 #include "G4Material.hh"
+/// \cond
 #include <map>
+/// \endcond
 
 class  G4NistManager;
 

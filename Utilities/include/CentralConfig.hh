@@ -6,7 +6,7 @@
 
 #ifndef CENTRALCONFIG_H
 #define CENTRALCONFIG_H
-
+/// \cond
 #include <iostream>
 #include "pugixml.hh"
 
@@ -15,6 +15,7 @@
 #include <string>
 #include <stdlib.h>
 #include <string>
+/// \endcond
 
 /**
  * @brief      Class handles parsing central configuration file and access to

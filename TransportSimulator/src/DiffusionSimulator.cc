@@ -5,11 +5,12 @@
  */
 
 #include "DiffusionSimulator.hh"
+/// \cond
 #include <cmath>
-#include <functional>
-#include <algorithm>
-#include "TString.h"
 #include <iostream>
+#include <algorithm>
+/// \endcond
+#include "TString.h"
 #include "SimEvent.hh"
 #include "CentralConfig.hh"
 

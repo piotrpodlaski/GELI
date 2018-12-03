@@ -6,8 +6,7 @@
 
 
 #include "EventReader.hh"
-#include <thread>
-#include <mutex>
+
 
 EventReader::EventReader(TString fname)
 {

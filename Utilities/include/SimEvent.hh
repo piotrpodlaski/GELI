@@ -10,7 +10,9 @@
 #include "TObject.h"
 #include "TH3F.h"
 #include "TString.h"
+/// \cond
 #include <vector>
+/// \endcond
 
 /**
  * @struct PrimaryParticle

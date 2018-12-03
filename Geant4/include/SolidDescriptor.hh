@@ -11,8 +11,11 @@
 #include <G4RotationMatrix.hh>
 #include <G4String.hh>
 #include <G4Types.hh>
+/// \cond
 #include <vector>
 #include <iostream>
+/// \endcond
+
 /**
  * @struct SolidDescriptor
  * @brief      Structure to hold information about solids inside detector

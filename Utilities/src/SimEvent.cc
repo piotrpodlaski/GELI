@@ -5,9 +5,9 @@
  */
 
 #include "SimEvent.hh"
-
+/// \cond
 #include<iostream>
-
+/// \endcond
 //ClassImp(SimEvent);
 unsigned int SimEvent::nBinsX=350;
 unsigned int SimEvent::nBinsY=200;

@@ -7,18 +7,22 @@
 #ifndef GEOMETRYCONFIG_H
 #define GEOMETRYCONFIG_H
 
+/// \cond
 #include <iostream>
-#include <SolidDescriptor.hh>
-#include <G4String.hh>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <map>
+/// \endcond
+#include <SolidDescriptor.hh>
+#include <G4String.hh>
 #include <G4ThreeVector.hh>
 #include <G4Color.hh>
 #include <CentralConfig.hh>
 #include "globals.hh"
+/// \cond
 #include "pugixml.hh"
-#include <map>
+/// \endcond
 
 /**
  * @brief      Class handles parsing and interface to geometry config file

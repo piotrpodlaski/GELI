@@ -25,9 +25,10 @@
 #include "GELIPhysicsList.hh"
 #include "GELIActionInitializer.hh"
 #include "CentralConfig.hh"
+/// \cond
 #include <string>
 #include <time.h>
-
+/// \endcond
 #include "GeometryConfig.hh"
 
 

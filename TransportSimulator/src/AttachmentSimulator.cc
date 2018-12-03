@@ -6,8 +6,9 @@
 
 #include "AttachmentSimulator.hh"
 #include "SimEvent.hh"
+/// \cond
 #include <cmath>
-
+/// \endcond
 AttachmentSimulator::AttachmentSimulator()
 {
 	config=CentralConfig::GetInstance();

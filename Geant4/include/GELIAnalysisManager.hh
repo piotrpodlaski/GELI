@@ -8,14 +8,15 @@
 #define GELIANALYSISMANAGER_H
 
 #include "globals.hh"
+/// \cond
 #include <vector>
+/// \wndcond
 #include "G4ThreeVector.hh"
 #include "g4root.hh"
 #include "CentralConfig.hh"
 #include "SimEvent.hh"
 #include "TFile.h"
 #include "TTree.h"
-#include <vector>
 
 
 

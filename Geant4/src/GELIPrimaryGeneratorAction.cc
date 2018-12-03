@@ -16,11 +16,12 @@
 #include "G4Electron.hh"
 #include "G4Alpha.hh"
 #include "G4Gamma.hh"
-#include <vector>
 #include "G4String.hh"
 #include "G4GeneralParticleSource.hh"
+/// \cond
+#include <vector>
 #include <cmath>
-
+/// \endcond
 
 #ifdef USE_GAMMA_BEAM_GENERATOR
   #include "GammaSource.h"

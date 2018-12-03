@@ -5,8 +5,9 @@
  */
 #ifndef GELIDETECTORCONSTRUCTION_H
 #define GELIDETECTORCONSTRUCTION_H
-
+/// \cond
 #include <string>
+/// \endcond
 #include "G4MagneticField.hh"
 
 #include "G4ThreeVector.hh"

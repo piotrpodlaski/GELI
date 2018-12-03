@@ -13,7 +13,9 @@
 #include "SimulationSetupFactory.hpp"
 #include "SimulationSetup.hpp"
 #include "Photodisintegration.hpp"
+/// \cond
 #include <vector>
+/// \endcond
 
 
 /**

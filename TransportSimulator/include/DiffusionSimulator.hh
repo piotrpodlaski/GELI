@@ -8,9 +8,10 @@
 #define DIFFUSIONSIMULATOR_H
 
 #include "Matrix3D.hh"
+/// \cond
 #include <functional>
 #include <map>
-
+/// \endcond
 class CentralConfig;
 class SimEvent;
 

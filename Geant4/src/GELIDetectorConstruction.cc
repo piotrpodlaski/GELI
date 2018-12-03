@@ -18,8 +18,9 @@
 #include "MaterialBuilder.hh"
 #include "GELITabulatedField3D.hh"
 #include "G4TransportationManager.hh"
+/// \cond
 #include <cmath>
-
+/// \endcond
 
 
 GELIDetectorConstruction::GELIDetectorConstruction()

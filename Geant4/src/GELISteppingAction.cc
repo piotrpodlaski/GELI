@@ -4,8 +4,10 @@
  * @brief      Implementation of GELISteppingAction class
  */
 
+/// \cond
 #include <iostream>
 #include <fstream>
+/// \endcond
 #include "GELISteppingAction.hh"
 #include "GELIRunAction.hh"
 
@@ -19,8 +21,6 @@
 
 
 #include "G4RunManager.hh"
-#include <iostream>
-#include <fstream>
 #include "TH3D.h"
 #include "TFile.h"
 #include "TTree.h"

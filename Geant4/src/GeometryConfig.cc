@@ -7,9 +7,10 @@
 #include <GeometryConfig.hh>
 #include "G4SystemOfUnits.hh"
 #include "globals.hh"
+/// \cond
 #include <stdio.h>
 #include <glob.h>
-
+/// \endcond
 
 
 
