@@ -158,9 +158,6 @@ private:
 	bool hasDiffusion; ///< Flag to tell if event has simulated diffusion
 	bool hasAttachment; ///< Flag to tell if event has simulated attachment
 	bool hasGain; ///< Flag to tell if event has simulated gain
-	double totalPrimaryEnergyDeposit; ///< Total energy deposit in primary histogram
-	double totalAfterTransportEnergyDeposit; ///< Total energy deposit in after transport histogram
-
 	ClassDef(SimEvent,1); ///< ROOT macro to register SimEvent class
 };
 
