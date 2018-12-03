@@ -32,21 +32,12 @@ GeometryConfig::GeometryConfig()
 	if (!result)
 		std::cerr<<"\e[31mError opening geometry config file. Check if file exists, and that the formatting is correct!!\e[0m"<<std::endl;
 	path_to_stl=config.child("model_path").text().as_string();
+	ParseMaterialColors();
 	ParseGeometry();
 }
 
 void GeometryConfig::ParseGeometry()
 {
-	pugi::xml_node materials=config.child("materials");
-	for(auto child : materials.children())
-	{
-		std::string mat_name=child.name();
-		int r=child.child("r").text().as_int();
-		int g=child.child("g").text().as_int();
-		int b=child.child("b").text().as_int();
-		float alpha=child.child("alpha").text().as_float();
-		material_colors[mat_name]=G4Color(r/255.,g/255.,b/255.,alpha);
-	}
 	pugi::xml_node pugi_solids=config.child("solids");
 	for(auto sol: pugi_solids)
 	{
@@ -68,6 +59,20 @@ void GeometryConfig::ParseGeometry()
 			solids.push_back(s);
 		}
 
+	}
+}
+
+void GeometryConfig::ParseMaterialColors()
+{
+	pugi::xml_node materials=config.child("materials");
+	for(auto child : materials.children())
+	{
+		std::string mat_name=child.name();
+		int r=child.child("r").text().as_int();
+		int g=child.child("g").text().as_int();
+		int b=child.child("b").text().as_int();
+		float alpha=child.child("alpha").text().as_float();
+		material_colors[mat_name]=G4Color(r/255.,g/255.,b/255.,alpha);
 	}
 }
 

@@ -50,9 +50,14 @@ private:
 	GeometryConfig();
 
 	/**
-	 * @brief      Parses geometry config file
+	 * @brief      Parses information about solids from geometry config file
 	 */
 	void ParseGeometry();
+	/**
+	 * @brief      Parses information about colors of the materials from
+	 *             geometry config file
+	 */
+	void ParseMaterialColors();
 	static GeometryConfig* instance; ///< Pointer to uniqe instance of GeometryConfig class
 	std::vector<SolidDescriptor> solids; ///< Vector with solids
 	//void ParseGeometry();
