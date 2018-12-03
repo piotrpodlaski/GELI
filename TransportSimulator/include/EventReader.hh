@@ -17,6 +17,7 @@
 #include "TTree.h"
 #include "TString.h"
 #include "CentralConfig.hh"
+#include "SimHit.hh"
 
 
 /**
@@ -49,9 +50,9 @@ public:
 	bool EndOfFile();
 
 	/**
-	 * @brief      Builds an event form vectors describing energy deposits.
+	 * @brief      Builds an event form vector of SimHit objects.
 	 */
-	static void BuildEvent(SimEvent* event, vect *vx, vect *vy, vect *vz, vect *vEdep);
+	static void BuildEvent(SimEvent* event, std::vector<SimHit> hits);
 private:
 	TString file_name; ///< Name of the input file
 	TFile *input_file; ///< Input file

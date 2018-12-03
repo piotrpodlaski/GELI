@@ -83,14 +83,14 @@ bool EventReader::EndOfFile()
 
 void EventReader::ReadEvent(SimEvent* evt)
 {
-	std::cout<<"Reading event "<<current_entry<<" from "<<file_name<<std::flush;
+	std::cout<<"Reading event "<<current_entry/nEventsToMerge<<" from "<<file_name<<std::flush;
 	evt->Clear();
 	for(int event=0;event<nEventsToMerge;event++)
 	{
 		if(current_entry==nEntriesEdep)
 			break;
 		edep_tree->GetEntry(current_entry++);
-		for(int i=0;i<x->size();i++)
+		for(unsigned int i=0;i<x->size();i++)
 		{
 			evt->Fill(x->at(i),y->at(i),z->at(i),Edep->at(i));
 		}
@@ -100,12 +100,12 @@ void EventReader::ReadEvent(SimEvent* evt)
 	std::cout<<" done!"<<std::endl;
 }
 
-void EventReader::BuildEvent(SimEvent* evt, vect *vx, vect *vy, vect *vz, vect *vEdep)
+void EventReader::BuildEvent(SimEvent* event, std::vector<SimHit> hits)
 {
-	evt->Clear();
-	for(int i=0;i<vx->size();i++)
+	event->Clear();
+	for(auto hit : hits)
 	{
-		evt->Fill(vx->at(i),vy->at(i),vz->at(i),vEdep->at(i));
+		event->Fill(hit.x, hit.y, hit.z, hit.Edep);
 	}
 
 	std::cout<<"Event building done!"<<std::endl;
