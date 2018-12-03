@@ -14,6 +14,8 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/run.sh ${CMAKE_CURRENT_BINARY_DIR}/ru
 add_executable(main main.cc ${transport_sources} ${transport_headers})
 add_executable(MT MT.cc ${transport_sources} ${transport_headers})
 add_executable(synthetic synthetic.cc ${transport_sources} ${transport_headers})
+add_executable(test1 test.cc ${transport_sources} ${transport_headers})
+
 
 target_link_libraries(main utils)
 target_link_libraries(main SimEvent)
@@ -23,3 +25,6 @@ target_link_libraries(MT SimEvent)
 
 target_link_libraries(synthetic utils)
 target_link_libraries(synthetic SimEvent)
+
+target_link_libraries(test1 utils)
+target_link_libraries(test1 SimEvent)
