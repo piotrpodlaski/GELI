@@ -55,12 +55,12 @@ private:
 	/**
 	 * @brief      Prepares primary particles for GammaBeam generator
 	 */
-	static void PrepareGammaPrimaries();
+	void PrepareGammaPrimaries();
 
 	/**
 	 * @brief      Prepares primary particles for EventGenerator
 	 */
-	static void PrepareGeneratorPrimaries();
+	void PrepareGeneratorPrimaries();
 	CentralConfig* config; ///< Pointer to CentralConfig object
 	G4ParticleGun* particleGun; ///< Pointer to G4ParticleGun object
 	G4GeneralParticleSource *GPSGun; ///< Pointer to G4GeneralParticleSource object

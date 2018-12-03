@@ -1,3 +1,9 @@
+/**
+ * @file GELI.cc
+ * @author     Piotr Podlaski
+ * @brief      Top level Geant4 application
+ */
+
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
 #else

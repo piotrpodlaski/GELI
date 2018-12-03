@@ -10,10 +10,11 @@
  * @subsection geant1_part Geant4
  * This section is responsible for MC simulation of physical processes in
  * proper detecot geometry imported from 3D model. It outputs energy deposit
- * in 3D space which are then fed into electron transport simulator.
+ * in 3D space which are then fed into electron transport simulator.<br>
+ * Top level Geant4 application is implemented in file GELI.cc.
  * @subsection transport_part Transport simulator
  * This part of the software performs electron transport simulation of the primary
  * energy deposit. It is capable of simulating the diffusion, electron
- * attachment and gain variatios across the detector amplification stage
- *
+ * attachment and gain variatios across the detector amplification stage.<br>
+ * Top level TransortSimulator application is implemented in file MT.cc.
  */
