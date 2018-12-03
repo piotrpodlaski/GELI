@@ -75,8 +75,9 @@ bool EventReader::EndOfFile()
 		return true;
 	if(current_entry==nEntriesEdep)
 		return true;
-	else
-		return false;
+	if(nEntriesEdep-current_entry<nEventsToMerge)
+		return true;
+	return false;
 }
 
 
